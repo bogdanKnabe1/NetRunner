@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_capture"
+        android:icon="@drawable/ic_capture"
+        android:title="@string/title_capture" />
+
+    <item
+        android:id="@+id/navigation_request"
+        android:icon="@drawable/ic_request"
+        android:title="@string/title_request" />
+
+    <item
+        android:id="@+id/navigation_tool"
+        android:icon="@drawable/ic_tool"
+        android:title="@string/title_tool" />
+
+</menu>

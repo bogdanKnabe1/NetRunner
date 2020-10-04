@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':packetCapture'
 rootProject.name = "Qbits"

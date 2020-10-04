@@ -1,0 +1,16 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ninpou.packetcapture">
+
+    <application>
+        <service
+            android:name=".core.vpn.VpnServiceImpl"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_VPN_SERVICE">
+            <intent-filter>
+                <action android:name="android.net.VpnService" />
+            </intent-filter>
+        </service>
+        <service android:name=".core.util.android.PortHostService" />
+    </application>
+</manifest>

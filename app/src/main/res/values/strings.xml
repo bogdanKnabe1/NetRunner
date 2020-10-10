@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Stream</string>
+    <string name="app_name">Netrunner</string>
     <string name="title_activity_url">URL encoding conversion</string>
     <string name="title_activity_base64">Base64 encoding conversion</string>
     <string name="title_activity_md5">MD5 calculation</string>

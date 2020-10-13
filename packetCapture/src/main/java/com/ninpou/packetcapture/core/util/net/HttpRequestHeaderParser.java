@@ -6,7 +6,6 @@ import com.ninpou.packetcapture.core.nat.NatSession;
 
 import java.util.Locale;
 
-
 public class HttpRequestHeaderParser {
 
     public static void parseHttpRequestHeader(NatSession session, byte[] buffer, int offset, int count) {

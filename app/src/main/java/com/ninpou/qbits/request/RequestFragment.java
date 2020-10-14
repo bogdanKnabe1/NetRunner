@@ -28,6 +28,7 @@ import com.ninpou.qbits.R;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -161,9 +162,9 @@ public class RequestFragment extends Fragment {
     }
 
     private Request initRequest() {
-        String url = urlEdit.getText().toString();
-        String userAgent = userAgentEdit.getText().toString();
-        String contentType = contentTypeEdit.getText().toString();
+        String url = Objects.requireNonNull(urlEdit.getText()).toString();
+        String userAgent = Objects.requireNonNull(userAgentEdit.getText()).toString();
+        String contentType = Objects.requireNonNull(contentTypeEdit.getText()).toString();
         if (url.isEmpty()) {
             Toasts.of(R.string.url_empty_tip).showShort();
             return null;
@@ -190,7 +191,7 @@ public class RequestFragment extends Fragment {
             Toasts.of(R.string.illegal_header_tip).showShort();
             return null;
         }
-        String bodyStr = bodyEdit.getText().toString();
+        String bodyStr = Objects.requireNonNull(bodyEdit.getText()).toString();
         RequestBody body = RequestBody.create(MediaType.parse(contentType), bodyStr);
         switch (method) {
             case GET:

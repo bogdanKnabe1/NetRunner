@@ -155,6 +155,7 @@ public class CaptureFragment extends Fragment {
                 });
             }
         });
+        //deprecated
         event.setOnStartListener(new VpnEvent.OnStartListener() {
             @Override
             public void onStart() {

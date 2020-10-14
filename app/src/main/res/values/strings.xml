@@ -5,12 +5,12 @@
     <string name="title_activity_md5">MD5 calculation</string>
     <string name="title_activity_timestamp"> Timestamp conversion</string>
     <string name="title_activity_ping">PING test</string>
-    <string name="title_capture"> capture packet</string>
+    <string name="title_capture">capture</string>
     <string name="title_request"> request</string>
     <string name="title_tool"> tool</string>
     <string name="edit_title"> request line</string>
-    <string name="edit_header_title"> request header</string>
-    <string name="edit_body_title"> request body</string>
+    <string name="edit_header_title">request header</string>
+    <string name="edit_body_title">request body</string>
     <string name="edit_url"> link</string>
     <string name="edit_user_agent">User-Agent</string>
     <string name="edit_content_type">Content-Type</string>

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ninpou.packetcapture.core.nat.NatSession;
 import com.ninpou.qbits.R;
 
 import java.util.List;
@@ -16,10 +17,13 @@ import java.util.List;
 
 public class PacketAdapter extends RecyclerView.Adapter<PacketAdapter.ViewHolder> {
     private List<String> titles;
+    //Added NatSession list to implement all features with app name and icons + SSL connect
+    private List<NatSession> sessionList;
     private AdapterView.OnItemClickListener onItemClickListener;
 
-    public PacketAdapter(List<String> titles) {
+    public PacketAdapter(List<String> titles, List<NatSession> sessionList) {
         this.titles = titles;
+        this.sessionList = sessionList;
     }
 
     public void setOnItemClickListener(AdapterView.OnItemClickListener onItemClickListener) {

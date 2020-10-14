@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -155,11 +156,11 @@ public class CaptureFragment extends Fragment {
                 });
             }
         });
-        //deprecated
+
         event.setOnStartListener(new VpnEvent.OnStartListener() {
             @Override
             public void onStart() {
-                startButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_stop));
+                startButton.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_stop));
                 startButton.setBackgroundTintList(ColorStateList
                         .valueOf(getResources().getColor(R.color.stop)));
             }
@@ -167,7 +168,7 @@ public class CaptureFragment extends Fragment {
         event.setOnStopListener(new VpnEvent.OnStopListener() {
             @Override
             public void onStop() {
-                startButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_start));
+                startButton.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_start));
                 startButton.setBackgroundTintList(ColorStateList
                         .valueOf(getResources().getColor(R.color.start)));
             }
@@ -181,7 +182,7 @@ public class CaptureFragment extends Fragment {
     }
 
     private void initView(View root) {
-        adapter = new PacketAdapter(packets);
+        adapter = new PacketAdapter(packets, sessionList);
         RecyclerView recyclerView = root.findViewById(R.id.rv_packet);
         tipTextView = root.findViewById(R.id.tv_tip);
         startButton = root.findViewById(R.id.btn_start);

@@ -31,11 +31,11 @@ class VpnServiceImpl : VpnService() {
         builder.setSession(SESSION)
         builder.addAddress(ADDRESS, 0)
         builder.addRoute(ROUTE, 0)
-        val dns = Shells.getDns()
+        val dns = Shells.dns
         if (dns == null || dns.isEmpty()) {
             builder.addDnsServer(DEFAULT_DNS)
         } else {
-            builder.addDnsServer(Shells.getDns())
+            Shells.dns?.let { builder.addDnsServer(it) }
         }
         vpnInterface = builder.establish()
         val fd = vpnInterface!!.fileDescriptor

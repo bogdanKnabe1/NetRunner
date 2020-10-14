@@ -59,8 +59,8 @@ class VpnRunner internal constructor(fd: FileDescriptor?) : Runnable {
                 session = NatSessionManager.createSession(srcPort, ipHeader.destinationIP, tcpHeader
                         .destinationPort, NatSession.TCP)
                 session.vpnStartTime = startTime
-                ThreadPool.getInstance().execute {
-                    val instance = PortHostService.getInstance()
+                ThreadPool.instance.execute {
+                    val instance = PortHostService.instance
                     instance?.refreshSessionInfo()
                 }
             }
@@ -103,9 +103,9 @@ class VpnRunner internal constructor(fd: FileDescriptor?) : Runnable {
             session = NatSessionManager.createSession(srcPort, ipHeader.destinationIP, udpHeader
                     .destinationPort, NatSession.UDP)
             session.vpnStartTime = startTime
-            ThreadPool.getInstance().execute {
-                if (PortHostService.getInstance() != null) {
-                    PortHostService.getInstance().refreshSessionInfo()
+            ThreadPool.instance.execute {
+                if (PortHostService.instance != null) {
+                    PortHostService.instance!!.refreshSessionInfo()
                 }
             }
         }

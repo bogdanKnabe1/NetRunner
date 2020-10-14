@@ -82,7 +82,8 @@ class RemoteTcpTunnel(serverAddress: InetSocketAddress?, selector: Selector?, po
     }
 
     init {
-        session = NatSessionManager.getSession(portKey)
+        //? null assert !!
+        session = NatSessionManager.getSession(portKey)!!
         val dir = StringBuilder()
                 .append(TcpDataSaver.DATA_DIR)
                 .append(formatToYYMMDDHHMMSS(session.vpnStartTime))

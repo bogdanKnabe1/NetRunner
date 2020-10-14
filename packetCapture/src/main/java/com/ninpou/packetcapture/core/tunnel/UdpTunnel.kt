@@ -67,7 +67,7 @@ class UdpTunnel(private val selector: Selector, private val udpProxyServer: UdpP
             outputQueue.offer(newPacket)
             session.receivePacketNum++
             session.receiveByteNum += readBytes.toLong()
-            session.lastRefreshTime = System.currentTimeMillis()
+            session.refreshTime = System.currentTimeMillis()
             if (tcpDataSaver != null) {
                 saveData(receiveBuffer.array(), readBytes, false)
             }
@@ -99,7 +99,7 @@ class UdpTunnel(private val selector: Selector, private val udpProxyServer: UdpP
             if (tcpDataSaver != null) {
                 saveData(payloadBuffer.array(), sendSize, true)
             }
-            session.lastRefreshTime = System.currentTimeMillis()
+            session.refreshTime = System.currentTimeMillis()
             while (payloadBuffer.hasRemaining()) {
                 channel!!.write(payloadBuffer)
             }
@@ -203,7 +203,8 @@ class UdpTunnel(private val selector: Selector, private val udpProxyServer: UdpP
         ipAndPort = referencePacket.ipAndPort
         this.outputQueue = outputQueue
         this.portKey = portKey
-        session = NatSessionManager.getSession(portKey)
+        //? null assert 
+        session = NatSessionManager.getSession(portKey)!!
         handler = Handler(Looper.getMainLooper())
         val dir = StringBuilder()
                 .append(TcpDataSaver.DATA_DIR)

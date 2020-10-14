@@ -64,7 +64,7 @@ class VpnRunner internal constructor(fd: FileDescriptor?) : Runnable {
                     instance?.refreshSessionInfo()
                 }
             }
-            session!!.lastRefreshTime = System.currentTimeMillis()
+            session!!.refreshTime = System.currentTimeMillis()
             session.packetSent++
             val tcpDataSize = ipHeader.dataLength - tcpHeader.headerLength
             if (session.packetSent == 2 && tcpDataSize == 0) {
@@ -109,7 +109,7 @@ class VpnRunner internal constructor(fd: FileDescriptor?) : Runnable {
                 }
             }
         }
-        session!!.lastRefreshTime = System.currentTimeMillis()
+        session!!.refreshTime = System.currentTimeMillis()
         session.packetSent++
         val bytes = Arrays.copyOf(ipHeader.data, ipHeader.data.size)
         val byteBuffer = ByteBuffer.wrap(bytes, 0, len)

@@ -6,6 +6,10 @@ import com.ninpou.packetcapture.core.util.net.Packets;
 
 import java.util.Locale;
 
+/**!
+ * Low-level java networking
+ *
+ * */
 public class UdpHeader {
     static final short offset_src_port = 0; // source port
     static final short offset_dest_port = 2; //Destination port

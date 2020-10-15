@@ -1,5 +1,11 @@
 package com.ninpou.packetcapture.core.util.net;
 
+/**!
+ * Low-level java
+ * Network Event Handler
+ * IMMUTABLE
+ * */
+
 public class Bits {
     public static short getUnsignedByte(byte value) {
         return (short) (value & 0xFF);

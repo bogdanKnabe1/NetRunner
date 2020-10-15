@@ -12,7 +12,10 @@ import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.util.Locale;
 
-
+/**!
+ * Low-level java networking
+ *
+ * */
 public class Packet implements Serializable {
     public static final int IP4_HEADER_SIZE = 20;
     public static final int TCP_HEADER_SIZE = 20;

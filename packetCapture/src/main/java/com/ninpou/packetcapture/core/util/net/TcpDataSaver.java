@@ -10,6 +10,12 @@ import java.io.RandomAccessFile;
 import top.srsea.lever.Lever;
 
 
+/**!
+ * Low-level java
+ * Network Event Handler
+ * IMMUTABLE
+ * */
+
 public class TcpDataSaver {
     public static final String REQUEST = "request";
     public static final String RESPONSE = "response";

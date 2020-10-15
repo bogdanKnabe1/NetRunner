@@ -4,7 +4,10 @@ import com.ninpou.packetcapture.core.util.net.Packets;
 
 import java.util.Locale;
 
-
+/**!
+ * Low-level java networking
+ *
+ * */
 public class TcpHeader {
     public static final int FIN = 1;
     public static final int SYN = 2;

@@ -11,6 +11,12 @@ import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
 
 
+/**!
+ * Low-level java
+ * Network Event Handler
+ * IMMUTABLE
+ * */
+
 public class NetFileManager {
     public final static int TYPE_TCP = 0;
     public final static int TYPE_TCP6 = 1;

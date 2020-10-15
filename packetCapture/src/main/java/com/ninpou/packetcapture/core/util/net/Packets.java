@@ -4,6 +4,12 @@ import com.ninpou.packetcapture.struct.IpHeader;
 import com.ninpou.packetcapture.struct.TcpHeader;
 import com.ninpou.packetcapture.struct.UdpHeader;
 
+/**!
+ * Low-level java
+ * Network Event Handler
+ * IMMUTABLE
+ * */
+
 public class Packets {
     public static int readInt(byte[] data, int offset) {
         return ((data[offset] & 0xFF) << 24)

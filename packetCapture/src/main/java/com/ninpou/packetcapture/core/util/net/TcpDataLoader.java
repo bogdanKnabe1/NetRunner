@@ -15,6 +15,12 @@ import okio.GzipSource;
 import okio.Okio;
 import okio.Source;
 
+/**!
+ * Low-level java
+ * Network Event Handler
+ * IMMUTABLE
+ * */
+
 public class TcpDataLoader {
     private static final String TAG = "TcpDataLoader";
     private static final int HEADER_LIMIT = 256 * 1024;

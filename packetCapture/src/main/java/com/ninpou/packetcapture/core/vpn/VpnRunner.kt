@@ -5,6 +5,7 @@ import com.ninpou.packetcapture.core.forward.UdpProxyServer
 import com.ninpou.packetcapture.core.nat.NatSession
 import com.ninpou.packetcapture.core.nat.NatSessionManager
 import com.ninpou.packetcapture.core.util.android.PortHostService
+import com.ninpou.packetcapture.core.util.common.IOUtils
 import com.ninpou.packetcapture.core.util.common.ThreadPool
 import com.ninpou.packetcapture.core.util.net.HttpRequestHeaderParser
 import com.ninpou.packetcapture.core.util.net.Packets
@@ -16,7 +17,6 @@ import com.ninpou.packetcapture.struct.Packet
 import com.ninpou.packetcapture.struct.TcpHeader
 import com.ninpou.packetcapture.struct.UdpHeader
 import top.srsea.lever.Lever
-import top.srsea.torque.common.IOUtils
 import java.io.*
 import java.net.UnknownHostException
 import java.nio.ByteBuffer

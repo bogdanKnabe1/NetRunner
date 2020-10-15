@@ -6,7 +6,6 @@ import java.util.Locale;
 
 /**!
  * Low-level java networking structure
- *
  * */
 public class IpHeader {
     public static final short IP = 0x0800;

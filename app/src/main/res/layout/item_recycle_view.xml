@@ -1,17 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:paddingBottom="5dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="5dp">
+
+    <ImageView
+        android:id="@+id/select_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        tools:src="@drawable/sym_def_app_icon" />
+
+
+    <TextView
+        android:id="@+id/refresh_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        tools:text="12:28:21.000" />
+
+    <TextView
+        android:id="@+id/net_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/refresh_time"
+        android:layout_marginTop="2dp"
+        tools:text="1kb" />
+
+    <TextView
+        android:id="@+id/is_ssl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/net_size"
+        android:layout_marginTop="2dp"
+        android:text="@string/ssl"
+        tools:visibility="visible"
+        android:textColor="@android:color/holo_red_light"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@id/select_icon"
+        tools:text="App name" />
+
+    <TextView
+        android:id="@+id/net_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/app_name"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_toEndOf="@id/select_icon"
+        android:singleLine="true"
+        tools:text="TCP:112.211.43.12:8080 2323" />
 
     <TextView
         android:id="@+id/item_tv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="@dimen/text_margin"
-        android:layout_marginStart="@dimen/text_margin"
-        android:layout_marginTop="@dimen/text_margin" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/net_state"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_toStartOf="@id/is_ssl"
+        android:layout_toEndOf="@id/select_icon"
+        android:singleLine="true"
+        android:visibility="invisible"
+        tools:text="http://www/xxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxx" />
+
+</RelativeLayout>

@@ -1,29 +1,38 @@
 package com.ninpou.qbits.capture;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ninpou.packetcapture.core.nat.NatSession;
+import com.ninpou.packetcapture.core.util.android.AppInfo;
+import com.ninpou.packetcapture.core.util.common.TimeFormatter;
 import com.ninpou.qbits.R;
 
 import java.util.List;
-
+import java.util.Objects;
 
 public class PacketAdapter extends RecyclerView.Adapter<PacketAdapter.ViewHolder> {
     private List<String> titles;
     //Added NatSession list to implement all features with app name and icons + SSL connect
     private List<NatSession> sessionList;
     private AdapterView.OnItemClickListener onItemClickListener;
+    private Drawable defaultDrawable;
 
-    public PacketAdapter(List<String> titles, List<NatSession> sessionList) {
+    public PacketAdapter(List<String> titles, List<NatSession> sessionList, Context context) {
         this.titles = titles;
         this.sessionList = sessionList;
+        this.defaultDrawable = ContextCompat.getDrawable(context, R.drawable.sym_def_app_icon);
     }
 
     public void setOnItemClickListener(AdapterView.OnItemClickListener onItemClickListener) {
@@ -44,7 +53,23 @@ public class PacketAdapter extends RecyclerView.Adapter<PacketAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull final PacketAdapter.ViewHolder viewHolder, int pos) {
+
+        NatSession natSession = sessionList.get(pos);
+        viewHolder.tv_app_name.setText(natSession.getAppInfo() != null ? natSession.getAppInfo().leaderAppName : viewHolder.itemView.getContext().getString(R.string.unknown));
+        viewHolder.iv_app_icon.setImageDrawable(natSession.getAppInfo() != null && natSession.getAppInfo().pkgs != null ?
+                AppInfo.getIcon(viewHolder.itemView.getContext(), Objects.requireNonNull(natSession.getAppInfo().pkgs.getAt(0))) : defaultDrawable);
+        viewHolder.title.setText(null);
+        boolean isTcp = NatSession.TCP.equals(natSession.type);
+        viewHolder.tv_ssl.setVisibility(isTcp && natSession.isHttpsSession ? View.VISIBLE : View.INVISIBLE);
+        /*viewHolder.tv_title.setText(isTcp ?
+                (TextUtils.isEmpty(natSession.getRequestUrl()) ? natSession.getRemoteHost() : natSession.getRequestUrl())
+                : null);*/
         viewHolder.title.setText(titles.get(pos));
+        viewHolder.title.setVisibility(viewHolder.title.getText().length() > 0 ? View.VISIBLE : View.INVISIBLE);
+        viewHolder.tv_net_state.setText(natSession.getIpAndPort());
+        viewHolder.tv_capture_time.setText(TimeFormatter.formatToHHMMSSMM(natSession.getRefreshTime()));
+        //viewHolder.tv_net_size.setText(StringUtil.getSocketSize(natSession.bytesSent + natSession.getReceiveByteNum()));
+
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,12 +84,26 @@ public class PacketAdapter extends RecyclerView.Adapter<PacketAdapter.ViewHolder
         return titles.size();
     }
 
+    //ViewHolder with all types of view. Implementing 1 row in recyclingView
     static class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView iv_app_icon;
         TextView title;
+        TextView tv_app_name;
+        TextView tv_net_state;
+        TextView tv_capture_time;
+        TextView tv_net_size;
+        TextView tv_ssl;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
+            iv_app_icon = itemView.findViewById(R.id.select_icon);
             title = itemView.findViewById(R.id.item_tv);
+            tv_app_name = itemView.findViewById(R.id.app_name);
+            tv_net_state = itemView.findViewById(R.id.net_state);
+            tv_capture_time = itemView.findViewById(R.id.refresh_time);
+            tv_net_size = itemView.findViewById(R.id.net_size);
+            tv_ssl = itemView.findViewById(R.id.is_ssl);
+            itemView.setTag(this);
         }
     }
 }

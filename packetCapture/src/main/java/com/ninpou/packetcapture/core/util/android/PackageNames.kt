@@ -2,41 +2,43 @@ package com.ninpou.packetcapture.core.util.android
 
 import android.os.Parcel
 import android.os.Parcelable
-import android.text.TextUtils
 import java.io.Serializable
 
 class PackageNames : Parcelable, Serializable {
-    private val packages: Array<String?>
+    @JvmField
+    val pkgs: Array<String?>
 
-    private constructor(packages: Array<String?>) {
-        this.packages = packages
-    }
-
-    private constructor(`in`: Parcel) {
-        packages = arrayOfNulls(`in`.readInt())
-        `in`.readStringArray(packages)
+    protected constructor(pkgs: Array<String?>) {
+        this.pkgs = pkgs
     }
 
     fun getAt(i: Int): String? {
-        return if (packages.size > i) {
-            packages[i]
+        return if (pkgs.size > i) {
+            pkgs[i]
         } else null
     }
-
-    val commaJoinedString: String
-        get() = TextUtils.join(",", packages)
 
     override fun describeContents(): Int {
         return 0
     }
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeInt(packages.size)
-        dest.writeStringArray(packages)
+        dest.writeInt(pkgs.size)
+        dest.writeStringArray(pkgs)
+    }
+
+    protected constructor(`in`: Parcel) {
+        pkgs = arrayOfNulls(`in`.readInt())
+        `in`.readStringArray(pkgs)
     }
 
     companion object {
-        val CREATOR: Parcelable.Creator<PackageNames?> = object : Parcelable.Creator<PackageNames?> {
+        @JvmStatic
+        fun newInstance(pkgs: Array<String?>): PackageNames {
+            return PackageNames(pkgs)
+        }
+
+        val CREATOR: Parcelable.Creator<PackageNames> = object : Parcelable.Creator<PackageNames> {
             override fun createFromParcel(`in`: Parcel): PackageNames? {
                 return PackageNames(`in`)
             }
@@ -44,15 +46,6 @@ class PackageNames : Parcelable, Serializable {
             override fun newArray(size: Int): Array<PackageNames?> {
                 return arrayOfNulls(size)
             }
-        }
-
-        @JvmStatic
-        fun newInstance(packages: Array<String?>): PackageNames {
-            return PackageNames(packages)
-        }
-
-        fun newInstanceFromCommaList(pkgList: String): PackageNames {
-            return newInstance(pkgList.split(",").toTypedArray())
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.ninpou.packetcapture.core.util.common
 
-import top.srsea.torque.common.IOUtils
 import java.io.IOException
 import java.util.*
 

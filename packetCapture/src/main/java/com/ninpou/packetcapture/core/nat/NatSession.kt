@@ -31,6 +31,7 @@ class NatSession : Serializable {
     var pathUrl: String? = null
     @JvmField
     var method: String? = null
+
     var appInfo: AppInfo? = null
     var connectionStartTime = System.currentTimeMillis()
     @JvmField

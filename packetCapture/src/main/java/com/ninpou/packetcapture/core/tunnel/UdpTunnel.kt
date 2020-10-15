@@ -8,13 +8,13 @@ import com.ninpou.packetcapture.core.nat.NatSession
 import com.ninpou.packetcapture.core.nat.NatSessionManager
 import com.ninpou.packetcapture.core.util.android.PortHostService
 import com.ninpou.packetcapture.core.util.common.ACache
+import com.ninpou.packetcapture.core.util.common.IOUtils
 import com.ninpou.packetcapture.core.util.common.ThreadPool
 import com.ninpou.packetcapture.core.util.common.TimeFormatter.formatToYYMMDDHHMMSS
 import com.ninpou.packetcapture.core.util.net.TcpDataSaver
 import com.ninpou.packetcapture.core.vpn.VpnServiceProxy.mtu
 import com.ninpou.packetcapture.core.vpn.VpnServiceProxy.protect
 import com.ninpou.packetcapture.struct.Packet
-import top.srsea.torque.common.IOUtils
 import java.io.File
 import java.io.IOException
 import java.net.InetSocketAddress

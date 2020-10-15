@@ -3,10 +3,10 @@ package com.ninpou.packetcapture.core.vpn
 import android.content.Intent
 import android.net.VpnService
 import android.os.ParcelFileDescriptor
+import com.ninpou.packetcapture.core.util.common.IOUtils
 import com.ninpou.packetcapture.core.util.common.Shells
 import com.ninpou.packetcapture.core.vpn.VpnEvent.Companion.instance
 import com.ninpou.packetcapture.core.vpn.VpnServiceProxy.setVpnService
-import top.srsea.torque.common.IOUtils
 
 class VpnServiceImpl : VpnService() {
     private var vpnInterface: ParcelFileDescriptor? = null

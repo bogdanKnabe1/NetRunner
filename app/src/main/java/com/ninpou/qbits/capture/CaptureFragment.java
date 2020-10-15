@@ -37,7 +37,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -182,14 +181,13 @@ public class CaptureFragment extends Fragment {
     }
 
     private void initView(View root) {
-        adapter = new PacketAdapter(packets, sessionList);
+        adapter = new PacketAdapter(packets, sessionList, requireContext());
         RecyclerView recyclerView = root.findViewById(R.id.rv_packet);
         tipTextView = root.findViewById(R.id.tv_tip);
         startButton = root.findViewById(R.id.btn_start);
         container = root.findViewById(R.id.container);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
-        recyclerView.addItemDecoration(new DividerItemDecoration(Objects
-                .requireNonNull(requireActivity()),
+        recyclerView.addItemDecoration(new DividerItemDecoration(requireActivity(),
                 DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(adapter);
         if (packets.size() == 0) {

@@ -5,6 +5,8 @@
     <string name="title_activity_md5">MD5 calculation</string>
     <string name="title_activity_timestamp"> Timestamp conversion</string>
     <string name="title_activity_ping">PING test</string>
+    <string name="ssl">SSL</string>
+    <string name="unknown">Unknown</string>
     <string name="title_capture">capture</string>
     <string name="title_request"> request</string>
     <string name="title_tool"> tool</string>

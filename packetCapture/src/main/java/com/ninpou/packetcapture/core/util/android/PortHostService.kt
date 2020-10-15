@@ -57,6 +57,7 @@ class PortHostService : Service() {
         try {
             NetFileManager.getInstance().refresh()
             for (connection in netConnections) {
+                // IF APP INFO null
                 if (connection.appInfo == null) {
                     //?
                     val searchPort: Int = (connection.localPort and 0XFFFF.toShort()).toInt()

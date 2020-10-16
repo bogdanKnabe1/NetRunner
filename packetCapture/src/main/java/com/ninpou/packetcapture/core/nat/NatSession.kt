@@ -12,19 +12,28 @@ class NatSession : Serializable {
     var ipAndPort: String? = null
     @JvmField
     var remoteIP = 0
+    // The port number of the address to be accessed
     @JvmField
     var remotePort: Short = 0
     @JvmField
     var remoteHost: String? = null
     @JvmField
     var localPort: Short = 0
+    // How much data has been uploaded (IP datagram or TCP datagram header is not included)
     var bytesSent = 0
+    /**
+     * Record how many network packets have been sent in the current network session
+     */
     var packetSent = 0
     var receiveByteNum: Long = 0
     var receivePacketNum: Long = 0
     var refreshTime: Long = 0
     @JvmField
     var isHttpsSession = false
+    // The url that the user intends to visit,
+    // but does not include the port number,
+    // for example: the user is visiting http://192.168.100.103:901/?a=2 then here will
+    // Becomes http://192.168.100.103/?a=2
     @JvmField
     var requestUrl: String? = null
     @JvmField

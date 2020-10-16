@@ -45,22 +45,14 @@
         android:textColor="@android:color/holo_red_light"
         android:visibility="invisible" />
 
-    <TextView
-        android:id="@+id/app_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="10dp"
-        android:layout_toEndOf="@id/select_icon"
-        tools:text="App name" />
 
     <TextView
         android:id="@+id/net_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/app_name"
+        android:layout_alignParentTop="true"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="7dp"
         android:layout_toEndOf="@id/select_icon"
         android:singleLine="true"
         tools:text="TCP:112.211.43.12:8080 2323" />
@@ -72,7 +64,7 @@
         android:layout_below="@id/net_state"
         android:layout_marginEnd="5dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="5dp"
         android:layout_toStartOf="@id/is_ssl"
         android:layout_toEndOf="@id/select_icon"
         android:singleLine="true"

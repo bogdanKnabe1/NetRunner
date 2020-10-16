@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ninpou.packetcapture.core.nat.NatSession;
 import com.ninpou.packetcapture.core.util.android.AppInfo;
+import com.ninpou.packetcapture.core.util.common.StringUtil;
 import com.ninpou.packetcapture.core.util.common.TimeFormatter;
 import com.ninpou.qbits.R;
 
@@ -55,7 +56,7 @@ public class PacketAdapter extends RecyclerView.Adapter<PacketAdapter.ViewHolder
     public void onBindViewHolder(@NonNull final PacketAdapter.ViewHolder viewHolder, int pos) {
 
         NatSession natSession = sessionList.get(pos);
-        viewHolder.tv_app_name.setText(natSession.getAppInfo() != null ? natSession.getAppInfo().leaderAppName : viewHolder.itemView.getContext().getString(R.string.unknown));
+        //viewHolder.tv_app_name.setText(natSession.getAppInfo() != null ? natSession.getAppInfo().leaderAppName : viewHolder.itemView.getContext().getString(R.string.unknown));
         viewHolder.iv_app_icon.setImageDrawable(natSession.getAppInfo() != null && natSession.getAppInfo().pkgs != null ?
                 AppInfo.getIcon(viewHolder.itemView.getContext(), Objects.requireNonNull(natSession.getAppInfo().pkgs.getAt(0))) : defaultDrawable);
         viewHolder.title.setText(null);
@@ -68,7 +69,7 @@ public class PacketAdapter extends RecyclerView.Adapter<PacketAdapter.ViewHolder
         viewHolder.title.setVisibility(viewHolder.title.getText().length() > 0 ? View.VISIBLE : View.INVISIBLE);
         viewHolder.tv_net_state.setText(natSession.getIpAndPort());
         viewHolder.tv_capture_time.setText(TimeFormatter.formatToHHMMSSMM(natSession.getRefreshTime()));
-        //viewHolder.tv_net_size.setText(StringUtil.getSocketSize(natSession.bytesSent + natSession.getReceiveByteNum()));
+        viewHolder.tv_net_size.setText(StringUtil.INSTANCE.getSocketSize(natSession.getBytesSent() + natSession.getReceiveByteNum()));
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +89,6 @@ public class PacketAdapter extends RecyclerView.Adapter<PacketAdapter.ViewHolder
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iv_app_icon;
         TextView title;
-        TextView tv_app_name;
         TextView tv_net_state;
         TextView tv_capture_time;
         TextView tv_net_size;
@@ -98,7 +98,6 @@ public class PacketAdapter extends RecyclerView.Adapter<PacketAdapter.ViewHolder
             super(itemView);
             iv_app_icon = itemView.findViewById(R.id.select_icon);
             title = itemView.findViewById(R.id.item_tv);
-            tv_app_name = itemView.findViewById(R.id.app_name);
             tv_net_state = itemView.findViewById(R.id.net_state);
             tv_capture_time = itemView.findViewById(R.id.refresh_time);
             tv_net_size = itemView.findViewById(R.id.net_size);

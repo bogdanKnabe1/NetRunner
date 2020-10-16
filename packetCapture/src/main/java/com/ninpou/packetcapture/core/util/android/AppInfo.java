@@ -8,8 +8,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.LruCache;
 
-import androidx.core.content.ContextCompat;
-
 import com.ninpou.packetcapture.R;
 
 import java.io.Serializable;
@@ -17,9 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-/**!
- * Java class for taking app information(reworked)
- * */
+
 public class AppInfo implements Serializable {
     private static Drawable defaultIcon = null;
     private static final LruCache<String, IconInfo> iconCache = new LruCache<>(50);
@@ -117,7 +113,7 @@ public class AppInfo implements Serializable {
         synchronized (AppInfo.class) {
             IconInfo iconInfo;
             if (defaultIcon == null) {
-                defaultIcon = ContextCompat.getDrawable(ctx,R.drawable.sym_def_app_icon);
+                defaultIcon = ctx.getResources().getDrawable(R.drawable.sym_def_app_icon);
             }
             PackageManager pm = ctx.getPackageManager();
             PackageInfo appPackageInfo = null;
@@ -152,7 +148,7 @@ public class AppInfo implements Serializable {
         StringBuilder stringBuffer = new StringBuilder() ;
         stringBuffer.append("{\"allAppName\":").append("\"").append(allAppName).append("\",")
                 .append("\"leaderAppName\":").append("\"").append(leaderAppName).append("\"");
-        if(pkgs != null && pkgs.pkgs != null && pkgs.pkgs.length > 0){
+        if(pkgs != null && pkgs.pkgs.length > 0){
             stringBuffer.append(",") ;
             for(int i = 0 ; i < pkgs.pkgs.length ; i++){
                 stringBuffer.append("\"").append(i).append("\":").append("\"").append(pkgs.pkgs[i]).append("\"") ;

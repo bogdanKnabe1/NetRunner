@@ -1,4 +1,4 @@
-package com.ninpou.packetcapture.core.util.android
+package com.ninpou.packetcapture.core.util.processparse
 
 import android.app.Service
 import android.content.Context
@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.IBinder
 import com.ninpou.packetcapture.core.nat.NatSession
 import com.ninpou.packetcapture.core.nat.NatSessionManager
-import com.ninpou.packetcapture.core.util.net.NetFileManager
 import top.srsea.lever.Lever
 import kotlin.experimental.and
 
@@ -34,6 +33,10 @@ class PortHostService : Service() {
             return allSession
         }
 
+    /**
+     * Refresh network session information, mainly to add app information for each network session information
+     * @return
+     */
     fun refreshSessionInfo() {
         val allSession = NatSessionManager.getSessions()
         refreshSessionInfo(allSession)
@@ -57,7 +60,6 @@ class PortHostService : Service() {
         try {
             NetFileManager.getInstance().refresh()
             for (connection in netConnections) {
-                // IF APP INFO null
                 if (connection.appInfo == null) {
                     //?
                     val searchPort: Int = (connection.localPort and 0XFFFF.toShort()).toInt()

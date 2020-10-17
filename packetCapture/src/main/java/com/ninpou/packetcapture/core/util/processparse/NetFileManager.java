@@ -1,6 +1,8 @@
-package com.ninpou.packetcapture.core.util.net;
+package com.ninpou.packetcapture.core.util.processparse;
 
-import com.ninpou.packetcapture.core.util.android.NetInfo;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +12,6 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
 
-
 /**!
  * Low-level java
  * Network Event Handler
@@ -18,6 +19,22 @@ import java.util.concurrent.ConcurrentHashMap;
  * */
 
 public class NetFileManager {
+
+    private static final String TAG = "NetFileManager";
+    /**
+     * The minimum number of copies of each information in the system configuration file that can be divided
+     */
+    public final static int DATA_MIN_LENGTH = 9;
+    /**
+     * The ip address and port number extracted from each piece of information in the system configuration file are separated by ":",
+     * so the length after verification should be 2
+     */
+    public final static int DATA_IP_ADDRESS_PARTS = 2;
+    /**
+     * The minimum length of ip address in hexadecimal, 8 is IPv4
+     */
+    public final static int IP_ADDRESS_MIN_LENGTH = 8;
+    public final static String SYSTEM_DEFAULT_IP_ADDRESS = "0.0.0.0";
     public final static int TYPE_TCP = 0;
     public final static int TYPE_TCP6 = 1;
     public final static int TYPE_UDP = 2;
@@ -29,13 +46,21 @@ public class NetFileManager {
     private final static int DATA_LOCAL = 2;
     private final static int DATA_REMOTE = 3;
     private final static int DATA_UID = 8;
+    /**
+     * key: the port number used by the app process (sourcePort) value: UID
+     */
     private Map<Integer, Integer> processHost = new ConcurrentHashMap<>();
     private File[] file;
     private long[] lastTime;
     private StringBuilder sbBuilder = new StringBuilder();
 
+    static class InnerClass {
+        static NetFileManager instance = new NetFileManager();
+    }
+
     public static NetFileManager getInstance() {
-        return Singleton.instance;
+        InnerClass.instance.init();
+        return InnerClass.instance;
     }
 
     public void init() {
@@ -55,14 +80,15 @@ public class NetFileManager {
         file[5] = new File(PATH_RAW6);
 
         lastTime = new long[TYPE_MAX];
+        // Initialize each value in lastTime
         Arrays.fill(lastTime, 0);
     }
 
-    public void execute(String[] cmmand, String directory, int type) throws IOException {
+    public void execute(String[] command, String directory, int type) throws IOException {
         NetInfo netInfo = null;
         String sTmp = null;
 
-        ProcessBuilder builder = new ProcessBuilder(cmmand);
+        ProcessBuilder builder = new ProcessBuilder(command);
 
         if (directory != null) {
             builder.directory(new File(directory));
@@ -83,18 +109,25 @@ public class NetFileManager {
         }
     }
 
-    private int strToInt(String value, int iHex, int iDefault) {
+    /**
+     * Convert a string to int data, and return the default value iDefault when the incoming string str is null. One of the functions in this class is:
+     * Convert the port number in string format obtained from the ip address to int type
+     *
+     * @param str The string type of the port number, generally four digits in hexadecimal xxxx.
+     * @param iHex str is in decimal
+     * @param iDefault The default return value if str is null
+     * @return
+     */
+    private int strToInt(String str, int iHex, int iDefault) {
         int iValue = iDefault;
-        if (value == null) {
+        if (str == null) {
             return iValue;
         }
-
         try {
-            iValue = Integer.parseInt(value, iHex);
+            iValue = Integer.parseInt(str, iHex);
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
-
         return iValue;
     }
 
@@ -103,51 +136,63 @@ public class NetFileManager {
         if (value == null) {
             return iValue;
         }
-
         try {
             iValue = Long.parseLong(value, iHex);
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
-
         return iValue;
     }
 
-    private NetInfo parseDataNew(String sData) {
-        String sSplitItem[] = sData.split("\\s+");
+    /**
+     * This is an example of this app accessing github in the tcp6 file, where 10126 is the uid of this app has been verified.
+     * sl local_address remote_address st tx_queue rx_queue tr tm->when retrnsmt uid timeout inode
+     * Each piece of information read is (in quotation marks):
+     * "3: 0000000000000000FFFF00000F03000A:C204 0000000000000000FFFF000075D06071:0050 08 00000000:00000001 00:00000000 00000000 10126 0 38012 1 00000000 20 4 26 10 -1"
+     * 0 1 2 3 4 5 6 7 8
+     * Note: Since the string will be intercepted with spaces, the starting position of "3:" is 1.
+     * Because some items have more than one space, we cannot simply use "" to distinguish them.
+     * Here we use regular expressions: \s+ separated. You can separate multiple or one space.
+     * The third item is the remote IP address and port item, and the eighth item is UID
+     *
+     * @param sData
+     * @return
+     */
+    private NetInfo parseDataNew(@NonNull String sData) {
+        String[] sSplitItem = sData.split("\\s+");
+        if (sSplitItem.length < DATA_MIN_LENGTH) {
+            return null;
+        }
         String sTmp = null;
-        if (sSplitItem.length < 9) {
-            return null;
-        }
-
         NetInfo netInfo = new NetInfo();
-
+        // Get local ip and port number
         sTmp = sSplitItem[DATA_LOCAL];
-        String sSourceItem[] = sTmp.split(":");
-        if (sSourceItem.length < 2) {
+        String[] sSourceItem = sTmp.split(":");
+        if (sSourceItem.length < DATA_IP_ADDRESS_PARTS) {
             return null;
         }
-        netInfo.setSrcPort(strToInt(sSourceItem[1], 16, 0));
-
-
+        netInfo.setSourPort(strToInt(sSourceItem[1], 16, 0));
+        // Get remote ip and port number
         sTmp = sSplitItem[DATA_REMOTE];
-        String sDesItem[] = sTmp.split(":");
-        if (sDesItem.length < 2) {
+        String[] sDesItem = sTmp.split(":");
+        if (sDesItem.length < DATA_IP_ADDRESS_PARTS) {
             return null;
         }
         netInfo.setPort(strToInt(sDesItem[1], 16, 0));
-
-
         sTmp = sDesItem[0];
         int len = sTmp.length();
-        if (len < 8) {
+        if (len < IP_ADDRESS_MIN_LENGTH) {
             return null;
         }
-
+        /**
+         * The last 8 bits of the ip address are intercepted to adapt to IPv6. It should be that this address is very long in IPv6,
+         * See the comment of {@link #parseDataNew(String)} for details
+         */
         sTmp = sTmp.substring(len - 8);
+        // Convert ip address to long and save
         netInfo.setIp(strToLong(sTmp, 16, 0));
-
         sbBuilder.setLength(0);
+        // Get an ip address like 192.168.1.1
         sbBuilder.append(strToInt(sTmp.substring(6, 8), 16, 0))
                 .append(".")
                 .append(strToInt(sTmp.substring(4, 6), 16, 0))
@@ -159,13 +204,11 @@ public class NetFileManager {
         sTmp = sbBuilder.toString();
         netInfo.setAddress(sTmp);
 
-        if (sTmp.equals("0.0.0.0")) {
+        if (SYSTEM_DEFAULT_IP_ADDRESS.equals(sTmp)) {
             return null;
         }
-
         sTmp = sSplitItem[DATA_UID];
         netInfo.setUid(strToInt(sTmp, 10, 0));
-
         return netInfo;
     }
 
@@ -173,16 +216,21 @@ public class NetFileManager {
         if (netInfo == null) {
             return;
         }
-        processHost.put(netInfo.getSrcPort(), netInfo.getUid());
+        Log.d(TAG, "saveToMap  port " + netInfo.getSourPort() + " uid " + netInfo.getUid());
+        processHost.put(netInfo.getSourPort(), netInfo.getUid());
     }
 
+    /**
+     * Refresh the correspondence between app network request port and uid according to protocol type type
+     *
+     * @param type
+     */
     public void read(int type) {
         try {
             switch (type) {
                 case TYPE_TCP:
                     String[] ARGS = {"cat", "/proc/net/tcp"};
                     execute(ARGS, "/", TYPE_TCP);
-
                     break;
                 case TYPE_TCP6:
                     String[] ARGS1 = {"cat", "/proc/net/tcp6"};
@@ -212,6 +260,12 @@ public class NetFileManager {
         }
     }
 
+    /**
+     * When the Android system has a network request, the configuration file will be changed.
+     * If it detects that the last modification time of the configuration file has changed, it will refresh
+     * Information in the corresponding file. Because the initial value of {@linkplain #lastTime}
+     * is 0, all configuration files will be traversed the first time you call
+     */
     public void refresh() {
         for (int i = 0; i < TYPE_MAX; i++) {
             long iTime = file[i].lastModified();
@@ -222,11 +276,13 @@ public class NetFileManager {
         }
     }
 
-    public Integer getUid(int port) {
-        return processHost.get(port);
-    }
-
-    static class Singleton {
-        static NetFileManager instance = new NetFileManager();
+    /**
+     * Return the uid of the process according to sourcePort (the port used by the process to access the network)
+     *
+     * @param sourcePort
+     * @return
+     */
+    public Integer getUid(int sourcePort) {
+        return processHost.get(sourcePort);
     }
 }

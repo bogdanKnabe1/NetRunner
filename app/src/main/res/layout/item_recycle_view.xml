@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="5dp"
@@ -33,18 +34,6 @@
         android:layout_marginTop="2dp"
         tools:text="1kb" />
 
-    <TextView
-        android:id="@+id/is_ssl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@id/net_size"
-        android:layout_marginTop="2dp"
-        android:text="@string/ssl"
-        tools:visibility="visible"
-        android:textColor="@android:color/holo_red_light"
-        android:visibility="invisible" />
-
 
     <TextView
         android:id="@+id/net_state"
@@ -62,13 +51,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/net_state"
-        android:layout_marginEnd="5dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_toStartOf="@id/is_ssl"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_toStartOf="@+id/net_size"
         android:layout_toEndOf="@id/select_icon"
         android:singleLine="true"
-        android:visibility="invisible"
+        android:visibility="visible"
         tools:text="http://www/xxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxx" />
 
 </RelativeLayout>

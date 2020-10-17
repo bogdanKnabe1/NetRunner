@@ -11,6 +11,6 @@
                 <action android:name="android.net.VpnService" />
             </intent-filter>
         </service>
-        <service android:name=".core.util.android.PortHostService" />
+        <service android:name=".core.util.processparse.PortHostService" />
     </application>
 </manifest>

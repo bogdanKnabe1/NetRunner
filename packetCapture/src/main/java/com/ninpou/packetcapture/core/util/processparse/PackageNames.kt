@@ -1,4 +1,4 @@
-package com.ninpou.packetcapture.core.util.android
+package com.ninpou.packetcapture.core.util.processparse
 
 import android.os.Parcel
 import android.os.Parcelable

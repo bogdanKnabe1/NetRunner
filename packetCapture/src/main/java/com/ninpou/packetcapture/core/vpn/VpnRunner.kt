@@ -4,7 +4,7 @@ import com.ninpou.packetcapture.core.forward.TcpProxyServer
 import com.ninpou.packetcapture.core.forward.UdpProxyServer
 import com.ninpou.packetcapture.core.nat.NatSession
 import com.ninpou.packetcapture.core.nat.NatSessionManager
-import com.ninpou.packetcapture.core.util.android.PortHostService
+import com.ninpou.packetcapture.core.util.processparse.PortHostService
 import com.ninpou.packetcapture.core.util.common.IOUtils
 import com.ninpou.packetcapture.core.util.common.ThreadPool
 import com.ninpou.packetcapture.core.util.net.HttpRequestHeaderParser
@@ -105,7 +105,7 @@ class VpnRunner internal constructor(fd: FileDescriptor?) : Runnable {
             session.vpnStartTime = startTime
             ThreadPool.instance.execute {
                 if (PortHostService.instance != null) {
-                    PortHostService.instance!!.refreshSessionInfo()
+                    PortHostService.instance?.refreshSessionInfo()
                 }
             }
         }

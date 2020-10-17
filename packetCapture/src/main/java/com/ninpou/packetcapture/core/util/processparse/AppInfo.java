@@ -1,4 +1,4 @@
-package com.ninpou.packetcapture.core.util.android;
+package com.ninpou.packetcapture.core.util.processparse;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -7,6 +7,9 @@ import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.LruCache;
+
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.ninpou.packetcapture.R;
 
@@ -47,9 +50,11 @@ public class AppInfo implements Serializable {
         this.pkgs = PackageNames.newInstance(pkgs);
     }
 
+    @Nullable
     public static AppInfo createFromUid(Context ctx, int uid) {
         PackageManager pm = ctx.getPackageManager();
         ArrayList<Entry> list = new ArrayList<>();
+        //when app is identified
         if (uid > 0) {
             try {
                 String[] pkgNames = pm.getPackagesForUid(uid);
@@ -81,6 +86,7 @@ public class AppInfo implements Serializable {
                 return null;
             }
         }
+        //when app is NOT identified
         if (list.size() == 0) {
             // Only when uid <= 0, list.size() is 0, and the default is system
             list.add(new Entry("System", "root.uid=0"));
@@ -113,20 +119,21 @@ public class AppInfo implements Serializable {
         synchronized (AppInfo.class) {
             IconInfo iconInfo;
             if (defaultIcon == null) {
-                defaultIcon = ctx.getResources().getDrawable(R.drawable.sym_def_app_icon);
+                defaultIcon = ContextCompat.getDrawable(ctx, R.drawable.sym_def_app_icon);
             }
             PackageManager pm = ctx.getPackageManager();
             PackageInfo appPackageInfo = null;
             try {
                 appPackageInfo = pm.getPackageInfo(pkgName, 0);
                 long lastUpdate = appPackageInfo.lastUpdateTime;
-                iconInfo = (IconInfo) iconCache.get(pkgName);
+                iconInfo = iconCache.get(pkgName);
                 if (iconInfo != null && iconInfo.date == lastUpdate && iconInfo.icon != null) {
                     drawable = iconInfo.icon;
                 }
             } catch (PackageManager.NameNotFoundException e) {
                 //
             }
+            //if app is identified
             if (appPackageInfo != null) {
                 if (!onlyPeek) {
                     drawable = appPackageInfo.applicationInfo.loadIcon(pm);
@@ -164,4 +171,3 @@ public class AppInfo implements Serializable {
         return stringBuffer.toString() ;
     }
 }
-

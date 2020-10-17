@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ninpou.packetcapture.core.nat.NatSession;
-import com.ninpou.packetcapture.core.util.android.AppInfo;
+import com.ninpou.packetcapture.core.util.processparse.AppInfo;
 import com.ninpou.packetcapture.core.util.common.StringUtil;
 import com.ninpou.packetcapture.core.util.common.TimeFormatter;
 import com.ninpou.qbits.R;
@@ -61,7 +61,6 @@ public class PacketAdapter extends RecyclerView.Adapter<PacketAdapter.ViewHolder
                 AppInfo.getIcon(viewHolder.itemView.getContext(), Objects.requireNonNull(natSession.getAppInfo().pkgs.getAt(0))) : defaultDrawable);
         viewHolder.title.setText(null);
         boolean isTcp = NatSession.TCP.equals(natSession.type);
-        viewHolder.tv_ssl.setVisibility(isTcp && natSession.isHttpsSession ? View.VISIBLE : View.INVISIBLE);
         /*viewHolder.tv_title.setText(isTcp ?
                 (TextUtils.isEmpty(natSession.getRequestUrl()) ? natSession.getRemoteHost() : natSession.getRequestUrl())
                 : null);*/
@@ -92,7 +91,6 @@ public class PacketAdapter extends RecyclerView.Adapter<PacketAdapter.ViewHolder
         TextView tv_net_state;
         TextView tv_capture_time;
         TextView tv_net_size;
-        TextView tv_ssl;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -101,7 +99,6 @@ public class PacketAdapter extends RecyclerView.Adapter<PacketAdapter.ViewHolder
             tv_net_state = itemView.findViewById(R.id.net_state);
             tv_capture_time = itemView.findViewById(R.id.refresh_time);
             tv_net_size = itemView.findViewById(R.id.net_size);
-            tv_ssl = itemView.findViewById(R.id.is_ssl);
             itemView.setTag(this);
         }
     }

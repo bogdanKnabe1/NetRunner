@@ -1,6 +1,6 @@
 package com.ninpou.packetcapture.core.nat
 
-import com.ninpou.packetcapture.core.util.android.AppInfo
+import com.ninpou.packetcapture.core.util.processparse.AppInfo
 import com.ninpou.packetcapture.core.util.net.Packets
 import java.io.Serializable
 import java.util.*

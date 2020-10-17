@@ -4,7 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import com.ninpou.packetcapture.core.nat.NatSession
 import com.ninpou.packetcapture.core.nat.NatSessionManager
-import com.ninpou.packetcapture.core.util.android.PortHostService
+import com.ninpou.packetcapture.core.util.processparse.PortHostService
 import com.ninpou.packetcapture.core.util.common.ACache
 import com.ninpou.packetcapture.core.util.common.ThreadPool
 import com.ninpou.packetcapture.core.util.common.TimeFormatter.formatToYYMMDDHHMMSS
@@ -49,7 +49,7 @@ class RemoteTcpTunnel(serverAddress: InetSocketAddress?, selector: Selector?, po
             return
         }
         if (PortHostService.instance != null) {
-            ThreadPool.instance.execute { PortHostService.instance!!.refreshSessionInfo() }
+            ThreadPool.instance.execute { PortHostService.instance?.refreshSessionInfo() }
         }
     }
 
@@ -75,7 +75,7 @@ class RemoteTcpTunnel(serverAddress: InetSocketAddress?, selector: Selector?, po
                 if (file.exists()) {
                     return@Runnable
                 }
-                val configACache = ACache.get(parentFile)
+                val configACache = ACache[parentFile]
                 configACache.put(session.uniqueName, session)
             })
         }, 1000)

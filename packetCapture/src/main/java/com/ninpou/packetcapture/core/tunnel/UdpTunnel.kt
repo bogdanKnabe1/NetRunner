@@ -6,7 +6,7 @@ import android.util.Log
 import com.ninpou.packetcapture.core.forward.UdpProxyServer
 import com.ninpou.packetcapture.core.nat.NatSession
 import com.ninpou.packetcapture.core.nat.NatSessionManager
-import com.ninpou.packetcapture.core.util.android.PortHostService
+import com.ninpou.packetcapture.core.util.processparse.PortHostService
 import com.ninpou.packetcapture.core.util.common.ACache
 import com.ninpou.packetcapture.core.util.common.IOUtils
 import com.ninpou.packetcapture.core.util.common.ThreadPool
@@ -144,7 +144,7 @@ class UdpTunnel(private val selector: Selector, private val udpProxyServer: UdpP
                 channel!!.close()
             }
             if (session.appInfo == null && PortHostService.instance != null) {
-                PortHostService.instance!!.refreshSessionInfo()
+                PortHostService.instance?.refreshSessionInfo()
             }
             handler.postDelayed(Runnable {
                 ThreadPool.instance.execute(Runnable {

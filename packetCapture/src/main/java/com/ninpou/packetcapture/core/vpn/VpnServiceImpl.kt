@@ -65,7 +65,7 @@ class VpnServiceImpl : VpnService() {
 
     companion object {
         const val MTU = 4096
-        const val SESSION = "Stream"
+        const val SESSION = "Netrunner"
         const val ADDRESS = "10.0.0.10"
         const val ROUTE = "0.0.0.0"
         const val DEFAULT_DNS = "114.114.114.114"

@@ -1,6 +1,6 @@
 package com.ninpou.packetcapture.core.nat
 
-import com.ninpou.packetcapture.core.util.android.PortHostService.Companion.instance
+import com.ninpou.packetcapture.core.util.processparse.PortHostService.Companion.instance
 import com.ninpou.packetcapture.core.util.common.ACache
 import com.ninpou.packetcapture.core.util.common.FileManager.deleteUnder
 import com.ninpou.packetcapture.core.util.common.TimeFormatter.formatToYYMMDDHHMMSS
@@ -29,7 +29,7 @@ object NatSessionHelper {
                 val aliveConnInfo = portHostService.andRefreshSessionInfo
                 baseNetSessions.addAll(aliveConnInfo)
             }
-            baseNetSessions.sortWith(Comparator { o1, o2 -> java.lang.Long.compare(o2.refreshTime, o1.refreshTime) })
+            baseNetSessions.sortWith(Comparator { o1, o2 -> o2.refreshTime.compareTo(o1.refreshTime) })
             return baseNetSessions
         }
 

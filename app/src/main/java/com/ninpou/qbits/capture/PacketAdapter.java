@@ -3,6 +3,7 @@ package com.ninpou.qbits.capture;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,14 +57,13 @@ public class PacketAdapter extends RecyclerView.Adapter<PacketAdapter.ViewHolder
     public void onBindViewHolder(@NonNull final PacketAdapter.ViewHolder viewHolder, int pos) {
 
         NatSession natSession = sessionList.get(pos);
-        //viewHolder.tv_app_name.setText(natSession.getAppInfo() != null ? natSession.getAppInfo().leaderAppName : viewHolder.itemView.getContext().getString(R.string.unknown));
-        viewHolder.iv_app_icon.setImageDrawable(natSession.getAppInfo() != null && natSession.getAppInfo().pkgs != null ?
-                AppInfo.getIcon(viewHolder.itemView.getContext(), Objects.requireNonNull(natSession.getAppInfo().pkgs.getAt(0))) : defaultDrawable);
+        viewHolder.iv_app_icon.setImageDrawable(natSession.getAppInfo() != null && natSession.getAppInfo().packageNames != null ?
+                AppInfo.getIcon(viewHolder.itemView.getContext(), Objects.requireNonNull(natSession.getAppInfo().packageNames.getAt(0))) : defaultDrawable);
         viewHolder.title.setText(null);
         boolean isTcp = NatSession.TCP.equals(natSession.type);
-        /*viewHolder.tv_title.setText(isTcp ?
+        viewHolder.title.setText(isTcp ?
                 (TextUtils.isEmpty(natSession.getRequestUrl()) ? natSession.getRemoteHost() : natSession.getRequestUrl())
-                : null);*/
+                : null);
         viewHolder.title.setText(titles.get(pos));
         viewHolder.title.setVisibility(viewHolder.title.getText().length() > 0 ? View.VISIBLE : View.INVISIBLE);
         viewHolder.tv_net_state.setText(natSession.getIpAndPort());

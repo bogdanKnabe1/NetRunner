@@ -8,9 +8,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.LruCache;
 
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-
 import com.ninpou.packetcapture.R;
 
 import java.io.Serializable;
@@ -18,43 +15,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-
 public class AppInfo implements Serializable {
-    private static Drawable defaultIcon = null;
+    private static final String TAG = "AppInfo";
     private static final LruCache<String, IconInfo> iconCache = new LruCache<>(50);
+    private static Drawable defaultIcon = null;
     public final String allAppName;
     public final String leaderAppName;
-    public final PackageNames pkgs;
+    public final PackageNames packageNames;
 
-    static class Entry {
-        final String appName;
-        final String pkgName;
-
-        public Entry(String appName, String pkgName) {
-            this.appName = appName;
-            this.pkgName = pkgName;
-        }
-    }
-
-    static class IconInfo {
-        long date;
-        Drawable icon;
-
-        IconInfo() {
-        }
-    }
-
-    private AppInfo(String leaderAppName, String allAppName, String[] pkgs) {
+    private AppInfo(String leaderAppName, String allAppName, String[] packageNames) {
         this.leaderAppName = leaderAppName;
         this.allAppName = allAppName;
-        this.pkgs = PackageNames.newInstance(pkgs);
+        this.packageNames = PackageNames.newInstance(packageNames);
     }
 
-    @Nullable
     public static AppInfo createFromUid(Context ctx, int uid) {
         PackageManager pm = ctx.getPackageManager();
         ArrayList<Entry> list = new ArrayList<>();
-        //when app is identified
         if (uid > 0) {
             try {
                 String[] pkgNames = pm.getPackagesForUid(uid);
@@ -62,37 +39,32 @@ public class AppInfo implements Serializable {
                     list.add(new Entry("System", "nonpkg.noname"));
                 } else {
                     for (String pkgName : pkgNames) {
-                        if (!TextUtils.isEmpty(pkgName)) {
+                        if (pkgName != null) {
                             try {
                                 PackageInfo appPackageInfo = pm.getPackageInfo(pkgName, 0);
                                 String appName = null;
                                 if (appPackageInfo != null) {
                                     appName = appPackageInfo.applicationInfo.loadLabel(pm).toString();
                                 }
-                                if (TextUtils.isEmpty(appName)) {
-                                    // If the app name is empty, use the package name instead
+                                if (appName == null || appName.equals("")) {
                                     appName = pkgName;
                                 }
                                 list.add(new Entry(appName, pkgName));
                             } catch (PackageManager.NameNotFoundException e) {
-                                // When the app corresponding to the package name is not found on the mobile phone system
                                 list.add(new Entry(pkgName, pkgName));
                             }
                         }
                     }
                 }
-            } catch (RuntimeException e2) {
-                Log.i("RuntimeException", "error getPackagesForUid(). package manager has died");
+            } catch (RuntimeException e) {
+                Log.i(TAG, "error getPackagesForUid(). package manager has died");
                 return null;
             }
         }
-        //when app is NOT identified
         if (list.size() == 0) {
-            // Only when uid <= 0, list.size() is 0, and the default is system
             list.add(new Entry("System", "root.uid=0"));
         }
         Collections.sort(list, new Comparator<Entry>() {
-            @Override
             public int compare(Entry lhs, Entry rhs) {
                 int ret = lhs.appName.compareToIgnoreCase(rhs.appName);
                 if (ret == 0) {
@@ -119,21 +91,19 @@ public class AppInfo implements Serializable {
         synchronized (AppInfo.class) {
             IconInfo iconInfo;
             if (defaultIcon == null) {
-                defaultIcon = ContextCompat.getDrawable(ctx, R.drawable.sym_def_app_icon);
+                defaultIcon = ctx.getResources().getDrawable(R.drawable.ic_android);
             }
             PackageManager pm = ctx.getPackageManager();
             PackageInfo appPackageInfo = null;
             try {
                 appPackageInfo = pm.getPackageInfo(pkgName, 0);
                 long lastUpdate = appPackageInfo.lastUpdateTime;
-                iconInfo = iconCache.get(pkgName);
+                iconInfo = (IconInfo) iconCache.get(pkgName);
                 if (iconInfo != null && iconInfo.date == lastUpdate && iconInfo.icon != null) {
                     drawable = iconInfo.icon;
                 }
-            } catch (PackageManager.NameNotFoundException e) {
-                //
+            } catch (PackageManager.NameNotFoundException ignore) {
             }
-            //if app is identified
             if (appPackageInfo != null) {
                 if (!onlyPeek) {
                     drawable = appPackageInfo.applicationInfo.loadIcon(pm);
@@ -150,24 +120,21 @@ public class AppInfo implements Serializable {
         return drawable;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder stringBuffer = new StringBuilder() ;
-        stringBuffer.append("{\"allAppName\":").append("\"").append(allAppName).append("\",")
-                .append("\"leaderAppName\":").append("\"").append(leaderAppName).append("\"");
-        if(pkgs != null && pkgs.pkgs.length > 0){
-            stringBuffer.append(",") ;
-            for(int i = 0 ; i < pkgs.pkgs.length ; i++){
-                stringBuffer.append("\"").append(i).append("\":").append("\"").append(pkgs.pkgs[i]).append("\"") ;
-                if(i == pkgs.pkgs.length - 1){
-                    stringBuffer.append("}") ;
-                }else {
-                    stringBuffer.append(",") ;
-                }
-            }
-        }else {
-            stringBuffer.append("}") ;
+    static class Entry {
+        final String appName;
+        final String pkgName;
+
+        public Entry(String appName, String pkgName) {
+            this.appName = appName;
+            this.pkgName = pkgName;
         }
-        return stringBuffer.toString() ;
+    }
+
+    static class IconInfo {
+        long date;
+        Drawable icon;
+
+        IconInfo() {
+        }
     }
 }

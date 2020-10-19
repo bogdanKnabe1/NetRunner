@@ -1,6 +1,7 @@
 package com.ninpou.qbits;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ninpou.qbits.capture.CaptureFragment;
 import com.ninpou.qbits.request.RequestFragment;
 import com.ninpou.qbits.tool.ToolFragment;
+
+import java.util.Objects;
 
 public class MainActivity extends BaseActivity {
     private final Fragment[] fragments = new Fragment[]{
@@ -45,6 +48,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        Objects.requireNonNull(getSupportActionBar()).setTitle(Html.fromHtml("<font color=\"black\">" + getString(R.string.app_name) + "</font"));
     }
 
     private void initView() {

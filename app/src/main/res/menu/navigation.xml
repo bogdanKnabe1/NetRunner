@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/navigation_capture"
-        android:icon="@drawable/ic_capture"
+        android:icon="@drawable/ic_action_name"
         android:title="@string/title_capture" />
 
     <item
@@ -13,7 +13,7 @@
 
     <item
         android:id="@+id/navigation_tool"
-        android:icon="@drawable/ic_tool"
+        android:icon="@drawable/ic_tools_new"
         android:title="@string/title_tool" />
 
 </menu>

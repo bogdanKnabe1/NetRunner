@@ -49,6 +49,8 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         initView();
         Objects.requireNonNull(getSupportActionBar()).setTitle(Html.fromHtml("<font color=\"black\">" + getString(R.string.app_name) + "</font"));
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.mipmap.ic_launcher_new);
     }
 
     private void initView() {

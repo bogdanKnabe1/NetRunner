@@ -8,10 +8,12 @@
 
 
     <ImageView
+        android:id="@+id/cloud_img_no_data"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:src="@drawable/ic_no_data"
         android:layout_marginEnd="70dp"
+        android:src="@drawable/ic_no_data"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +25,6 @@
         android:id="@+id/tv_tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:text="@string/empty_tip"
         android:textColor="@android:color/black"
         android:textSize="24sp"
@@ -38,19 +39,29 @@
         android:id="@+id/rv_packet"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/text_margin"
         android:layout_marginBottom="@dimen/text_margin"
-        android:elevation="0dp"
+        android:elevation="4dp"
         android:src="@drawable/ic_start"
         app:backgroundTint="@color/start"
         app:layout_constraintBottom_toTopOf="@id/container"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent" />-->
+
+    <include
+        layout="@layout/floating_action_button"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@id/container"
+        app:layout_constraintRight_toRightOf="parent">
+    </include>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/container"

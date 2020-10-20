@@ -2,11 +2,7 @@ package com.ninpou.qbits.capture;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.net.VpnService;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,15 +13,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.ninpou.packetcapture.core.nat.NatSession;
@@ -57,10 +55,16 @@ public class CaptureFragment extends Fragment {
     final private List<NatSession> sessionList = new ArrayList<>();
     boolean buttonStateStart = true;
     private TextView tipTextView;
+    private ImageView cloudImage;
     private FloatingActionButton startButton;
     private PacketAdapter adapter;
     private CoordinatorLayout container;
     private Handler handler = new Handler();
+    private LottieAnimationView animationViewStartCapture;
+    private LottieAnimationView animationViewStopCapture;
+    private CardView cardViewStartStopButton;
+
+
 
     public static CaptureFragment newInstance() {
         return new CaptureFragment();
@@ -151,8 +155,10 @@ public class CaptureFragment extends Fragment {
                         }
                         if (packets.size() > 0) {
                             tipTextView.setVisibility(View.GONE);
+                            cloudImage.setVisibility(View.GONE);
                         } else {
                             tipTextView.setVisibility(View.VISIBLE);
+                            cloudImage.setVisibility(View.VISIBLE);
                         }
                         adapter.notifyDataSetChanged();
                     }
@@ -163,17 +169,20 @@ public class CaptureFragment extends Fragment {
         event.setOnStartListener(new VpnEvent.OnStartListener() {
             @Override
             public void onStart() {
-                startButton.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_stop));
-                startButton.setBackgroundTintList(ColorStateList
-                        .valueOf(getResources().getColor(R.color.stop)));
+                animationViewStartCapture.setVisibility(View.GONE);
+                //Make animation + change color
+                cardViewStartStopButton.setCardBackgroundColor(getResources().getColor(R.color.stop));
+                animationViewStopCapture.setVisibility(View.VISIBLE);
+
             }
         });
         event.setOnStopListener(new VpnEvent.OnStopListener() {
             @Override
             public void onStop() {
-                startButton.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_start));
-                startButton.setBackgroundTintList(ColorStateList
-                        .valueOf(getResources().getColor(R.color.start)));
+                cardViewStartStopButton.setCardBackgroundColor(getResources().getColor(R.color.start));
+                animationViewStartCapture.setVisibility(View.VISIBLE);
+                //Make animation
+                animationViewStopCapture.setVisibility(View.GONE);
             }
         });
     }
@@ -188,16 +197,23 @@ public class CaptureFragment extends Fragment {
         adapter = new PacketAdapter(packets, sessionList, requireContext());
         RecyclerView recyclerView = root.findViewById(R.id.rv_packet);
         tipTextView = root.findViewById(R.id.tv_tip);
-        startButton = root.findViewById(R.id.btn_start);
+        cloudImage = root.findViewById(R.id.cloud_img_no_data);
         container = root.findViewById(R.id.container);
+        animationViewStartCapture = root.findViewById(R.id.start_capture);
+        animationViewStopCapture = root.findViewById(R.id.stop_capture);
+        animationViewStartCapture.setMinAndMaxProgress(0.0f, 0.90f);
+        cardViewStartStopButton = root.findViewById(R.id.cardViewStartStop);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
         recyclerView.addItemDecoration(new DividerItemDecoration(requireActivity(),
                 DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(adapter);
         if (packets.size() == 0) {
             tipTextView.setVisibility(View.VISIBLE);
+            cloudImage.setVisibility(View.VISIBLE);
         }
-        startButton.setOnClickListener(new View.OnClickListener() {
+
+        cardViewStartStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (buttonStateStart) {

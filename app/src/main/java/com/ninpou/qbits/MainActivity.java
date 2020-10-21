@@ -1,10 +1,13 @@
 package com.ninpou.qbits;
 
 import android.os.Bundle;
-import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.TypefaceSpan;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -48,9 +51,11 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        Objects.requireNonNull(getSupportActionBar()).setTitle(Html.fromHtml("<font color=\"black\">" + getString(R.string.app_name) + "</font"));
-        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.mipmap.ic_launcher_new);
+        ActionBar actionBar = getSupportActionBar();
+        Objects.requireNonNull(actionBar).setTitle("Netrunner");
+        Objects.requireNonNull(actionBar).setDisplayShowHomeEnabled(true);
+        actionBar.setIcon(R.mipmap.ic_launcher_new);
+
     }
 
     private void initView() {
@@ -75,4 +80,5 @@ public class MainActivity extends BaseActivity {
         lastFragmentIndex = index;
         transaction.commitAllowingStateLoss();
     }
+
 }

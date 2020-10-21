@@ -28,6 +28,7 @@
         android:text="@string/empty_tip"
         android:textColor="@android:color/black"
         android:textSize="24sp"
+        android:fontFamily="@font/roboto_medium"
         android:visibility="visible"
         android:layout_marginStart="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -43,10 +44,8 @@
 
     <include
         layout="@layout/floating_action_button"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
         app:layout_constraintBottom_toTopOf="@id/container"
         app:layout_constraintRight_toRightOf="parent">
     </include>

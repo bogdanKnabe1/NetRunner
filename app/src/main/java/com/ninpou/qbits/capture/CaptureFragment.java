@@ -2,7 +2,6 @@ package com.ninpou.qbits.capture;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.media.Image;
 import android.net.VpnService;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,7 +23,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.ninpou.packetcapture.core.nat.NatSession;
 import com.ninpou.packetcapture.core.nat.NatSessionHelper;
@@ -56,14 +54,12 @@ public class CaptureFragment extends Fragment {
     boolean buttonStateStart = true;
     private TextView tipTextView;
     private ImageView cloudImage;
-    private FloatingActionButton startButton;
     private PacketAdapter adapter;
     private CoordinatorLayout container;
     private Handler handler = new Handler();
     private LottieAnimationView animationViewStartCapture;
     private LottieAnimationView animationViewStopCapture;
     private CardView cardViewStartStopButton;
-
 
 
     public static CaptureFragment newInstance() {

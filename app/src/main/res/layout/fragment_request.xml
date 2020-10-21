@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -23,7 +23,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/edit_title"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,10 +32,16 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/text_margin"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/spinner"
-                app:layout_constraintTop_toBottomOf="@id/tv_line">
+                app:layout_constraintTop_toBottomOf="@id/tv_line"
+                app:boxBackgroundColor="@color/colorBackground"
+                app:boxBackgroundMode="outline"
+                app:endIconMode="clear_text"
+                app:boxStrokeColor="@color/colorAccent"
+                app:hintTextColor="@color/colorAccent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_url"
@@ -62,10 +68,9 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="40dp"
                 android:text="@string/edit_header_title"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/til" />
-
 
             <LinearLayout
                 android:id="@+id/ll_headers"
@@ -83,7 +88,13 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_user_agent"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundColor="@color/colorBackground"
+                    app:boxBackgroundMode="outline"
+                    app:endIconMode="clear_text"
+                    app:boxStrokeColor="@color/colorAccent"
+                    app:hintTextColor="@color/colorAccent"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_user_agent"
@@ -96,7 +107,14 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_content_type"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    app:boxBackgroundColor="@color/colorBackground"
+                    app:boxBackgroundMode="outline"
+                    app:endIconMode="clear_text"
+                    app:boxStrokeColor="@color/colorAccent"
+                    app:hintTextColor="@color/colorAccent"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_content_type"
@@ -138,7 +156,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="40dp"
                 android:text="@string/edit_body_title"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btn_reset" />
 

@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import java.io.Serializable;
 
 public class PackageNames implements Parcelable, Serializable {
+
     public static final Creator<PackageNames> CREATOR = new Creator<PackageNames>() {
         @Override
         public PackageNames createFromParcel(Parcel in) {
@@ -18,6 +19,7 @@ public class PackageNames implements Parcelable, Serializable {
             return new PackageNames[size];
         }
     };
+
     private final String[] packages;
 
     private PackageNames(String[] packages) {

@@ -6,6 +6,7 @@
     <color name="colorAccent">#000000</color>
 
     <color name="colorBackground">#EEEEEE</color>
+    <color name="colorCursor">#263238</color>
 
     <color name="start">#81C784</color>
     <color name="stop">#E57373</color>

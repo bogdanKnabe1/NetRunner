@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_content"
     android:layout_width="match_parent"
@@ -11,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/appbar_padding_top"
+        android:fontFamily="@font/googlesans_medium"
         android:theme="@style/AppTheme.AppBarOverlay">
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -19,12 +21,14 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fontFamily="@font/googlesans_medium"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:tabSelectedTextColor="@color/colorAccent"
         app:layout_anchor="@+id/appbar"
         app:layout_anchorGravity="center">
 
@@ -32,13 +36,15 @@
             android:id="@+id/tabItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tab_text_1" />
+            android:text="@string/tab_text_1"
+            android:fontFamily="@font/googlesans_medium"/>
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabItem2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tab_text_2" />
+            android:text="@string/tab_text_2"
+            android:fontFamily="@font/googlesans_medium"/>
 
     </com.google.android.material.tabs.TabLayout>
 

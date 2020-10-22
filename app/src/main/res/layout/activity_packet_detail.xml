@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,7 +11,9 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:text="@string/request"
-        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:textColor="@color/colorAccent"
+        android:fontFamily="@font/droidsans"
         app:layout_constraintBottom_toTopOf="@id/sv_request"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,6 +33,7 @@
             android:id="@+id/tv_req_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/googlesans_medium"
             android:textColor="@color/text_color_request"
             android:textSize="12sp" />
     </ScrollView>
@@ -43,7 +45,9 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:text="@string/response"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"
+        android:fontFamily="@font/droidsans"
         app:layout_constraintBottom_toTopOf="@id/sv_response"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sv_request" />
@@ -64,6 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/text_color_response"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:fontFamily="@font/googlesans_medium"/>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

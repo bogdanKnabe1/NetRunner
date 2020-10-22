@@ -18,6 +18,7 @@ public class ToolFragment extends Fragment {
     private CardView md5Card;
     private CardView timestampCard;
     private CardView pingCard;
+    private CardView vpnCard;
 
     public static ToolFragment newInstance() {
         return new ToolFragment();
@@ -30,6 +31,7 @@ public class ToolFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_tool, container, false);
         initView(rootView);
+
         return rootView;
     }
 
@@ -39,6 +41,7 @@ public class ToolFragment extends Fragment {
         md5Card = root.findViewById(R.id.card_md5);
         timestampCard = root.findViewById(R.id.card_timestamp);
         pingCard = root.findViewById(R.id.card_ping);
+        vpnCard = root.findViewById(R.id.vpn);
         urlCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,5 +77,14 @@ public class ToolFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        vpnCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), VpnActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 }

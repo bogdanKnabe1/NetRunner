@@ -22,7 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/title_activity_url" />
+            android:text="@string/title_activity_url"
+            android:fontFamily="@font/googlesans_medium"/>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -42,7 +43,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/title_activity_base64" />
+            android:text="@string/title_activity_base64"
+            android:fontFamily="@font/googlesans_medium"/>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -61,7 +63,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/title_activity_md5" />
+            android:text="@string/title_activity_md5"
+            android:fontFamily="@font/googlesans_medium"/>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -81,7 +84,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/title_activity_timestamp" />
+            android:text="@string/title_activity_timestamp"
+            android:fontFamily="@font/googlesans_medium"/>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -100,7 +104,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/title_activity_ping" />
+            android:text="@string/title_activity_ping"
+            android:fontFamily="@font/googlesans_medium"/>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -119,7 +124,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/title_VPN" />
+            android:text="@string/title_VPN"
+            android:fontFamily="@font/googlesans_medium"/>
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

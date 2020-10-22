@@ -24,7 +24,8 @@
         android:layout_marginTop="2dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        tools:text="12:28:21.000" />
+        tools:text="12:28:21.000"
+        android:fontFamily="@font/googlesans_medium"/>
 
     <TextView
         android:id="@+id/net_size"
@@ -33,7 +34,8 @@
         android:layout_alignParentEnd="true"
         android:layout_below="@id/refresh_time"
         android:layout_marginTop="4dp"
-        tools:text="1kb" />
+        tools:text="1kb"
+        android:fontFamily="@font/googlesans_medium"/>
 
     <TextView
         android:id="@+id/app_name"
@@ -44,7 +46,8 @@
         android:layout_marginTop="2dp"
         android:layout_toEndOf="@id/select_icon"
         android:singleLine="true"
-        tools:text="App name" />
+        tools:text="App name"
+        android:fontFamily="@font/googlesans_medium"/>
 
     <TextView
         android:id="@+id/net_state"
@@ -55,7 +58,8 @@
         android:layout_marginTop="4dp"
         android:layout_toEndOf="@+id/select_icon"
         android:singleLine="true"
-        tools:text="TCP:112.211.43.12:8080 2323" />
+        tools:text="TCP:112.211.43.12:8080 2323"
+        android:fontFamily="@font/googlesans_medium"/>
 
     <TextView
         android:id="@+id/item_tv"
@@ -69,6 +73,7 @@
         android:layout_toEndOf="@id/select_icon"
         android:singleLine="true"
         android:visibility="visible"
-        tools:text="http://www/xxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxx" />
+        tools:text="http://www/xxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxx"
+        android:fontFamily="@font/googlesans_medium"/>
 
 </RelativeLayout>

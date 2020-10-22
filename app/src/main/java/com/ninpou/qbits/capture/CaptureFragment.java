@@ -204,6 +204,7 @@ public class CaptureFragment extends Fragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(requireActivity(),
                 DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(adapter);
+
         if (packets.size() == 0) {
             tipTextView.setVisibility(View.VISIBLE);
             cloudImage.setVisibility(View.VISIBLE);

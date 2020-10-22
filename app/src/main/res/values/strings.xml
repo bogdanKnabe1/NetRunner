@@ -22,8 +22,8 @@
     <string name="edit_md5"> content</string>
     <string name="edit_timestamp"> timestamp</string>
     <string name="edit_ping">Host</string>
-    <string name="request"> request</string>
-    <string name="response"> response</string>
+    <string name="request"> Request</string>
+    <string name="response"> Response</string>
     <string name="title_activity_response">Response</string>
     <string name="tab_text_1"> response header</string>
     <string name="tab_text_2"> response body</string>
@@ -45,4 +45,7 @@
     <string name="illegal_header_tip"> There is an illegal value in the header field</string>
     <string name="empty_tip"> no data</string>
     <string name="load"> is sending</string>
+    <string name="vpn_is_off">vpn is OFF</string>
+    <string name="vpn_is_on">vpn is ON</string>
+    <string name="vpn_image">vpn_image</string>
 </resources>

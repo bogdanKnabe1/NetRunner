@@ -4,10 +4,10 @@
     android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="5dp"
+    android:paddingBottom="4dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-    android:paddingTop="5dp">
+    android:paddingTop="4dp">
 
     <ImageView
         android:id="@+id/select_icon"
@@ -21,9 +21,11 @@
         android:id="@+id/refresh_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        tools:text="12:28:21.000" />
+        tools:text="12:28:21.000"
+        android:fontFamily="@font/googlesans_medium"/>
 
     <TextView
         android:id="@+id/net_size"
@@ -31,20 +33,33 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_below="@id/refresh_time"
-        android:layout_marginTop="2dp"
-        tools:text="1kb" />
+        android:layout_marginTop="4dp"
+        tools:text="1kb"
+        android:fontFamily="@font/googlesans_medium"/>
 
+    <TextView
+        android:id="@+id/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_toEndOf="@id/select_icon"
+        android:singleLine="true"
+        tools:text="App name"
+        android:fontFamily="@font/googlesans_medium"/>
 
     <TextView
         android:id="@+id/net_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/app_name"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="7dp"
-        android:layout_toEndOf="@id/select_icon"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@+id/select_icon"
         android:singleLine="true"
-        tools:text="TCP:112.211.43.12:8080 2323" />
+        tools:text="TCP:112.211.43.12:8080 2323"
+        android:fontFamily="@font/googlesans_medium"/>
 
     <TextView
         android:id="@+id/item_tv"
@@ -52,12 +67,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/net_state"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         android:layout_toStartOf="@+id/net_size"
         android:layout_toEndOf="@id/select_icon"
         android:singleLine="true"
         android:visibility="visible"
-        tools:text="http://www/xxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxx" />
+        tools:text="http://www/xxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxx"
+        android:fontFamily="@font/googlesans_medium"/>
 
 </RelativeLayout>

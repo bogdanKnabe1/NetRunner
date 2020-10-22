@@ -3,6 +3,7 @@ package com.ninpou.qbits.capture;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,14 +57,14 @@ public class PacketAdapter extends RecyclerView.Adapter<PacketAdapter.ViewHolder
     public void onBindViewHolder(@NonNull final PacketAdapter.ViewHolder viewHolder, int pos) {
 
         NatSession natSession = sessionList.get(pos);
-        //viewHolder.tv_app_name.setText(natSession.getAppInfo() != null ? natSession.getAppInfo().leaderAppName : viewHolder.itemView.getContext().getString(R.string.unknown));
-        viewHolder.iv_app_icon.setImageDrawable(natSession.getAppInfo() != null && natSession.getAppInfo().pkgs != null ?
-                AppInfo.getIcon(viewHolder.itemView.getContext(), Objects.requireNonNull(natSession.getAppInfo().pkgs.getAt(0))) : defaultDrawable);
+        viewHolder.tv_app_name.setText(natSession.getAppInfo() != null ? natSession.getAppInfo().leaderAppName : viewHolder.itemView.getContext().getString(R.string.unknown));
+        viewHolder.iv_app_icon.setImageDrawable(natSession.getAppInfo() != null && natSession.getAppInfo().packageNames != null ?
+                AppInfo.getIcon(viewHolder.itemView.getContext(), Objects.requireNonNull(natSession.getAppInfo().packageNames.getAt(0))) : defaultDrawable);
         viewHolder.title.setText(null);
         boolean isTcp = NatSession.TCP.equals(natSession.type);
-        /*viewHolder.tv_title.setText(isTcp ?
+        viewHolder.title.setText(isTcp ?
                 (TextUtils.isEmpty(natSession.getRequestUrl()) ? natSession.getRemoteHost() : natSession.getRequestUrl())
-                : null);*/
+                : null);
         viewHolder.title.setText(titles.get(pos));
         viewHolder.title.setVisibility(viewHolder.title.getText().length() > 0 ? View.VISIBLE : View.INVISIBLE);
         viewHolder.tv_net_state.setText(natSession.getIpAndPort());
@@ -87,6 +88,7 @@ public class PacketAdapter extends RecyclerView.Adapter<PacketAdapter.ViewHolder
     //ViewHolder with all types of view. Implementing 1 row in recyclingView
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iv_app_icon;
+        TextView tv_app_name;
         TextView title;
         TextView tv_net_state;
         TextView tv_capture_time;
@@ -95,6 +97,7 @@ public class PacketAdapter extends RecyclerView.Adapter<PacketAdapter.ViewHolder
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             iv_app_icon = itemView.findViewById(R.id.select_icon);
+            tv_app_name = itemView.findViewById(R.id.app_name);
             title = itemView.findViewById(R.id.item_tv);
             tv_net_state = itemView.findViewById(R.id.net_state);
             tv_capture_time = itemView.findViewById(R.id.refresh_time);

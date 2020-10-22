@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:background="@color/colorBackground">
 
     <Button
         android:id="@+id/btn_ping"
@@ -13,6 +15,8 @@
         android:layout_marginTop="@dimen/text_margin"
         android:layout_marginEnd="@dimen/text_margin"
         android:text="@string/btn_ping"
+        android:textColor="@color/colorAccent"
+        android:fontFamily="@font/googlesans_medium"
         app:layout_constraintBottom_toBottomOf="@id/til_ping"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,9 +27,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/text_margin"
         android:layout_marginTop="@dimen/text_margin"
+        android:layout_marginEnd="@dimen/text_margin"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/btn_ping"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:boxBackgroundColor="@color/colorBackground"
+        app:boxBackgroundMode="outline"
+        app:endIconMode="clear_text"
+        app:boxStrokeColor="@color/colorAccent"
+        app:hintTextColor="@color/colorAccent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_ping"
@@ -33,6 +44,7 @@
             android:layout_height="match_parent"
             android:gravity="top"
             android:hint="@string/edit_ping"
+            android:fontFamily="@font/googlesans_medium"
             android:imeOptions="actionDone"
             android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -51,7 +63,9 @@
             android:id="@+id/tv_ping_result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textIsSelectable="true" />
+            android:textIsSelectable="true"
+            android:textColor="@color/colorAccent"
+            android:fontFamily="@font/googlesans_medium"/>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

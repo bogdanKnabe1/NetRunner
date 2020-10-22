@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:background="@color/colorBackground">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_64code"
@@ -17,14 +17,21 @@
         app:layout_constraintBottom_toTopOf="@id/btn_64code"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:boxBackgroundColor="@color/colorBackground"
+        app:boxBackgroundMode="outline"
+        app:endIconMode="clear_text"
+        app:boxStrokeColor="@color/colorAccent"
+        app:hintTextColor="@color/colorAccent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_64code"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="top"
-            android:hint="@string/edit_code" />
+            android:hint="@string/edit_code"
+            android:fontFamily="@font/googlesans_medium"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -32,9 +39,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/text_margin"
-
         android:layout_marginBottom="@dimen/text_margin"
+        android:layout_marginEnd="@dimen/text_margin"
         android:text="@string/btn_code"
+        android:textColor="@color/colorAccent"
+        android:fontFamily="@font/googlesans_medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/btn_64decode"
@@ -44,14 +53,15 @@
         android:id="@+id/btn_64decode"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
         android:layout_marginEnd="@dimen/text_margin"
         android:layout_marginBottom="@dimen/text_margin"
+        android:layout_marginStart="@dimen/text_margin"
         android:text="@string/btn_decode"
+        android:textColor="@color/colorAccent"
+        android:fontFamily="@font/googlesans_medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/btn_64code"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/til_64code" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

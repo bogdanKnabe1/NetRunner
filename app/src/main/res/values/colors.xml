@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#5C6BC0</color>
-    <color name="colorPrimaryDark">#5C6BC0</color>
-    <color name="colorAccent">#5F5F5F</color>
+    <!-- LIGHT theme -->
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#BDBDBD</color>
+    <color name="colorAccent">#000000</color>
 
-    <color name="start">#5C6BC0</color>
-    <color name="stop">#DD2C00</color>
+    <color name="colorBackground">#EEEEEE</color>
+    <color name="colorCursor">#263238</color>
+
+    <color name="start">#81C784</color>
+    <color name="stop">#E57373</color>
     <color name="text_color_request">#004D40</color>
     <color name="text_color_response">#BF360C</color>
 </resources>

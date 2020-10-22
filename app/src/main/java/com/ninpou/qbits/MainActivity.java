@@ -1,9 +1,13 @@
 package com.ninpou.qbits;
 
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.TypefaceSpan;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -11,6 +15,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ninpou.qbits.capture.CaptureFragment;
 import com.ninpou.qbits.request.RequestFragment;
 import com.ninpou.qbits.tool.ToolFragment;
+
+import java.util.Objects;
 
 public class MainActivity extends BaseActivity {
     private final Fragment[] fragments = new Fragment[]{
@@ -45,6 +51,11 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        ActionBar actionBar = getSupportActionBar();
+        Objects.requireNonNull(actionBar).setTitle("Netrunner");
+        Objects.requireNonNull(actionBar).setDisplayShowHomeEnabled(true);
+        actionBar.setIcon(R.mipmap.ic_launcher_new);
+
     }
 
     private void initView() {
@@ -69,4 +80,5 @@ public class MainActivity extends BaseActivity {
         lastFragmentIndex = index;
         transaction.commitAllowingStateLoss();
     }
+
 }

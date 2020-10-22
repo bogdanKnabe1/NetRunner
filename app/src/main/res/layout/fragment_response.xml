@@ -19,7 +19,9 @@
             android:paddingStart="@dimen/text_margin"
             android:paddingEnd="@dimen/text_margin"
             android:textIsSelectable="true"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="@color/colorAccent"
+            android:fontFamily="@font/googlesans_medium"/>
     </ScrollView>
 
 

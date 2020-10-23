@@ -33,7 +33,7 @@
             android:id="@+id/tv_req_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/googlesans_medium"
+            android:fontFamily="@font/droidsans"
             android:textColor="@color/text_color_request"
             android:textSize="12sp" />
     </ScrollView>
@@ -69,6 +69,6 @@
             android:layout_height="wrap_content"
             android:textColor="@color/text_color_response"
             android:textSize="12sp"
-            android:fontFamily="@font/googlesans_medium"/>
+            android:fontFamily="@font/droidsans"/>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,7 @@ import com.ninpou.qbits.R;
 
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Scanner;
 
 
@@ -25,6 +26,7 @@ public class PingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ping);
         setTitle(R.string.title_activity_ping);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         initView();
     }
 

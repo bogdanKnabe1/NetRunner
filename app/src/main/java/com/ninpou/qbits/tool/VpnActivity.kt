@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.ninpou.packetcapture.core.vpn.VpnEvent.getInstance
 import com.ninpou.packetcapture.core.vpn.VpnServiceImpl
 import com.ninpou.qbits.R
-import com.ninpou.qbits.capture.CaptureFragment
 import kotlinx.android.synthetic.main.activity_vpn.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -33,7 +32,6 @@ class VpnActivity : AppCompatActivity() {
                 my_progressBar.progress = 0
             }
         }
-
         button_vpn_off.setOnClickListener {
             my_progressBar.visibility = View.VISIBLE
             GlobalScope.launch(Dispatchers.Main) {
@@ -46,7 +44,6 @@ class VpnActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun startVpn() {
         my_progressBar.visibility = View.INVISIBLE
@@ -90,6 +87,7 @@ class VpnActivity : AppCompatActivity() {
             this.startService(intent)
         }
     }
+
     override fun onStop() {
         super.onStop()
         getInstance().cancelAll()

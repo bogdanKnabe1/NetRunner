@@ -12,6 +12,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 
 public class UrlCoderActivity extends BaseActivity {
@@ -24,6 +25,7 @@ public class UrlCoderActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_url_coder);
         setTitle(R.string.title_activity_url);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         contentEdit = findViewById(R.id.et_code);
         codeButton = findViewById(R.id.btn_code);
         decodeButton = findViewById(R.id.btn_decode);

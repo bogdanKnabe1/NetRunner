@@ -10,6 +10,7 @@ import com.ninpou.qbits.R;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Objects;
 
 public class PacketDetailActivity extends BaseActivity {
     private static final String KEY_DIR = "key_dir";
@@ -21,6 +22,7 @@ public class PacketDetailActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_packet_detail);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         initView();
     }
 

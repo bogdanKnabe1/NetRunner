@@ -11,6 +11,7 @@ import com.ninpou.qbits.R;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 
 public class TimestampActivity extends BaseActivity {
@@ -23,6 +24,7 @@ public class TimestampActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timestamp);
         setTitle(R.string.title_activity_timestamp);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         contentEdit = findViewById(R.id.et_timestamp);
         computeButton = findViewById(R.id.btn_timestamp);
         initView();

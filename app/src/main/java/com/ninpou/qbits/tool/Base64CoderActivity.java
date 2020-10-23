@@ -9,6 +9,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.ninpou.qbits.BaseActivity;
 import com.ninpou.qbits.R;
 
+import java.util.Objects;
+
 
 public class Base64CoderActivity extends BaseActivity {
     private TextInputEditText contentEdit;
@@ -20,6 +22,7 @@ public class Base64CoderActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base64_coder);
         setTitle(R.string.title_activity_base64);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         contentEdit = findViewById(R.id.et_64code);
         codeButton = findViewById(R.id.btn_64code);
         decodeButton = findViewById(R.id.btn_64decode);

@@ -54,7 +54,7 @@ public class MainActivity extends BaseActivity {
         ActionBar actionBar = getSupportActionBar();
         Objects.requireNonNull(actionBar).setTitle("Netrunner");
         Objects.requireNonNull(actionBar).setDisplayShowHomeEnabled(true);
-        actionBar.setIcon(R.mipmap.ic_launcher_new);
+        //actionBar.setIcon(R.mipmap.ic_launcher_new);
 
     }
 

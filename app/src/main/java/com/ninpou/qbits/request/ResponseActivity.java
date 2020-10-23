@@ -17,6 +17,8 @@ import com.google.android.material.tabs.TabLayout;
 import com.ninpou.qbits.BaseActivity;
 import com.ninpou.qbits.R;
 
+import java.util.Objects;
+
 
 public class ResponseActivity extends BaseActivity {
     private static final String BUNDLE_KEY_RESPONSE = "response_key";
@@ -25,6 +27,7 @@ public class ResponseActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_response);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         ResponseInfo info = (ResponseInfo) getIntent().getSerializableExtra(BUNDLE_KEY_RESPONSE);
         SectionsPagerAdapter pagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), info);
 

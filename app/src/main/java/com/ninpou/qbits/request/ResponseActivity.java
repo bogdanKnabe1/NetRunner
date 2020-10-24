@@ -27,7 +27,7 @@ public class ResponseActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_response);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
         ResponseInfo info = (ResponseInfo) getIntent().getSerializableExtra(BUNDLE_KEY_RESPONSE);
         SectionsPagerAdapter pagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), info);
 

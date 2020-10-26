@@ -5,7 +5,7 @@ import android.net.VpnService
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.ninpou.packetcapture.core.vpn.VpnEvent.getInstance
+import com.ninpou.packetcapture.core.vpn.VpnEventHandler.getInstance
 import com.ninpou.packetcapture.core.vpn.VpnServiceImpl
 import com.ninpou.qbits.R
 import kotlinx.android.synthetic.main.activity_vpn.*

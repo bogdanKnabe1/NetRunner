@@ -16,7 +16,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ninpou.packetcapture.core.nat.NatSession;
-import com.ninpou.packetcapture.core.util.processparse.AppInfo;
+import com.ninpou.packetcapture.core.util.process_parse.ApplicationInfo;
 import com.ninpou.packetcapture.core.util.common.StringUtil;
 import com.ninpou.packetcapture.core.util.common.TimeFormatter;
 import com.ninpou.qbits.R;
@@ -57,9 +57,9 @@ public class PacketAdapter extends RecyclerView.Adapter<PacketAdapter.ViewHolder
     public void onBindViewHolder(@NonNull final PacketAdapter.ViewHolder viewHolder, int pos) {
 
         NatSession natSession = sessionList.get(pos);
-        viewHolder.tv_app_name.setText(natSession.getAppInfo() != null ? natSession.getAppInfo().leaderAppName : viewHolder.itemView.getContext().getString(R.string.unknown));
-        viewHolder.iv_app_icon.setImageDrawable(natSession.getAppInfo() != null && natSession.getAppInfo().packageNames != null ?
-                AppInfo.getIcon(viewHolder.itemView.getContext(), Objects.requireNonNull(natSession.getAppInfo().packageNames.getAt(0))) : defaultDrawable);
+        viewHolder.tv_app_name.setText(natSession.getApplicationInfo() != null ? natSession.getApplicationInfo().leaderAppName : viewHolder.itemView.getContext().getString(R.string.unknown));
+        viewHolder.iv_app_icon.setImageDrawable(natSession.getApplicationInfo() != null && natSession.getApplicationInfo().appPackageNames != null ?
+                ApplicationInfo.getIcon(viewHolder.itemView.getContext(), Objects.requireNonNull(natSession.getApplicationInfo().appPackageNames.getAt(0))) : defaultDrawable);
         viewHolder.title.setText(null);
         boolean isTcp = NatSession.TCP.equals(natSession.type);
         viewHolder.title.setText(isTcp ?

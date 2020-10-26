@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NetRunner</string>
+    <string name="app_name">Netrunner</string>
     <string name="title_activity_url">URL encoding</string>
     <string name="title_activity_base64">Base64 encoding</string>
     <string name="title_activity_md5">MD5 calculation</string>
@@ -36,7 +36,7 @@
     <string name="ok"> OK</string>
     <string name="cancle"> cancel</string>
     <string name="reset"> reset field </string>
-    <string name="title_menu_clear">clear cache</string>
+    <string name="title_menu_clear"> clear cache </string>
     <string name="cache_cleared_tip"> cache has been cleared </string>
     <string name="loading"> loading...</string>
     <string name="url_empty_tip"> link cannot be empty </string>
@@ -48,5 +48,4 @@
     <string name="vpn_is_off">vpn is OFF</string>
     <string name="vpn_is_on">vpn is ON</string>
     <string name="vpn_image">vpn_image</string>
-    <string name="night_mode">Night mode</string>
 </resources>

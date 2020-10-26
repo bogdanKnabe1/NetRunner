@@ -10,9 +10,11 @@ import com.ninpou.packetcapture.core.util.common.Shells;
 
 import java.io.FileDescriptor;
 
+//LOW LEVEL VPN implementation
+//set vpn address
 public class VpnServiceImpl extends VpnService {
     static final int MTU = 4096;
-    static final String SESSION = "Netrunner";
+    static final String SESSION = "NetRunner";
     static final String ADDRESS = "10.0.0.10";
     static final String ROUTE = "0.0.0.0";
     static final String DEFAULT_DNS = "114.114.114.114";
@@ -55,11 +57,11 @@ public class VpnServiceImpl extends VpnService {
         }
         vpnInterface = builder.establish();
         FileDescriptor fd = vpnInterface.getFileDescriptor();
-        vpnThread = new Thread(new VpnRunner(fd));
+        vpnThread = new Thread(new CoreVpnTracker(fd));
         vpnThread.start();
-        VpnServiceProxy.setVpnService(this);
+        VpnProxyServer.setVpnService(this);
         startTime = System.currentTimeMillis();
-        VpnEvent.getInstance().notifyStart();
+        VpnEventHandler.getInstance().notifyStart();
     }
 
     @Override
@@ -68,8 +70,8 @@ public class VpnServiceImpl extends VpnService {
     }
 
     private void close() {
-        VpnEvent.getInstance().notifyStop();
-        VpnServiceProxy.setVpnService(null);
+        VpnEventHandler.getInstance().notifyStop();
+        VpnProxyServer.setVpnService(null);
         if (vpnThread != null) {
             vpnThread.interrupt();
         }

@@ -206,7 +206,9 @@
         android:layout_marginEnd="@dimen/text_margin"
         android:layout_marginBottom="@dimen/text_margin"
         android:elevation="1dp"
+        android:scaleType="center"
         android:src="@drawable/ic_send"
+        app:fabSize="normal"
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

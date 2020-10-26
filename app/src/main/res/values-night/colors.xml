@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- LIGHT theme -->
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#757575</color>
+    <color name="colorAccent">#FFFFFF</color>
+
+    <color name="colorBackground">#212121</color>
+    <color name="colorUnSelected">#EEEEEE</color>
+    <color name="colorCursor">#ECEFF1</color>
+
+    <color name="start">#2E7D32</color>
+    <color name="stop">#D84315</color>
+    <color name="text_color_request">#81C784</color>
+    <color name="text_color_response">#FF8A65</color>
+    <color name="ic_launcher_new_background">#FFFFFF</color>
+</resources>

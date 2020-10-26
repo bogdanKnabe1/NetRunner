@@ -3,7 +3,7 @@ package com.ninpou.qbits.capture;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.ninpou.packetcapture.core.util.net.TcpDataLoader;
+import com.ninpou.packetcapture.core.util.net_utils.TcpDataLoader;
 import com.ninpou.qbits.BaseActivity;
 import com.ninpou.qbits.R;
 

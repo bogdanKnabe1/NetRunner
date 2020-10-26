@@ -1,8 +1,8 @@
 package com.ninpou.packetcapture.core.nat;
 
 
-import com.ninpou.packetcapture.core.util.net.Packets;
-import com.ninpou.packetcapture.core.util.processparse.AppInfo;
+import com.ninpou.packetcapture.core.util.net_utils.Packets;
+import com.ninpou.packetcapture.core.util.process_parse.ApplicationInfo;
 
 import java.io.Serializable;
 import java.util.Locale;
@@ -25,7 +25,7 @@ public class NatSession implements Serializable {
     public String requestUrl;
     public String pathUrl;
     public String method;
-    public AppInfo appInfo;
+    public ApplicationInfo applicationInfo;
     public long connectionStartTime = System.currentTimeMillis();
     public long vpnStartTime;
     public boolean isHttp;
@@ -111,8 +111,8 @@ public class NatSession implements Serializable {
         return method;
     }
 
-    public AppInfo getAppInfo() {
-        return appInfo;
+    public ApplicationInfo getApplicationInfo() {
+        return applicationInfo;
     }
 
     public long getConnectionStartTime() {

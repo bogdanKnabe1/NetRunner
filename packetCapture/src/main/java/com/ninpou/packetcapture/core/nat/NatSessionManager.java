@@ -1,6 +1,6 @@
 package com.ninpou.packetcapture.core.nat;
 
-import com.ninpou.packetcapture.core.util.net.Packets;
+import com.ninpou.packetcapture.core.util.net_utils.Packets;
 
 import java.util.Collection;
 import java.util.Iterator;

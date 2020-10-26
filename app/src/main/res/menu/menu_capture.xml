@@ -4,8 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto" >
 
     <item
+        android:id="@+id/dark_mode"
+        android:title="@string/night_mode"
+        android:icon="@drawable/ic_night_mode"
+        android:orderInCategory="100"
+        app:showAsAction="always|withText"/>
+
+    <item
         android:id="@+id/clear_cache_item"
-        android:title="Rate App"
+        android:title="@string/title_menu_clear"
         android:icon="@drawable/ic_clear_cache"
         android:orderInCategory="100"
         app:showAsAction="always|withText"/>

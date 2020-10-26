@@ -211,7 +211,8 @@
         app:fabSize="normal"
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        android:contentDescription="@string/request_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

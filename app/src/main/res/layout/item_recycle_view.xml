@@ -14,7 +14,8 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_centerVertical="true"
-        tools:src="@drawable/sym_def_app_icon" />
+        tools:src="@drawable/sym_def_app_icon"
+        android:contentDescription="@string/app_icon" />
 
 
     <TextView
@@ -25,7 +26,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         tools:text="12:28:21.000"
-        android:fontFamily="@font/googlesans_medium"/>
+        android:fontFamily="@font/googlesans_medium"
+        tools:ignore="RelativeOverlap" />
 
     <TextView
         android:id="@+id/net_size"

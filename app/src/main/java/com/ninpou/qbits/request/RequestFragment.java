@@ -157,7 +157,7 @@ public class RequestFragment extends Fragment {
                         headers.add(layout);
                     }
                 })
-                .setNegativeButton(R.string.cancle, null)
+                .setNegativeButton(R.string.cancel, null)
                 .show();
     }
 

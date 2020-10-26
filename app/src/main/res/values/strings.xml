@@ -34,11 +34,11 @@
     <string name="btn_add"> add fields</string>
     <string name="add_alert_title"> please enter the field name</string>
     <string name="ok"> OK</string>
-    <string name="cancle"> cancel</string>
+    <string name="cancel">cancel</string>
     <string name="reset"> reset field </string>
     <string name="title_menu_clear">clear cache</string>
     <string name="cache_cleared_tip"> cache has been cleared </string>
-    <string name="loading"> loading...</string>
+    <string name="loading">loading...</string>
     <string name="url_empty_tip"> link cannot be empty </string>
     <string name="url_illegal_tip"> link format is incorrect </string>
     <string name="request_fail_tip"> request failed: </string>
@@ -49,4 +49,7 @@
     <string name="vpn_is_on">vpn is ON</string>
     <string name="vpn_image">vpn_image</string>
     <string name="night_mode">Night mode</string>
+    <string name="data_icon">data icon</string>
+    <string name="request_button">request button</string>
+    <string name="app_icon">app icon</string>
 </resources>

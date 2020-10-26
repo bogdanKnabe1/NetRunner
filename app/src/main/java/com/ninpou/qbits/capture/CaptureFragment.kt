@@ -1,5 +1,6 @@
 package com.ninpou.qbits.capture
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
@@ -13,6 +14,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.cardview.widget.CardView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -94,6 +96,7 @@ class CaptureFragment : Fragment() {
         return true
     }
 
+    @SuppressLint("CommitPrefEdits")
     private fun sharedPrefsInit() {
         val appSettingPref: SharedPreferences = requireActivity().getSharedPreferences("AppSettingPrefs", 0)
         sharedPrefsEdit = appSettingPref.edit()
@@ -152,20 +155,20 @@ class CaptureFragment : Fragment() {
                     tipTextView!!.visibility = View.VISIBLE
                     cloudImage!!.visibility = View.VISIBLE
                 }
-                adapter!!.notifyDataSetChanged()
+                adapter?.notifyDataSetChanged()
             }
         }
         event.setOnStartListener {
-            animationViewStartCapture!!.visibility = View.GONE
+            animationViewStartCapture?.visibility = View.GONE
             //Make animation + change color
-            cardViewStartStopButton!!.setCardBackgroundColor(resources.getColor(R.color.stop))
-            animationViewStopCapture!!.visibility = View.VISIBLE
+            cardViewStartStopButton?.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.stop))
+            animationViewStopCapture?.visibility = View.VISIBLE
         }
         event.setOnStopListener {
-            cardViewStartStopButton!!.setCardBackgroundColor(resources.getColor(R.color.start))
-            animationViewStartCapture!!.visibility = View.VISIBLE
+            cardViewStartStopButton?.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.start))
+            animationViewStartCapture?.visibility = View.VISIBLE
             //Make animation
-            animationViewStopCapture!!.visibility = View.GONE
+            animationViewStopCapture?.visibility = View.GONE
         }
     }
 
@@ -200,7 +203,7 @@ class CaptureFragment : Fragment() {
             }
             buttonStateStart = !buttonStateStart
         }
-        adapter?.setOnItemClickListener(OnItemClickListener { parent, view, position, id ->
+        adapter?.setOnItemClickListener(OnItemClickListener { _, _, position, _ ->
             if (sessionList.size == 0) return@OnItemClickListener
             val session = sessionList[position]
             val dir = StringBuilder()

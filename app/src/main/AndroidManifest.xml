@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".QbitsApp"
         android:allowBackup="false"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher_new"
@@ -17,29 +16,35 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".tool.VpnActivity"
+        <activity
+            android:name=".tool.VpnActivity"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/noActionBar"
-            android:parentActivityName=".MainActivity"/>
+            android:theme="@style/noActionBar" />
         <activity
             android:name=".capture.PacketDetailActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".tool.PingActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".tool.TimestampActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".tool.Md5Activity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".tool.Base64CoderActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".tool.UrlCoderActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tool.PingActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".tool.TimestampActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".tool.Md5Activity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".tool.Base64CoderActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".tool.UrlCoderActivity"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".request.ResponseActivity"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.AppBarOverlay"
-            android:parentActivityName=".MainActivity"/>
+            android:theme="@style/AppTheme.AppBarOverlay" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

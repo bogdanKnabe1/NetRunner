@@ -1,9 +1,11 @@
 package com.ninpou.packetcapture.core.vpn;
 
-import com.ninpou.packetcapture.core.proxy_servers.TcpProxyServer;
-import com.ninpou.packetcapture.core.proxy_servers.UdpProxyServer;
+
+import com.ninpou.packetcapture.Qbits;
 import com.ninpou.packetcapture.core.nat.NatSession;
 import com.ninpou.packetcapture.core.nat.NatSessionManager;
+import com.ninpou.packetcapture.core.proxy_servers.TcpProxyServer;
+import com.ninpou.packetcapture.core.proxy_servers.UdpProxyServer;
 import com.ninpou.packetcapture.core.util.common.IOUtils;
 import com.ninpou.packetcapture.core.util.common.ThreadPool;
 import com.ninpou.packetcapture.core.util.net_utils.HttpRequestHeaderParser;
@@ -25,8 +27,6 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import top.srsea.lever.Lever;
-
 public class CoreVpnTracker implements Runnable {
     private TcpProxyServer tcpProxyServer;
     private UdpProxyServer udpProxyServer;
@@ -46,7 +46,7 @@ public class CoreVpnTracker implements Runnable {
         }
         udpProxyServer = new UdpProxyServer(udpQueue);
         udpProxyServer.start();
-        PortSessionInfoService.startParse(Lever.getContext());
+        PortSessionInfoService.startParse(Qbits.getAppContext());
     }
 
     private boolean handlePacket(byte[] data, int len) throws IOException {
@@ -175,7 +175,7 @@ public class CoreVpnTracker implements Runnable {
             tcpProxyServer.stop();
             udpProxyServer.closeAllUdpTunnel();
             NatSessionManager.clearAllSession();
-            PortSessionInfoService.stopParse(Lever.getContext());
+            PortSessionInfoService.stopParse(Qbits.getAppContext());
         }
     }
 }

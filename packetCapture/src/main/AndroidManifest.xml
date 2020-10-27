@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ninpou.packetcapture">
 
-    <application>
+    <application
+        android:name=".Qbits">
         <service
             android:name=".core.vpn.VpnServiceImpl"
             android:enabled="true"

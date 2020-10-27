@@ -1,4 +1,4 @@
-package com.ninpou.qbits.util;
+package com.ninpou.packetcapture.core.util.net_utils;
 
 import android.content.Context;
 

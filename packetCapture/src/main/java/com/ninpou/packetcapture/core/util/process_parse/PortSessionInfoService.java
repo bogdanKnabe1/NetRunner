@@ -7,12 +7,11 @@ import android.os.IBinder;
 
 import androidx.annotation.Nullable;
 
+import com.ninpou.packetcapture.Qbits;
 import com.ninpou.packetcapture.core.nat.NatSession;
 import com.ninpou.packetcapture.core.nat.NatSessionManager;
 
 import java.util.Collection;
-
-import top.srsea.lever.Lever;
 
 public class PortSessionInfoService extends Service {
     private static PortSessionInfoService instance;
@@ -86,7 +85,7 @@ public class PortSessionInfoService extends Service {
                     Integer uid = NetWorkFileManager.getInstance().getUid(searchPort);
 
                     if (uid != null) {
-                        connection.applicationInfo = ApplicationInfo.createFromUid(Lever.getContext(), uid);
+                        connection.applicationInfo = ApplicationInfo.createFromUid(Qbits.getAppContext(), uid);
                     }
                 }
             }

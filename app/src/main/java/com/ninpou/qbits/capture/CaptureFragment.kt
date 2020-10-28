@@ -9,17 +9,12 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.*
 import android.widget.AdapterView.OnItemClickListener
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.cardview.widget.CardView
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.snackbar.Snackbar
 import com.ninpou.packetcapture.core.nat.NatSession
 import com.ninpou.packetcapture.core.nat.NatSessionListHelper
@@ -27,33 +22,32 @@ import com.ninpou.packetcapture.core.util.common.TimeFormatter
 import com.ninpou.packetcapture.core.util.net_utils.TcpDataSaver
 import com.ninpou.packetcapture.core.vpn.VpnEventHandler
 import com.ninpou.packetcapture.core.vpn.VpnServiceImpl
+import com.ninpou.qbits.MainActivity
 import com.ninpou.qbits.R
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.floating_action_button.*
+import kotlinx.android.synthetic.main.floating_action_button.view.*
+import kotlinx.android.synthetic.main.fragment_capture.*
+import kotlinx.android.synthetic.main.fragment_capture.view.*
 import java.util.*
 
 class CaptureFragment : Fragment() {
     private val packets: MutableList<String> = LinkedList()
     private val sessionList: MutableList<NatSession> = ArrayList()
-    var buttonStateStart = true
-    private var tipTextView: TextView? = null
-    private var cloudImage: ImageView? = null
-    private var adapter: PacketAdapter? = null
-    private var container: CoordinatorLayout? = null
-    private val handler = Handler()
-    private var animationViewStartCapture: LottieAnimationView? = null
-    private var animationViewStopCapture: LottieAnimationView? = null
-    private var cardViewStartStopButton: CardView? = null
-    private var isNightMode = false
     private var sharedPrefsEdit: SharedPreferences.Editor? = null
+    private var adapter: PacketAdapter? = null
+    private val handler = Handler()
+    private var isNightMode = false
+    var buttonStateStart = true
 
     private fun clearCacheFinished() {
         packets.clear()
         sessionList.clear()
         adapter?.notifyDataSetChanged()
-        tipTextView?.visibility = View.VISIBLE
-        Snackbar.make(container!!, getString(R.string.cache_cleared_tip),
+        placeholder_no_data.visibility = View.VISIBLE
+        Snackbar.make(container, getString(R.string.cache_cleared_tip),
                 Snackbar.LENGTH_SHORT).show()
     }
 
@@ -67,9 +61,15 @@ class CaptureFragment : Fragment() {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_capture, container, false)
         initView(rootView)
+
+        return rootView
+    }
+
+    //To properly init view's and wait getView() call on each synthetic view
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         clearCacheFinished()
         sharedPrefsInit()
-        return rootView
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -104,22 +104,22 @@ class CaptureFragment : Fragment() {
 
         if (isNightMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            cloudImage?.setImageResource(R.drawable.ic_no_data_white)
+            cloud_img_no_data.setImageResource(R.drawable.ic_no_data_white)
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            cloudImage?.setImageResource(R.drawable.ic_no_data)
+            cloud_img_no_data.setImageResource(R.drawable.ic_no_data)
         }
     }
 
     private fun darkMode() {
         if (isNightMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            cloudImage?.setImageResource(R.drawable.ic_no_data)
+            cloud_img_no_data.setImageResource(R.drawable.ic_no_data)
             sharedPrefsEdit?.putBoolean("NightMode", false)
             sharedPrefsEdit?.apply()
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            cloudImage?.setImageResource(R.drawable.ic_no_data_white)
+            cloud_img_no_data.setImageResource(R.drawable.ic_no_data_white)
             sharedPrefsEdit?.putBoolean("NightMode", true)
             sharedPrefsEdit?.apply()
         }
@@ -149,26 +149,26 @@ class CaptureFragment : Fragment() {
                     }
                 }
                 if (packets.size > 0) {
-                    tipTextView!!.visibility = View.GONE
-                    cloudImage!!.visibility = View.GONE
+                    placeholder_no_data.visibility = View.GONE
+                    cloud_img_no_data.visibility = View.GONE
                 } else {
-                    tipTextView!!.visibility = View.VISIBLE
-                    cloudImage!!.visibility = View.VISIBLE
+                    placeholder_no_data.visibility = View.VISIBLE
+                    cloud_img_no_data.visibility = View.VISIBLE
                 }
                 adapter?.notifyDataSetChanged()
             }
         }
         event.setOnStartListener {
-            animationViewStartCapture?.visibility = View.GONE
+            start_capture.visibility = View.GONE
             //Make animation + change color
-            cardViewStartStopButton?.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.stop))
-            animationViewStopCapture?.visibility = View.VISIBLE
+            cardViewStartStop.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.stop))
+            stop_capture.visibility = View.VISIBLE
         }
         event.setOnStopListener {
-            cardViewStartStopButton?.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.start))
-            animationViewStartCapture?.visibility = View.VISIBLE
+            cardViewStartStop.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.start))
+            start_capture.visibility = View.VISIBLE
             //Make animation
-            animationViewStopCapture?.visibility = View.GONE
+            stop_capture.visibility = View.GONE
         }
     }
 
@@ -180,22 +180,18 @@ class CaptureFragment : Fragment() {
     private fun initView(root: View) {
         adapter = PacketAdapter(packets, sessionList, requireContext())
         val recyclerView: RecyclerView = root.findViewById(R.id.rv_packet)
-        tipTextView = root.findViewById(R.id.tv_tip)
-        cloudImage = root.findViewById(R.id.cloud_img_no_data)
-        container = root.findViewById(R.id.container)
-        animationViewStartCapture = root.findViewById(R.id.start_capture)
-        animationViewStopCapture = root.findViewById(R.id.stop_capture)
-        animationViewStartCapture?.setMinAndMaxProgress(0.0f, 0.90f)
-        cardViewStartStopButton = root.findViewById(R.id.cardViewStartStop)
+        root.start_capture.setMinAndMaxProgress(0.0f, 0.90f)
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         recyclerView.addItemDecoration(DividerItemDecoration(requireActivity(),
                 DividerItemDecoration.VERTICAL))
         recyclerView.adapter = adapter
+
+
         if (packets.size == 0) {
-            tipTextView?.visibility = View.VISIBLE
-            cloudImage?.visibility = View.VISIBLE
+            root.placeholder_no_data.visibility = View.VISIBLE
+            root.cloud_img_no_data.visibility = View.VISIBLE
         }
-        cardViewStartStopButton?.setOnClickListener {
+        root.cardViewStartStop.setOnClickListener {
             if (buttonStateStart) {
                 startCapture()
             } else {
@@ -203,6 +199,7 @@ class CaptureFragment : Fragment() {
             }
             buttonStateStart = !buttonStateStart
         }
+
         adapter?.setOnItemClickListener(OnItemClickListener { _, _, position, _ ->
             if (sessionList.size == 0) return@OnItemClickListener
             val session = sessionList[position]

@@ -3,9 +3,9 @@ package com.ninpou.packetcapture;
 import android.app.Application;
 import android.content.Context;
 
-public class Qbits extends Application {
+public class QbitsApp extends Application {
 
-    private static Qbits mInstance;
+    private static QbitsApp mInstance;
 
     @Override
     public void onCreate() {

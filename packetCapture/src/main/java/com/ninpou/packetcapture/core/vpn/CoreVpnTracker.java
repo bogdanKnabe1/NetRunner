@@ -1,7 +1,7 @@
 package com.ninpou.packetcapture.core.vpn;
 
 
-import com.ninpou.packetcapture.Qbits;
+import com.ninpou.packetcapture.QbitsApp;
 import com.ninpou.packetcapture.core.nat.NatSession;
 import com.ninpou.packetcapture.core.nat.NatSessionManager;
 import com.ninpou.packetcapture.core.proxy_servers.TcpProxyServer;
@@ -46,7 +46,7 @@ public class CoreVpnTracker implements Runnable {
         }
         udpProxyServer = new UdpProxyServer(udpQueue);
         udpProxyServer.start();
-        PortSessionInfoService.startParse(Qbits.getAppContext());
+        PortSessionInfoService.startParse(QbitsApp.getAppContext());
     }
 
     private boolean handlePacket(byte[] data, int len) throws IOException {
@@ -175,7 +175,7 @@ public class CoreVpnTracker implements Runnable {
             tcpProxyServer.stop();
             udpProxyServer.closeAllUdpTunnel();
             NatSessionManager.clearAllSession();
-            PortSessionInfoService.stopParse(Qbits.getAppContext());
+            PortSessionInfoService.stopParse(QbitsApp.getAppContext());
         }
     }
 }

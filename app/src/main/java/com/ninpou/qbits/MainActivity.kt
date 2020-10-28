@@ -1,18 +1,18 @@
 package com.ninpou.qbits
 
 import android.os.Bundle
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ninpou.qbits.capture.CaptureFragment
 import com.ninpou.qbits.request.RequestFragment
-import com.ninpou.qbits.tool.ToolFragment
 
 
 class MainActivity : BaseActivity() {
     private val fragments = arrayOf(
             CaptureFragment.newInstance(),
             RequestFragment.newInstance(),
-            ToolFragment.newInstance()
+            MainFragment.newInstance()
     )
     private var lastFragmentIndex = 0
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -40,6 +40,7 @@ class MainActivity : BaseActivity() {
         val actionBar = supportActionBar
         actionBar?.title = "NetRunner"
         actionBar?.setDisplayShowHomeEnabled(true)
+
     }
 
     private fun initView() {

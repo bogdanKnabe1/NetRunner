@@ -14,9 +14,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-
 class VpnActivity : AppCompatActivity() {
-    private val KEY_CMD = "key_cmd"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vpn)
@@ -96,5 +95,9 @@ class VpnActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
+    }
+
+    companion object {
+        private const val KEY_CMD = "key_cmd"
     }
 }

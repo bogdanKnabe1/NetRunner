@@ -18,7 +18,6 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".tool.VpnActivity"
-            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/noActionBar" />
         <activity
@@ -27,9 +26,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".tool.PingActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".tool.TimestampActivity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".tool.Md5Activity"

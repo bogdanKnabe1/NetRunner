@@ -1,13 +1,12 @@
 package com.ninpou.packetcapture.core.util.net_utils;
 
-import com.ninpou.packetcapture.Qbits;
+import com.ninpou.packetcapture.QbitsApp;
 import com.ninpou.packetcapture.core.util.common.ThreadPool;
 
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.RandomAccessFile;
-import java.util.Objects;
 
 
 /**
@@ -20,7 +19,7 @@ import java.util.Objects;
 public class TcpDataSaver {
     public static final String REQUEST = "request";
     public static final String RESPONSE = "response";
-    private static final String BASE_DIR = Qbits.getAppContext().getFilesDir() + "/Stream/";
+    private static final String BASE_DIR = QbitsApp.getAppContext().getFilesDir() + "/Stream/";
     public static final String DATA_DIR = BASE_DIR + "data/";
     public static final String CONFIG_DIR = BASE_DIR + "config/";
     private int requestNum = 0;

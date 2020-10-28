@@ -26,7 +26,7 @@ class PacketDetailActivity : BaseActivity() {
             override fun run() {
                 val file = File(dir)
                 val files = file.listFiles() ?: return
-                Arrays.sort(files) { o1, o2 -> java.lang.Long.compare(o1.lastModified(), o2.lastModified()) }
+                Arrays.sort(files) { o1, o2 -> o1.lastModified().compareTo(o2.lastModified()) }
                 for (item in files) {
                     val data = TcpDataLoader.loadSaveFile(item) ?: continue
                     if (data.isRequest) {

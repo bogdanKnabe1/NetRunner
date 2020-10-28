@@ -3,7 +3,7 @@
     package="com.ninpou.packetcapture">
 
     <application
-        android:name=".Qbits">
+        android:name=".QbitsApp">
         <service
             android:name=".core.vpn.VpnServiceImpl"
             android:enabled="true"

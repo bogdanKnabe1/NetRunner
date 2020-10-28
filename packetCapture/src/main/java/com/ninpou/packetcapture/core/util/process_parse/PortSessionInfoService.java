@@ -7,7 +7,7 @@ import android.os.IBinder;
 
 import androidx.annotation.Nullable;
 
-import com.ninpou.packetcapture.Qbits;
+import com.ninpou.packetcapture.QbitsApp;
 import com.ninpou.packetcapture.core.nat.NatSession;
 import com.ninpou.packetcapture.core.nat.NatSessionManager;
 
@@ -85,7 +85,7 @@ public class PortSessionInfoService extends Service {
                     Integer uid = NetWorkFileManager.getInstance().getUid(searchPort);
 
                     if (uid != null) {
-                        connection.applicationInfo = ApplicationInfo.createFromUid(Qbits.getAppContext(), uid);
+                        connection.applicationInfo = ApplicationInfo.createFromUid(QbitsApp.getAppContext(), uid);
                     }
                 }
             }

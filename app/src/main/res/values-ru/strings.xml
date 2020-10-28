@@ -51,4 +51,6 @@
     <string name = "vpn_image"> vpn_image </string>
     <string name = "night_mode"> Ночной режим </string>
     <string name="data_icon">иконка данных</string>
+    <string name="request_button">кнопка запроса</string>
+    <string name="app_icon">иконка приложения</string>
 </resources>

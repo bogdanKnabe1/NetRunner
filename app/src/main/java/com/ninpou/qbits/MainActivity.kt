@@ -66,4 +66,6 @@ class MainActivity : BaseActivity() {
         lastFragmentIndex = index
         transaction.commitAllowingStateLoss()
     }
+
+    // new method for passData between fragments, with help of activity MAIN
 }

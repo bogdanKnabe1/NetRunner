@@ -8,6 +8,7 @@ import com.ninpou.qbits.R
 import java.io.File
 import java.util.*
 
+//change to fragment and get data through Bundle args = getArguments()
 class PacketDetailActivity : BaseActivity() {
     private var requestTextView: TextView? = null
     private var responseTextView: TextView? = null

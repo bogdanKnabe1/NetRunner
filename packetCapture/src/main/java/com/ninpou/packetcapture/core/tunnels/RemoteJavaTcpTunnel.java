@@ -16,6 +16,9 @@ import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.Selector;
 
+/**
+ * Used for tunnel from tcp server to target server
+ */
 public class RemoteJavaTcpTunnel extends RawJavaTcpTunnel {
     private final Handler handler;
     TcpDataSaver helper;
@@ -23,7 +26,9 @@ public class RemoteJavaTcpTunnel extends RawJavaTcpTunnel {
 
     public RemoteJavaTcpTunnel(InetSocketAddress serverAddress, Selector selector, short portKey) throws IOException {
         super(serverAddress, selector, portKey);
+        // Obtain the corresponding session information according to the port of the app used
         session = NatSessionManager.getSession(portKey);
+        // Save this session to this directory
         String dir = new StringBuilder()
                 .append(TcpDataSaver.DATA_DIR)
                 .append(TimeFormatter.formatToYYMMDDHHMMSS(session.vpnStartTime))
@@ -32,9 +37,7 @@ public class RemoteJavaTcpTunnel extends RawJavaTcpTunnel {
                 .toString();
         helper = new TcpDataSaver(dir);
         handler = new Handler(Looper.getMainLooper());
-
     }
-
 
     @Override
     protected void afterReceived(ByteBuffer buffer) throws Exception {

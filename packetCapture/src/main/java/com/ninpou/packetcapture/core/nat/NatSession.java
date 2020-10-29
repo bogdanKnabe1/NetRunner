@@ -13,15 +13,24 @@ public class NatSession implements Serializable {
     public String type;
     public String ipAndPort;
     public int remoteIP;
+    // The port number of the address to be accessed
     public short remotePort;
     public String remoteHost;
     public short localPort;
+    // How much data has been uploaded (IP datagram or TCP datagram header is not included)
     public int bytesSent;
+    /**
+     * Record how many network packets have been sent in the current network session
+     */
     public int packetSent;
     public long receiveByteNum;
     public long receivePacketNum;
     public long lastRefreshTime;
     public boolean isHttpsSession;
+    /// The url that the user intends to visit,
+    // but does not include the port number,
+    // for example: the user is visiting http://192.168.100.103:901/?a=2 then here will
+    // Becomes http://192.168.100.103/?a=2
     public String requestUrl;
     public String pathUrl;
     public String method;

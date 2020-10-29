@@ -26,7 +26,9 @@ public class TcpPacketHeader {
     static final short offset_crc = 16; //16-bit checksum
     static final short offset_urp = 18; //16-bit emergency offset
 
+    // ip message data
     public byte[] data;
+    // The offset of the tcp message relative to the ip message (unit: byte), generally 20, it must be set again after receiving the ip message
     public int offset;
 
     public TcpPacketHeader(byte[] data, int offset) {
@@ -34,6 +36,11 @@ public class TcpPacketHeader {
         this.offset = offset;
     }
 
+    /**
+     * After removing the lower 4 bits is the length of the header of the tcp message, each of which represents 4 bytes
+     * So a total of 1111 (binary) * 4 = 60 bytes
+     * @return
+     */
     public int getHeaderLength() {
         int lenres = data[offset + offset_lenres] & 0xFF;
         return (lenres >> 4) * 4;

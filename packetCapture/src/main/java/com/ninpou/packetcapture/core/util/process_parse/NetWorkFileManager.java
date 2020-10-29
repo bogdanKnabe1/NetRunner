@@ -25,6 +25,9 @@ public class NetWorkFileManager {
     private final static int DATA_LOCAL = 2;
     private final static int DATA_REMOTE = 3;
     private final static int DATA_UID = 8;
+    /**
+     * key: the port number used by the app process (sourcePort) value: UID
+     */
     private Map<Integer, Integer> processHost = new ConcurrentHashMap<>();
     private File[] file;
     private long[] lastTime;
@@ -51,6 +54,7 @@ public class NetWorkFileManager {
         file[5] = new File(PATH_RAW6);
 
         lastTime = new long[TYPE_MAX];
+        // Initialize each value in lastTime
         Arrays.fill(lastTime, 0);
     }
 
@@ -79,6 +83,15 @@ public class NetWorkFileManager {
         }
     }
 
+    /**
+     * Convert a string to int data, and return the default value iDefault when the incoming string str is null. One of the functions in this class is:
+     * Convert the port number in string format obtained from the ip address to int type
+     *
+     * @paramStr The string type of the port number, generally four digits in hexadecimal xxxx.
+     * @paramIHex str is in decimal
+     * @paramIDefault The default return value if str is null
+     * @return
+     */
     private int strToInt(String value, int iHex, int iDefault) {
         int iValue = iDefault;
         if (value == null) {
@@ -109,6 +122,18 @@ public class NetWorkFileManager {
         return iValue;
     }
 
+
+    /**
+     * This is an example of this app accessing github in the tcp6 file, where 10126 is the verified uid of this app.
+     * Each piece of information read is (in quotation marks):
+     * "3: 0000000000000000FFFF00000F03000A:C204 0000000000000000FFFF000075D06071:0050 08 00000000:00000001 00:00000000 00000000 10126 0 38012 1 00000000 20 4 26 10 -1"
+     * 0 1 2 3 4 5 6 7 8
+     * Note: Since the string will be intercepted with spaces, the starting position of "3:" is 1.
+     * Because some items have more than one space, we cannot simply use "" to distinguish them. Here we use regular expressions:
+     * \s+ separated. You can separate multiple or one space.
+     * The third item is the remote IP address and port item, and the eighth item is UID
+     *
+     */
     private NetworkInfo parseDataNew(String sData) {
         String sSplitItem[] = sData.split("\\s+");
         String sTmp = null;
@@ -117,14 +142,14 @@ public class NetWorkFileManager {
         }
 
         NetworkInfo networkInfo = new NetworkInfo();
-
+        // Get local ip and port number
         sTmp = sSplitItem[DATA_LOCAL];
         String sSourceItem[] = sTmp.split(":");
         if (sSourceItem.length < 2) {
             return null;
         }
         networkInfo.setSourPort(strToInt(sSourceItem[1], 16, 0));
-
+        // 取得远程 ip 和 端口号
 
         sTmp = sSplitItem[DATA_REMOTE];
         String sDesItem[] = sTmp.split(":");
@@ -132,9 +157,12 @@ public class NetWorkFileManager {
             return null;
         }
         networkInfo.setPort(strToInt(sDesItem[1], 16, 0));
-
-
+        /**
+         * The last 8 bits of the ip address are intercepted to adapt to IPv6. It should be that this address is very long in IPv6,
+         * See the comment of {@link #parseDataNew(String)} for details
+         */
         sTmp = sDesItem[0];
+        // Convert the ip address to long and save
         int len = sTmp.length();
         if (len < 8) {
             return null;
@@ -144,6 +172,7 @@ public class NetWorkFileManager {
         networkInfo.setIp(strToLong(sTmp, 16, 0));
 
         sbBuilder.setLength(0);
+        // Get an ip address like 192.168.1.1
         sbBuilder.append(strToInt(sTmp.substring(6, 8), 16, 0))
                 .append(".")
                 .append(strToInt(sTmp.substring(4, 6), 16, 0))
@@ -172,6 +201,11 @@ public class NetWorkFileManager {
         processHost.put(networkInfo.getSourPort(), networkInfo.getUid());
     }
 
+    /**
+     * Refresh the correspondence between app network request port and uid according to protocol type type
+     *
+     * @param type
+     */
     public void read(int type) {
         try {
             switch (type) {
@@ -208,6 +242,10 @@ public class NetWorkFileManager {
         }
     }
 
+    /**
+     * When the Android system has a network request, the configuration file will be changed. If it detects that the last modification time of the configuration file has changed, it will refresh
+     * Information in the corresponding file. Because the initial value of {@linkplain #lastTime} is 0, all configuration files will be traversed the first time it is called
+     */
     public void refresh() {
         for (int i = 0; i < TYPE_MAX; i++) {
             long iTime = file[i].lastModified();
@@ -218,6 +256,12 @@ public class NetWorkFileManager {
         }
     }
 
+    /**
+     * Return the uid of the process according to sourcePort (the port used by the process to access the network)
+     *
+     * @paramSourcePort
+     * @return
+     */
     public Integer getUid(int port) {
         return processHost.get(port);
     }

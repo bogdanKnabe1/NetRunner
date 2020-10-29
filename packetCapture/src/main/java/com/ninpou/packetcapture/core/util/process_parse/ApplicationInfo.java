@@ -47,10 +47,12 @@ public class ApplicationInfo implements Serializable {
                                     appName = appPackageInfo.applicationInfo.loadLabel(pm).toString();
                                 }
                                 if (appName == null || appName.equals("")) {
+                                    // If the app name is empty, replace it with the package name
                                     appName = pkgName;
                                 }
                                 list.add(new Entry(appName, pkgName));
                             } catch (PackageManager.NameNotFoundException e) {
+                                // When the app corresponding to the package name is not found on the mobile phone system
                                 list.add(new Entry(pkgName, pkgName));
                             }
                         }
@@ -62,6 +64,7 @@ public class ApplicationInfo implements Serializable {
             }
         }
         if (list.size() == 0) {
+            // list.size() is 0 only when uid <= 0, and the default is system
             list.add(new Entry("System", "root.uid=0"));
         }
         Collections.sort(list, new Comparator<Entry>() {

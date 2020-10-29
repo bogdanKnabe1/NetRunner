@@ -221,6 +221,7 @@ class CaptureFragment : Fragment() {
             buttonStateStart = !buttonStateStart
         }
 
+        //pass data to fragmentDetail + Open new Fragment through button click
         adapter?.setOnItemClickListener(OnItemClickListener { _, _, position, _ ->
             if (sessionList.size == 0) return@OnItemClickListener
             val session = sessionList[position]

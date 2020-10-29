@@ -41,7 +41,6 @@ public class ResponseActivity extends BaseActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
     }
 
-
     public static class ContentFragment extends Fragment {
         private static final String KEY_TEXT = "key_text";
 

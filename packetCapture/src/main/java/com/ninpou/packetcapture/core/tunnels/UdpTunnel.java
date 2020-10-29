@@ -74,6 +74,7 @@ public class UdpTunnel implements KeyHandler {
 
     private void processReceived() {
         ByteBuffer receiveBuffer = ByteBuffer.allocate(VpnProxyServer.getMtu());
+        // Leave space for the header
         receiveBuffer.position(HEADER_SIZE);
         int readBytes;
         try {
@@ -173,6 +174,7 @@ public class UdpTunnel implements KeyHandler {
             if (session.applicationInfo == null && PortSessionInfoService.getInstance() != null) {
                 PortSessionInfoService.getInstance().refreshSessionInfo();
             }
+            // Need to delay one second before saving and wait until the app information is completely refreshed
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -188,6 +190,7 @@ public class UdpTunnel implements KeyHandler {
                             if (!parentFile.exists()) {
                                 parentFile.mkdirs();
                             }
+                            //Said it has been saved
                             File file = new File(parentFile, session.getUniqueName());
                             if (file.exists()) {
                                 return;

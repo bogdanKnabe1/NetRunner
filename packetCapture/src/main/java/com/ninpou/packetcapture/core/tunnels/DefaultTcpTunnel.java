@@ -17,18 +17,24 @@ public abstract class DefaultTcpTunnel implements KeyHandler {
 
     public static long sessionCount;
     protected InetSocketAddress destAddress;
+    // The data sent by the user is transformed into a channel sent to the tcp server
     ConcurrentLinkedQueue<ByteBuffer> needWriteData = new ConcurrentLinkedQueue<>();
     private short portKey;
     private SocketChannel innerChannel;
-
+    /**
+     * Send data buffer
+     */
     private Selector selector;
 
     private boolean isHttpsRequest = false;
-
+    // Two Tunnels are responsible for communication with the external network, one is responsible for the communication between Apps and TCP proxy server, and the other is responsible for TCP proxy server
+    // The communication with the external network server, the data exchange between Apps and the external network server is carried out by these two tunnels; these two tunnels are brothers to each other and must
+    // assign mBrotherTunnel to the other party
     private DefaultTcpTunnel brotherTunnel;
     private boolean disposed;
+    // Used to save the connection information from the tcp server to the target server
     private InetSocketAddress serverEP;
-
+    // The port of the target server
     public DefaultTcpTunnel(SocketChannel innerChannel, Selector selector) {
         this.innerChannel = innerChannel;
         this.selector = selector;
@@ -70,10 +76,23 @@ public abstract class DefaultTcpTunnel implements KeyHandler {
         this.brotherTunnel = brotherTunnel;
     }
 
+    /**
+     * Method calling sequence:
+     * connect() -> onKeyReady() -> onConnectable() -> onConnected()[Subclass implementation] -> onTunnelEstablished
+     * beginReceived() -> onReadable() -> afterReceived()[Subclass implementation]
+     */
 
+        /**
+         * Used to connect the local tcp server to the target server, there is no need to go vpn here, because the data sent by the user has been modified
+         * @param destAddress
+         * @throws Exception
+         */
     public void connect(InetSocketAddress destAddress) throws Exception {
+        //Protect the socket from VPN
         if (VpnProxyServer.protect(innerChannel.socket())) {
             this.destAddress = destAddress;
+            // Register the connection event, SelectionKey will bind the link from the local tcp server to the target server,
+            // but not the link from the user app to the local tcp server
             innerChannel.register(selector, SelectionKey.OP_CONNECT, this);
             innerChannel.connect(serverEP);
         } else {
@@ -82,8 +101,11 @@ public abstract class DefaultTcpTunnel implements KeyHandler {
     }
 
     public void onConnectable() {
+        // Check whether the SocketChannel that is connecting to the socket has been connected
+        // is true if, and only if, this channel's socket is now connected
         try {
             if (innerChannel.finishConnect()) {
+                // Notify the subclass that TCP is connected, the subclass can implement handshake etc. according to the protocol
                 onConnected();
             } else {
                 dispose();
@@ -164,6 +186,7 @@ public abstract class DefaultTcpTunnel implements KeyHandler {
 
     public void onWritable(SelectionKey key) {
         try {
+            //Before sending, let the subclass handle it, such as encryption
             ByteBuffer mSendRemainBuffer = needWriteData.poll();
             if (mSendRemainBuffer == null) {
                 return;

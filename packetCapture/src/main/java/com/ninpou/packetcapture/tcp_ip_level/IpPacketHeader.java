@@ -8,8 +8,10 @@ import java.util.Locale;
  * Low-level java networking structure
  * */
 public class IpPacketHeader {
+    // The serial numbers here are all byte positions
     public static final short IP = 0x0800;
     public static final byte ICMP = 1;
+
     public static final byte TCP = 6; //6: TCP protocol number
     public static final byte UDP = 17; //17: UDP protocol number
     public static final byte offset_proto = 9; //9: 8-bit protocol offset
@@ -24,6 +26,7 @@ public class IpPacketHeader {
     static final short offset_crc = 10; //10: first checksum offset
     static final int offset_op_pad = 20; //20: option + padding
 
+    // ip message data
     public byte[] data;
     public int offset;
 
@@ -35,11 +38,16 @@ public class IpPacketHeader {
     public int getDataLength() {
         return this.getTotalLength() - this.getHeaderLength();
     }
-
+    /**
+     * Header length, mData[mOffset + offset_ver_ihl] & 0x0F Only the last 4 bits are reserved
+     * (mData[mOffset + offset_ver_ihl] & 0x0F) * 4 times 4 means that each bit represents 4 bytes,
+     * A total of 1111 (binary) * 4 = 60 bytes, so the ip header can be up to 60 bytes
+     * @return
+     */
     public int getHeaderLength() {
         return (data[offset + offset_ver_ihl] & 0x0F) * 4;
     }
-
+    // 4 << 4 means the version is IPv4
     public void setHeaderLength(int value) {
         data[offset + offset_ver_ihl] = (byte) ((4 << 4) | (value / 4));
     }

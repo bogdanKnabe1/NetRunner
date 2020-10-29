@@ -30,13 +30,13 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class CoreVpnTracker implements Runnable {
     private TcpProxyServer tcpProxyServer;
     private UdpProxyServer udpProxyServer;
-    private OutputStream out;
-    private InputStream in;
+    private OutputStream outPutStream;
+    private InputStream inPutStream;
     private ConcurrentLinkedQueue<Packet> udpQueue;
 
     CoreVpnTracker(FileDescriptor fd) {
-        in = new FileInputStream(fd);
-        out = new FileOutputStream(fd);
+        inPutStream = new FileInputStream(fd);
+        outPutStream = new FileOutputStream(fd);
         udpQueue = new ConcurrentLinkedQueue<>();
         try {
             tcpProxyServer = new TcpProxyServer(0);
@@ -53,15 +53,15 @@ public class CoreVpnTracker implements Runnable {
         IpPacketHeader ipPacketHeader = new IpPacketHeader(data, 0);
         switch (ipPacketHeader.getProtocol()) {
             case IpPacketHeader.TCP:
-                return handleTcpPacket(ipPacketHeader, len);
+                return disassembleTcpPacket(ipPacketHeader, len);
             case IpPacketHeader.UDP:
-                return handleUdpPacket(ipPacketHeader, len);
+                return disassembleUdpPacket(ipPacketHeader, len);
             default:
                 return false;
         }
     }
 
-    private boolean handleTcpPacket(IpPacketHeader ipPacketHeader, int len) throws IOException {
+    private boolean disassembleTcpPacket(IpPacketHeader ipPacketHeader, int len) throws IOException {
         TcpPacketHeader tcpPacketHeader = new TcpPacketHeader(ipPacketHeader.data, ipPacketHeader.getHeaderLength());
         short srcPort = tcpPacketHeader.getSourcePort();
         if (srcPort == tcpProxyServer.getPort()) {
@@ -71,7 +71,7 @@ public class CoreVpnTracker implements Runnable {
                 tcpPacketHeader.setSourcePort(session.remotePort);
                 ipPacketHeader.setDestinationIP(Packets.ipToInt(VpnProxyServer.getAddress()));
                 Packets.computeTcpChecksum(ipPacketHeader, tcpPacketHeader);
-                out.write(ipPacketHeader.data, ipPacketHeader.offset, len);
+                outPutStream.write(ipPacketHeader.data, ipPacketHeader.offset, len);
             }
         } else {
             NatSession session = NatSessionManager.getSession(srcPort);
@@ -115,14 +115,14 @@ public class CoreVpnTracker implements Runnable {
             ipPacketHeader.setDestinationIP(Packets.ipToInt(VpnProxyServer.getAddress()));
             tcpPacketHeader.setDestinationPort(tcpProxyServer.getPort());
             Packets.computeTcpChecksum(ipPacketHeader, tcpPacketHeader);
-            out.write(ipPacketHeader.data, ipPacketHeader.offset, len);
+            outPutStream.write(ipPacketHeader.data, ipPacketHeader.offset, len);
             session.bytesSent += tcpDataSize;
         }
         VpnEventHandler.getInstance().notifyReceive();
         return true;
     }
 
-    private boolean handleUdpPacket(IpPacketHeader ipPacketHeader, int len) throws UnknownHostException {
+    private boolean disassembleUdpPacket(IpPacketHeader ipPacketHeader, int len) throws UnknownHostException {
         UdpPacketHeader udpPacketHeader = new UdpPacketHeader(ipPacketHeader.data, ipPacketHeader.getHeaderLength());
         short srcPort = udpPacketHeader.getSourcePort();
         NatSession session = NatSessionManager.getSession(srcPort);
@@ -155,7 +155,7 @@ public class CoreVpnTracker implements Runnable {
         byte[] buf = new byte[VpnServiceImpl.MTU];
         try {
             while (!Thread.interrupted()) {
-                int len = in.read(buf);
+                int len = inPutStream.read(buf);
                 if (len == 0) {
                     Thread.sleep(10);
                     continue;
@@ -166,12 +166,12 @@ public class CoreVpnTracker implements Runnable {
                     Packet packet = udpQueue.poll();
                     if (packet == null) continue;
                     ByteBuffer buffer = packet.backingBuffer;
-                    out.write(buffer.array());
+                    outPutStream.write(buffer.array());
                 }
             }
         } catch (IOException | InterruptedException ignored) {
         } finally {
-            IOUtils.close(in, out);
+            IOUtils.close(inPutStream, outPutStream);
             tcpProxyServer.stop();
             udpProxyServer.closeAllUdpTunnel();
             NatSessionManager.clearAllSession();

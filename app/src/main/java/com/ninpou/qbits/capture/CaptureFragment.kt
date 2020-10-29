@@ -5,6 +5,8 @@ import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.VpnService
+import android.os.Build
+import android.os.Build.VERSION_CODES.Q
 import android.os.Bundle
 import android.os.Handler
 import android.view.*
@@ -61,7 +63,6 @@ class CaptureFragment : Fragment() {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_capture, container, false)
         initView(rootView)
-
         return rootView
     }
 
@@ -98,16 +99,19 @@ class CaptureFragment : Fragment() {
 
     @SuppressLint("CommitPrefEdits")
     private fun sharedPrefsInit() {
-        val appSettingPref: SharedPreferences = requireActivity().getSharedPreferences("AppSettingPrefs", 0)
-        sharedPrefsEdit = appSettingPref.edit()
-        isNightMode = appSettingPref.getBoolean("NightMode", false)
+        // forcedark for Q and higher. Lower then Q would set dark theme with help of action bar button.
+        if (Build.VERSION.SDK_INT < Q) {
+            val appSettingPref: SharedPreferences = requireActivity().getSharedPreferences("AppSettingPrefs", 0)
+            sharedPrefsEdit = appSettingPref.edit()
+            isNightMode = appSettingPref.getBoolean("NightMode", false)
 
-        if (isNightMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            cloud_img_no_data.setImageResource(R.drawable.ic_no_data_white)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            cloud_img_no_data.setImageResource(R.drawable.ic_no_data)
+            if (isNightMode) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                cloud_img_no_data.setImageResource(R.drawable.ic_no_data_white)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                cloud_img_no_data.setImageResource(R.drawable.ic_no_data)
+            }
         }
     }
 
@@ -185,7 +189,6 @@ class CaptureFragment : Fragment() {
         recyclerView.addItemDecoration(DividerItemDecoration(requireActivity(),
                 DividerItemDecoration.VERTICAL))
         recyclerView.adapter = adapter
-
 
         if (packets.size == 0) {
             root.placeholder_no_data.visibility = View.VISIBLE

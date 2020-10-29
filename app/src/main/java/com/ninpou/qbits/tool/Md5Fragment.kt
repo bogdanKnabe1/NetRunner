@@ -8,44 +8,33 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ninpou.qbits.MainActivity
 import com.ninpou.qbits.R
-import kotlinx.android.synthetic.main.fragment_timestamp.view.*
-import java.text.SimpleDateFormat
-import java.util.*
+import com.ninpou.qbits.util.Md5Hash
+import kotlinx.android.synthetic.main.fragment_md5.*
+import kotlinx.android.synthetic.main.fragment_md5.view.*
 
-
-class TimestampFragment : Fragment() {
+class Md5Fragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //for action bar
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        val rootView = inflater.inflate(R.layout.fragment_timestamp, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.fragment_md5, container, false)
         initView(rootView)
 
         //Get current action bar from main activity and attach settings to action bar in fragment
         val actionBar = (activity as MainActivity).supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setTitle(R.string.title_activity_md5)
-
         return rootView
     }
 
-    //init all view's
-    private fun initView(rootView: View) {
-        rootView.btn_timestamp.setOnClickListener(View.OnClickListener {
-            val content = rootView.et_timestamp.text.toString()
+    private fun initView(root: View) {
+        root.btn_compute.setOnClickListener(View.OnClickListener {
+            val content = et_md5.text.toString()
             if (content.isEmpty()) return@OnClickListener
-            try {
-                val timestamp = content.toLong()
-                val date = Date(timestamp)
-                rootView.et_timestamp.setText(dateFormat.format(date))
-            } catch (ignored: NumberFormatException) {
-            }
+            et_md5.setText(Md5Hash.hash(content))
         })
     }
 
@@ -67,9 +56,5 @@ class TimestampFragment : Fragment() {
         actionBar?.setDisplayHomeAsUpEnabled(false)
         actionBar?.setTitle(R.string.app_name)
         setHasOptionsMenu(false)
-    }
-
-    companion object {
-        private val dateFormat = SimpleDateFormat.getDateTimeInstance()
     }
 }

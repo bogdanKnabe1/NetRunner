@@ -23,24 +23,24 @@ class ToolFragment : Fragment() {
     private fun setListenersToView(rootView: View) {
 
         rootView.card_url_coder.setOnClickListener {
-            val intent = Intent(activity, UrlCoderActivity::class.java)
-            startActivity(intent)
+            val fragment: Fragment = UrlCoderFragment()
+            replaceFragment(fragment)
         }
         rootView.card_base64.setOnClickListener {
-            val intent = Intent(activity, Base64CoderActivity::class.java)
-            startActivity(intent)
+            val fragment: Fragment = Base64CoderFragment()
+            replaceFragment(fragment)
         }
         rootView.card_md5.setOnClickListener {
-            val intent = Intent(activity, Md5Activity::class.java)
-            startActivity(intent)
+            val fragment: Fragment = Md5Fragment()
+            replaceFragment(fragment)
         }
         rootView.card_timestamp.setOnClickListener {
             val fragment: Fragment = TimestampFragment()
             replaceFragment(fragment)
         }
         rootView.card_ping.setOnClickListener {
-            val intent = Intent(activity, PingActivity::class.java)
-            startActivity(intent)
+            val fragment: Fragment = PingFragment()
+            replaceFragment(fragment)
         }
         rootView.vpn.setOnClickListener {
             val intent = Intent(activity, VpnActivity::class.java)

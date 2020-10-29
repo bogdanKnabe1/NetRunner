@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ninpou.qbits.MainActivity
 import com.ninpou.qbits.R
+import com.ninpou.qbits.util.APP_ACTIVITY
 import kotlinx.android.synthetic.main.fragment_timestamp.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,7 +29,7 @@ class TimestampFragment : Fragment() {
         initView(rootView)
 
         //Get current action bar from main activity and attach settings to action bar in fragment
-        val actionBar = (activity as MainActivity).supportActionBar
+        val actionBar = APP_ACTIVITY.supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setTitle(R.string.title_activity_md5)
 
@@ -63,7 +64,7 @@ class TimestampFragment : Fragment() {
     //detach action bar settings
     override fun onDestroyView() {
         super.onDestroyView()
-        val actionBar = (activity as MainActivity).supportActionBar
+        val actionBar = APP_ACTIVITY.supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(false)
         actionBar?.setTitle(R.string.app_name)
         setHasOptionsMenu(false)

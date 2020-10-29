@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ninpou.qbits.MainActivity
 import com.ninpou.qbits.R
+import com.ninpou.qbits.util.APP_ACTIVITY
 import kotlinx.android.synthetic.main.fragment_base64_coder.*
 import kotlinx.android.synthetic.main.fragment_base64_coder.view.*
 
@@ -25,7 +26,7 @@ class Base64CoderFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_base64_coder, container, false)
 
         //Get current action bar from main activity and attach settings to action bar in fragment
-        val actionBar = (activity as MainActivity).supportActionBar
+        val actionBar = APP_ACTIVITY.supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setTitle(R.string.title_activity_base64)
         initView(rootView)
@@ -60,7 +61,7 @@ class Base64CoderFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        val actionBar = (activity as MainActivity).supportActionBar
+        val actionBar = APP_ACTIVITY.supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(false)
         actionBar?.setTitle(R.string.app_name)
         setHasOptionsMenu(false)

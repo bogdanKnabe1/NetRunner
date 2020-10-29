@@ -21,7 +21,7 @@ class ToolFragment : Fragment() {
     }
 
     private fun setListenersToView(rootView: View) {
-
+        //set all listeners to tools cards
         rootView.card_url_coder.setOnClickListener {
             val fragment: Fragment = UrlCoderFragment()
             replaceFragment(fragment)
@@ -43,11 +43,12 @@ class ToolFragment : Fragment() {
             replaceFragment(fragment)
         }
         rootView.vpn.setOnClickListener {
+            //VPN has low level logic and can't be fragmented
             val intent = Intent(activity, VpnActivity::class.java)
             startActivity(intent)
         }
     }
-
+    //replace mechanism inside frame container
     private fun replaceFragment(someFragment: Fragment) {
         val transaction: FragmentTransaction? = fragmentManager?.beginTransaction()
         transaction?.replace(R.id.frame_container, someFragment)

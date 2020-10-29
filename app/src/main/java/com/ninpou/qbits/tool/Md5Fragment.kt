@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ninpou.qbits.MainActivity
 import com.ninpou.qbits.R
+import com.ninpou.qbits.util.APP_ACTIVITY
 import com.ninpou.qbits.util.Md5Hash
 import kotlinx.android.synthetic.main.fragment_md5.*
 import kotlinx.android.synthetic.main.fragment_md5.view.*
@@ -24,7 +25,7 @@ class Md5Fragment : Fragment() {
         initView(rootView)
 
         //Get current action bar from main activity and attach settings to action bar in fragment
-        val actionBar = (activity as MainActivity).supportActionBar
+        val actionBar = APP_ACTIVITY.supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setTitle(R.string.title_activity_md5)
         return rootView
@@ -52,7 +53,7 @@ class Md5Fragment : Fragment() {
     //detach action bar settings
     override fun onDestroyView() {
         super.onDestroyView()
-        val actionBar = (activity as MainActivity).supportActionBar
+        val actionBar = APP_ACTIVITY.supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(false)
         actionBar?.setTitle(R.string.app_name)
         setHasOptionsMenu(false)

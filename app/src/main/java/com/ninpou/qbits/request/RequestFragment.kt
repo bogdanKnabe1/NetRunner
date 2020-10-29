@@ -19,6 +19,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.ninpou.qbits.R
 import com.ninpou.qbits.util.*
 import kotlinx.android.synthetic.main.fragment_request.*
+import kotlinx.android.synthetic.main.fragment_request.view.*
 import okhttp3.*
 import java.io.IOException
 import java.util.*
@@ -46,10 +47,10 @@ class RequestFragment : Fragment() {
         } catch (e: Exception) {
             System.getProperty(KEY_USER_AGENT)
         }
-        et_user_agent.setText(userAgent)
-        et_content_type.setText(DEFAULT_CONTENT_TYPE)
-        button_send.setOnClickListener { sendRequest() }
-        spinner.onItemSelectedListener = object : OnItemSelectedListener {
+        root.et_user_agent.setText(userAgent)
+        root.et_content_type.setText(DEFAULT_CONTENT_TYPE)
+        root.button_send.setOnClickListener { sendRequest() }
+        root.spinner.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
                 method = HttpMethod.values()[position]
                 if (method == HttpMethod.GET) {
@@ -61,8 +62,8 @@ class RequestFragment : Fragment() {
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
-        btn_add.setOnClickListener { addHeader() }
-        btn_reset.setOnClickListener {
+        root.btn_add.setOnClickListener { addHeader() }
+        root.btn_reset.setOnClickListener {
             for (view in headers) {
                 ll_headers.removeView(view)
             }
@@ -96,11 +97,11 @@ class RequestFragment : Fragment() {
         val userAgent = et_user_agent.text.toString()
         val contentType = et_content_type.text.toString()
         if (url.isEmpty()) {
-            showLongToast(getString(R.string.url_empty_tip))
+            showShortToast(getString(R.string.url_empty_tip))
             return null
         }
         if (!url.matches(URL_REGEX)) {
-            showLongToast(getString(R.string.url_illegal_tip))
+            showShortToast(getString(R.string.url_illegal_tip))
             return null
         }
         val builder = Request.Builder()
@@ -114,7 +115,7 @@ class RequestFragment : Fragment() {
                 builder.addHeader(editText?.hint.toString(), editText?.text.toString())
             }
         } catch (e: IllegalArgumentException) {
-            showLongToast(getString(R.string.illegal_header_tip))
+            showShortToast(getString(R.string.illegal_header_tip))
             return null
         }
         val bodyStr = Objects.requireNonNull(et_body.text).toString()
@@ -137,7 +138,7 @@ class RequestFragment : Fragment() {
                 val message = e.message
                 handler.post {
                     progressDialog?.cancel()
-                    showLongToast(getString(R.string.request_fail_tip))
+                    showShortToast(getString(R.string.request_fail_tip))
                 }
             }
 
@@ -166,7 +167,3 @@ class RequestFragment : Fragment() {
 
 }
 
-//check match of regex
-private fun String.matches(regex: String): Boolean {
-    return true
-}

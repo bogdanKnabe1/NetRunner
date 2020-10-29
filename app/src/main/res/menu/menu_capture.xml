@@ -6,6 +6,7 @@
     <item
         android:id="@+id/dark_mode"
         android:title="@string/night_mode"
+        android:visible="true"
         android:icon="@drawable/ic_night_mode"
         android:orderInCategory="100"
         app:showAsAction="always|withText"/>

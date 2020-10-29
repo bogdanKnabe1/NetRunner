@@ -6,6 +6,8 @@ import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ninpou.qbits.capture.CaptureFragment
 import com.ninpou.qbits.request.RequestFragment
+import com.ninpou.qbits.util.APP_ACTIVITY
+import com.ninpou.qbits.util.HIDE_MENU
 
 
 class MainActivity : BaseActivity() {
@@ -36,6 +38,7 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        APP_ACTIVITY = this //getting link of current activity
         initView()
         val actionBar = supportActionBar
         actionBar?.title = "NetRunner"

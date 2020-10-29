@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.net.VpnService
 import android.os.Build
 import android.os.Build.VERSION_CODES.Q
@@ -24,8 +25,8 @@ import com.ninpou.packetcapture.core.util.common.TimeFormatter
 import com.ninpou.packetcapture.core.util.net_utils.TcpDataSaver
 import com.ninpou.packetcapture.core.vpn.VpnEventHandler
 import com.ninpou.packetcapture.core.vpn.VpnServiceImpl
-import com.ninpou.qbits.MainActivity
 import com.ninpou.qbits.R
+import com.ninpou.qbits.util.APP_ACTIVITY
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -42,7 +43,7 @@ class CaptureFragment : Fragment() {
     private var adapter: PacketAdapter? = null
     private val handler = Handler()
     private var isNightMode = false
-    var buttonStateStart = true
+    private var buttonStateStart = true
 
     private fun clearCacheFinished() {
         packets.clear()
@@ -71,11 +72,28 @@ class CaptureFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         clearCacheFinished()
         sharedPrefsInit()
+
+        APP_ACTIVITY.invalidateOptionsMenu() // now onCreateOptionsMenu(...) is called again
     }
 
+    //override options menu
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_capture, menu)
+
+        if ( Build.VERSION.SDK_INT >= Q ) {
+            val item = menu.findItem(R.id.dark_mode)
+            item.isVisible = false
+
+            val nightModeFlags = APP_ACTIVITY.resources.configuration.uiMode and
+                    Configuration.UI_MODE_NIGHT_MASK
+            when (nightModeFlags) {
+                Configuration.UI_MODE_NIGHT_YES -> cloud_img_no_data.setImageResource(R.drawable.ic_no_data_white)
+                Configuration.UI_MODE_NIGHT_NO -> cloud_img_no_data.setImageResource(R.drawable.ic_no_data)
+                /*Configuration.UI_MODE_NIGHT_UNDEFINED -> do()*/
+            }
+        }
+
         menu.getItem(1).setOnMenuItemClickListener {
             Observable
                     .create<Void> { emitter ->
@@ -99,7 +117,7 @@ class CaptureFragment : Fragment() {
 
     @SuppressLint("CommitPrefEdits")
     private fun sharedPrefsInit() {
-        // forcedark for Q and higher. Lower then Q would set dark theme with help of action bar button.
+        // force dark for Q and higher. Lower then Q would set dark theme with help of action bar button.
         if (Build.VERSION.SDK_INT < Q) {
             val appSettingPref: SharedPreferences = requireActivity().getSharedPreferences("AppSettingPrefs", 0)
             sharedPrefsEdit = appSettingPref.edit()

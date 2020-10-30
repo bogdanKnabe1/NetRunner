@@ -70,12 +70,48 @@ class CaptureFragment : Fragment() {
     //To properly init view's and wait getView() call on each synthetic view
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        clearCacheFinished()
         sharedPrefsInit()
 
         APP_ACTIVITY.invalidateOptionsMenu() // now onCreateOptionsMenu(...) is called again
     }
 
+    private fun initView(root: View) {
+        adapter = PacketAdapter(packets, sessionList, requireContext())
+        val recyclerView: RecyclerView = root.findViewById(R.id.rv_packet)
+        root.start_capture.setMinAndMaxProgress(0.0f, 0.90f)
+        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+        recyclerView.addItemDecoration(DividerItemDecoration(requireActivity(),
+                DividerItemDecoration.VERTICAL))
+        recyclerView.adapter = adapter
+
+        if (packets.size == 0) {
+            root.placeholder_no_data.visibility = View.VISIBLE
+            root.cloud_img_no_data.visibility = View.VISIBLE
+        }
+        root.cardViewStartStop.setOnClickListener {
+            if (buttonStateStart) {
+                startCapture()
+            } else {
+                stopCapture()
+            }
+            buttonStateStart = !buttonStateStart
+        }
+
+        //pass data to fragmentDetail + Open new Fragment through button click
+        adapter?.setOnItemClickListener(OnItemClickListener { _, _, position, _ ->
+            if (sessionList.size == 0) return@OnItemClickListener
+            val session = sessionList[position]
+            val dir = StringBuilder()
+                    .append(TcpDataSaver.DATA_DIR)
+                    .append(TimeFormatter.formatToYYMMDDHHMMSS(session.vpnStartTime))
+                    .append("/")
+                    .append(session.uniqueName)
+                    .toString()
+            val intent = Intent(requireActivity(), PacketDetailActivity::class.java)
+            intent.putExtra(KEY_DIR, dir)
+            startActivity(intent)
+        })
+    }
     //override options menu
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -180,6 +216,7 @@ class CaptureFragment : Fragment() {
                 adapter?.notifyDataSetChanged()
             }
         }
+
         event.setOnStartListener {
             start_capture.visibility = View.GONE
             //Make animation + change color
@@ -197,44 +234,6 @@ class CaptureFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         VpnEventHandler.getInstance().cancelAll()
-    }
-
-    private fun initView(root: View) {
-        adapter = PacketAdapter(packets, sessionList, requireContext())
-        val recyclerView: RecyclerView = root.findViewById(R.id.rv_packet)
-        root.start_capture.setMinAndMaxProgress(0.0f, 0.90f)
-        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-        recyclerView.addItemDecoration(DividerItemDecoration(requireActivity(),
-                DividerItemDecoration.VERTICAL))
-        recyclerView.adapter = adapter
-
-        if (packets.size == 0) {
-            root.placeholder_no_data.visibility = View.VISIBLE
-            root.cloud_img_no_data.visibility = View.VISIBLE
-        }
-        root.cardViewStartStop.setOnClickListener {
-            if (buttonStateStart) {
-                startCapture()
-            } else {
-                stopCapture()
-            }
-            buttonStateStart = !buttonStateStart
-        }
-
-        //pass data to fragmentDetail + Open new Fragment through button click
-        adapter?.setOnItemClickListener(OnItemClickListener { _, _, position, _ ->
-            if (sessionList.size == 0) return@OnItemClickListener
-            val session = sessionList[position]
-            val dir = StringBuilder()
-                    .append(TcpDataSaver.DATA_DIR)
-                    .append(TimeFormatter.formatToYYMMDDHHMMSS(session.vpnStartTime))
-                    .append("/")
-                    .append(session.uniqueName)
-                    .toString()
-            val intent = Intent(requireActivity(), PacketDetailActivity::class.java)
-            intent.putExtra(KEY_DIR, dir)
-            startActivity(intent)
-        })
     }
 
     private fun startCapture() {

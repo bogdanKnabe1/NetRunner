@@ -6,7 +6,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.ninpou.qbits.MainActivity
 import com.ninpou.qbits.R
 import com.ninpou.qbits.util.APP_ACTIVITY
 import kotlinx.android.synthetic.main.fragment_timestamp.view.*
@@ -31,7 +30,7 @@ class TimestampFragment : Fragment() {
         //Get current action bar from main activity and attach settings to action bar in fragment
         val actionBar = APP_ACTIVITY.supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
-        actionBar?.setTitle(R.string.title_activity_md5)
+        actionBar?.setTitle(R.string.title_fragment_timestamp)
 
         return rootView
     }

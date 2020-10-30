@@ -85,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/title_activity_timestamp"
+            android:text="@string/title_fragment_timestamp"
             android:fontFamily="@font/googlesans_medium"/>
     </androidx.cardview.widget.CardView>
 

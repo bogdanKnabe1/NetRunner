@@ -3,7 +3,7 @@
     <string name="title_activity_url">URL encoding</string>
     <string name="title_activity_base64">Base64 encoding</string>
     <string name="title_activity_md5">MD5 calculation</string>
-    <string name="title_activity_timestamp"> Timestamp conversion</string>
+    <string name="title_fragment_timestamp"> Timestamp conversion</string>
     <string name="title_activity_ping">PING test</string>
     <string name="title_VPN">VPN</string>
     <string name="ssl">SSL</string>
@@ -52,4 +52,5 @@
     <string name="data_icon">data icon</string>
     <string name="request_button">request button</string>
     <string name="app_icon">app icon</string>
+    <string name="title_fragment_packet">Packet detail</string>
 </resources>

@@ -4,7 +4,7 @@
     <string name = "title_activity_url"> Кодировка URL </string>
     <string name = "title_activity_base64"> Кодировка Base64 </string>
     <string name = "title_activity_md5"> Расчет MD5 </string>
-    <string name = "title_activity_timestamp"> Преобразование отметки времени </string>
+    <string name = "title_fragment_timestamp"> Преобразование отметки времени </string>
     <string name = "title_activity_ping"> Тест PING </string>
     <string name = "title_VPN"> VPN </string>
     <string name = "ssl"> SSL </string>
@@ -53,4 +53,5 @@
     <string name="data_icon">иконка данных</string>
     <string name="request_button">кнопка запроса</string>
     <string name="app_icon">иконка приложения</string>
+    <string name="title_fragment_packet">Детали пакета</string>
 </resources>

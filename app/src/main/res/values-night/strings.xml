@@ -51,4 +51,5 @@
     <string name="data_icon">data icon</string>
     <string name="request_button">request button</string>
     <string name="app_icon">app icon</string>
+    <string name="title_fragment_packet">Packet detail</string>
 </resources>

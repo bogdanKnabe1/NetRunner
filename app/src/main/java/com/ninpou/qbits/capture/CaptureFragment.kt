@@ -2,6 +2,7 @@ package com.ninpou.qbits.capture
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
@@ -27,6 +28,7 @@ import com.ninpou.packetcapture.core.vpn.VpnEventHandler
 import com.ninpou.packetcapture.core.vpn.VpnServiceImpl
 import com.ninpou.qbits.R
 import com.ninpou.qbits.util.APP_ACTIVITY
+import com.ninpou.qbits.util.hideViews
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -44,14 +46,35 @@ class CaptureFragment : Fragment() {
     private val handler = Handler()
     private var isNightMode = false
     private var buttonStateStart = true
+    private var savedState: Bundle? = null
 
+    var mDirectoryDataCallback: DataPassListener? = null
+
+    interface DataPassListener {
+        fun passData(data: String?)
+    }
+    //cleat all cache
     private fun clearCacheFinished() {
         packets.clear()
         sessionList.clear()
         adapter?.notifyDataSetChanged()
         placeholder_no_data.visibility = View.VISIBLE
+        cloud_img_no_data.visibility = View.VISIBLE
         Snackbar.make(container, getString(R.string.cache_cleared_tip),
                 Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        // This makes sure that the host activity has implemented the callback interface
+        // If not, it throws an exception
+        // This makes sure that the host activity has implemented the callback interface
+        // If not, it throws an exception
+        mDirectoryDataCallback = try {
+            context as DataPassListener
+        } catch (e: ClassCastException) {
+            throw ClassCastException("$context must implement DataPassListener")
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,17 +86,65 @@ class CaptureFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_capture, container, false)
-        initView(rootView)
+        initViews(rootView)
+
+        //save state basic ---------------------------------------
+        if (savedInstanceState != null && savedState == null) {
+            //if savedInstanceState we can put on savedState(witch is null) something usefull
+            savedState = savedInstanceState.getBundle("save") // ANY VALUE
+        }
+        if (savedState != null) {
+            //check state and DO what you need to restore this fragment
+            hideViews(placeholder_no_data, cloud_img_no_data)
+        }
+        //state null set new data in future
+        savedState = null
+        //------------------------------------------------------
         return rootView
     }
 
     //To properly init view's and wait getView() call on each synthetic view
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        clearCacheFinished()
         sharedPrefsInit()
-
         APP_ACTIVITY.invalidateOptionsMenu() // now onCreateOptionsMenu(...) is called again
+    }
+
+    private fun initViews(root: View) {
+        adapter = PacketAdapter(packets, sessionList, requireContext())
+        val recyclerView: RecyclerView = root.findViewById(R.id.rv_packet)
+        root.start_capture.setMinAndMaxProgress(0.0f, 0.90f)
+        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+        recyclerView.addItemDecoration(DividerItemDecoration(requireActivity(),
+                DividerItemDecoration.VERTICAL))
+        recyclerView.adapter = adapter
+
+        if (packets.size == 0) {
+            root.placeholder_no_data.visibility = View.VISIBLE
+            root.cloud_img_no_data.visibility = View.VISIBLE
+        }
+        root.cardViewStartStop.setOnClickListener {
+            if (buttonStateStart) {
+                startCapture()
+            } else {
+                stopCapture()
+            }
+            buttonStateStart = !buttonStateStart
+        }
+
+        //pass data to fragmentDetail + Open new Fragment through button click
+        adapter?.setOnItemClickListener(OnItemClickListener { _, _, position, _ ->
+            if (sessionList.size == 0) return@OnItemClickListener
+
+            val session = sessionList[position]
+            val dir = StringBuilder()
+                    .append(TcpDataSaver.DATA_DIR)
+                    .append(TimeFormatter.formatToYYMMDDHHMMSS(session.vpnStartTime))
+                    .append("/")
+                    .append(session.uniqueName)
+                    .toString()
+            mDirectoryDataCallback?.passData(dir)
+        })
     }
 
     //override options menu
@@ -81,7 +152,7 @@ class CaptureFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_capture, menu)
 
-        if ( Build.VERSION.SDK_INT >= Q ) {
+        if (Build.VERSION.SDK_INT >= Q) {
             val item = menu.findItem(R.id.dark_mode)
             item.isVisible = false
 
@@ -171,8 +242,7 @@ class CaptureFragment : Fragment() {
                     }
                 }
                 if (packets.size > 0) {
-                    placeholder_no_data.visibility = View.GONE
-                    cloud_img_no_data.visibility = View.GONE
+                    hideViews(placeholder_no_data, cloud_img_no_data)
                 } else {
                     placeholder_no_data.visibility = View.VISIBLE
                     cloud_img_no_data.visibility = View.VISIBLE
@@ -192,6 +262,7 @@ class CaptureFragment : Fragment() {
             //Make animation
             stop_capture.visibility = View.GONE
         }
+
     }
 
     override fun onStop() {
@@ -199,44 +270,27 @@ class CaptureFragment : Fragment() {
         VpnEventHandler.getInstance().cancelAll()
     }
 
-    private fun initView(root: View) {
-        adapter = PacketAdapter(packets, sessionList, requireContext())
-        val recyclerView: RecyclerView = root.findViewById(R.id.rv_packet)
-        root.start_capture.setMinAndMaxProgress(0.0f, 0.90f)
-        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-        recyclerView.addItemDecoration(DividerItemDecoration(requireActivity(),
-                DividerItemDecoration.VERTICAL))
-        recyclerView.adapter = adapter
-
-        if (packets.size == 0) {
-            root.placeholder_no_data.visibility = View.VISIBLE
-            root.cloud_img_no_data.visibility = View.VISIBLE
-        }
-        root.cardViewStartStop.setOnClickListener {
-            if (buttonStateStart) {
-                startCapture()
-            } else {
-                stopCapture()
-            }
-            buttonStateStart = !buttonStateStart
-        }
-
-        //pass data to fragmentDetail + Open new Fragment through button click
-        adapter?.setOnItemClickListener(OnItemClickListener { _, _, position, _ ->
-            if (sessionList.size == 0) return@OnItemClickListener
-            val session = sessionList[position]
-            val dir = StringBuilder()
-                    .append(TcpDataSaver.DATA_DIR)
-                    .append(TimeFormatter.formatToYYMMDDHHMMSS(session.vpnStartTime))
-                    .append("/")
-                    .append(session.uniqueName)
-                    .toString()
-            val intent = Intent(requireActivity(), PacketDetailActivity::class.java)
-            intent.putExtra(KEY_DIR, dir)
-            startActivity(intent)
-        })
+    private fun saveState(): Bundle? { /* called either from onDestroyView() or onSaveInstanceState() */
+        val state = Bundle()
+        state.putCharSequence("key", "somethingToSave") // |key - value| store
+        return state
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        /* If onDestroyView() is called first, we can use the previously savedState but we can't call saveState() anymore */
+        /* If onSaveInstanceState() is called first, we don't have savedState, so we need to call saveState() */
+        /* => (?:) operator inevitable */
+        outState.putBundle("saveCaptureFragmentState", if (savedState != null) savedState else saveState())
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        savedState = saveState()
+        hideViews(placeholder_no_data, cloud_img_no_data)
+    }
+
+    //start and stop packet capture
     private fun startCapture() {
         val intent = VpnService.prepare(requireContext())
         if (intent == null) {
@@ -254,9 +308,6 @@ class CaptureFragment : Fragment() {
 
     companion object {
         private const val KEY_CMD = "key_cmd"
-        private const val KEY_DIR = "key_dir"
-        fun newInstance(): CaptureFragment {
-            return CaptureFragment()
-        }
+        /*private const val KEY_DIR = "key_dir"*/
     }
 }

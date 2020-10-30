@@ -48,12 +48,6 @@ class PingFragment : Fragment() {
             GlobalScope.launch {
                 ping(host)
             }
-            //can be done with thread
-            /*object : Thread() {
-                override fun run() {
-                    ping(host)
-                }
-            }.start()*/
         }
     }
 
@@ -74,14 +68,6 @@ class PingFragment : Fragment() {
                     tv_ping_result.text = last + next
                     delay(5)
                 }
-                //can be done with thread
-                /*runOnUiThread {
-                    val last = """
-                        ${tv_ping_result.text}
-                        
-                        """.trimIndent()
-                    tv_ping_result.text = last + next
-                }*/
             }
         } catch (e: IOException) {
             e.printStackTrace()
@@ -92,11 +78,6 @@ class PingFragment : Fragment() {
             btn_ping.isEnabled = true
             delay(5)
         }
-        //can be done with thread
-        /*runOnUiThread {
-            et_ping.isEnabled = true
-            btn_ping.isEnabled = true
-        }*/
     }
 
     //override action bar back button press

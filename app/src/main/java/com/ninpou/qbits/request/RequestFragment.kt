@@ -20,7 +20,11 @@ import com.ninpou.qbits.R
 import com.ninpou.qbits.util.*
 import kotlinx.android.synthetic.main.fragment_request.*
 import kotlinx.android.synthetic.main.fragment_request.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import okhttp3.*
+import okhttp3.internal.http.HttpMethod
 import java.io.IOException
 import java.util.*
 
@@ -100,7 +104,7 @@ class RequestFragment : Fragment() {
             showShortToast(getString(R.string.url_empty_tip))
             return null
         }
-        if (!url.matches(URL_REGEX)) {
+        if (!url.matches(URL_REGEX.toRegex())) {
             showShortToast(getString(R.string.url_illegal_tip))
             return null
         }
@@ -136,15 +140,15 @@ class RequestFragment : Fragment() {
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 val message = e.message
-                handler.post {
-                    progressDialog?.cancel()
-                    showShortToast(getString(R.string.request_fail_tip))
-                }
+                 GlobalScope.launch(Dispatchers.Main){
+                     progressDialog?.cancel()
+                     showShortToast(getString(R.string.request_fail_tip))
+                 }
             }
 
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
-                handler.post {
+                GlobalScope.launch(Dispatchers.Main){
                     val intent = Intent(APP_ACTIVITY, ResponseActivity::class.java)
                     val info = ResponseInfo(response)
                     progressDialog?.cancel()
@@ -164,6 +168,5 @@ class RequestFragment : Fragment() {
             return RequestFragment()
         }
     }
-
 }
 

@@ -31,8 +31,7 @@ class TimestampFragment : Fragment() {
         //Get current action bar from main activity and attach settings to action bar in fragment
         val actionBar = APP_ACTIVITY.supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
-        actionBar?.setTitle(R.string.title_activity_md5)
-
+        actionBar?.setTitle(R.string.edit_timestamp)
         return rootView
     }
 

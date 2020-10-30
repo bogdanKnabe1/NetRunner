@@ -53,4 +53,5 @@
     <string name="data_icon">иконка данных</string>
     <string name="request_button">кнопка запроса</string>
     <string name="app_icon">иконка приложения</string>
+    <string name="title_fragment_packet">Детали пакета</string>
 </resources>

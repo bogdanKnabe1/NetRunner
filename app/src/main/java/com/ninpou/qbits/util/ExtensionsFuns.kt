@@ -15,3 +15,11 @@ fun View.hideViews() {
 fun hideViews(vararg views: View) {
     views.forEach { it.hideViews() }
 }
+
+fun View.showViews() {
+    visibility = View.VISIBLE
+}
+
+fun showViews(vararg views: View) {
+    views.forEach { it.showViews() }
+}

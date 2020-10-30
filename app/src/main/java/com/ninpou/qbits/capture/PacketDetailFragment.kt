@@ -76,7 +76,7 @@ class PacketDetailFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                fragmentManager?.popBackStack()
+                fragmentManager?.popBackStackImmediate()
                 return true
             }
         }

@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.ninpou.packetcapture.core.vpn.VpnEventHandler.getInstance
 import com.ninpou.packetcapture.core.vpn.VpnServiceImpl
 import com.ninpou.qbits.R
+import com.ninpou.qbits.util.hideViews
+import com.ninpou.qbits.util.showViews
 import kotlinx.android.synthetic.main.activity_vpn.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -21,6 +23,7 @@ class VpnActivity : AppCompatActivity() {
         setContentView(R.layout.activity_vpn)
 
         button_vpn.setOnClickListener {
+            showViews(my_progressBar)
             my_progressBar.visibility = View.VISIBLE
             GlobalScope.launch(Dispatchers.Main) {
                 for (a in 2..100) {
@@ -32,7 +35,7 @@ class VpnActivity : AppCompatActivity() {
             }
         }
         button_vpn_off.setOnClickListener {
-            my_progressBar.visibility = View.VISIBLE
+            showViews(my_progressBar)
             GlobalScope.launch(Dispatchers.Main) {
                 for (a in 2..100) {
                     my_progressBar.incrementProgressBy(2)
@@ -47,9 +50,8 @@ class VpnActivity : AppCompatActivity() {
     private fun startVpn() {
         my_progressBar.visibility = View.INVISIBLE
         textViewStatus.text = resources.getString(R.string.vpn_is_on)
-        working_indicator.visibility = View.VISIBLE
-        button_vpn.visibility = View.GONE
-        button_vpn_off.visibility = View.VISIBLE
+        showViews(working_indicator,button_vpn_off)
+        hideViews(button_vpn)
         startCapture()
     }
 
@@ -58,8 +60,8 @@ class VpnActivity : AppCompatActivity() {
         my_progressBar.visibility = View.INVISIBLE
         textViewStatus.text = resources.getString(R.string.vpn_is_off)
         working_indicator.visibility = View.INVISIBLE
-        button_vpn.visibility = View.VISIBLE
-        button_vpn_off.visibility = View.GONE
+        showViews(button_vpn)
+        hideViews(button_vpn_off)
         stopCapture()
     }
 

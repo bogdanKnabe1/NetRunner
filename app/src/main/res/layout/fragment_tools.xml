@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".tool.ToolFragment">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_url_coder"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/card_height"
+        android:layout_marginStart="@dimen/card_margin"
+        android:layout_marginTop="@dimen/card_margin"
+        app:cardElevation="2dp"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/card_base64"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/title_activity_url"
+            android:fontFamily="@font/googlesans_medium"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_base64"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/card_height"
+        android:layout_marginStart="@dimen/card_margin"
+        android:layout_marginTop="@dimen/card_margin"
+        android:layout_marginEnd="@dimen/card_margin"
+        app:cardElevation="2dp"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintLeft_toRightOf="@id/card_url_coder"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/title_activity_base64"
+            android:fontFamily="@font/googlesans_medium"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_md5"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/card_height"
+        android:layout_marginStart="@dimen/card_margin"
+        android:layout_marginTop="@dimen/card_margin"
+        app:cardElevation="2dp"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/card_timestamp"
+        app:layout_constraintTop_toBottomOf="@id/card_url_coder">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/title_activity_md5"
+            android:fontFamily="@font/googlesans_medium"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_timestamp"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/card_height"
+        android:layout_marginStart="@dimen/card_margin"
+        android:layout_marginTop="@dimen/card_margin"
+        android:layout_marginEnd="@dimen/card_margin"
+        app:cardElevation="2dp"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintLeft_toRightOf="@id/card_md5"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/card_base64">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/title_fragment_timestamp"
+            android:fontFamily="@font/googlesans_medium"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_ping"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/card_height"
+        android:layout_marginStart="@dimen/card_margin"
+        android:layout_marginTop="@dimen/card_margin"
+        app:cardElevation="2dp"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/card_md5"
+        app:layout_constraintTop_toBottomOf="@id/card_timestamp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/title_activity_ping"
+            android:fontFamily="@font/googlesans_medium"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/vpn"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/card_height"
+        android:layout_marginStart="@dimen/card_margin"
+        android:layout_marginTop="@dimen/card_margin"
+        android:layout_marginEnd="@dimen/card_margin"
+        app:cardElevation="2dp"
+        app:layout_constraintLeft_toRightOf="@id/card_ping"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_timestamp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/title_VPN"
+            android:fontFamily="@font/googlesans_medium"/>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

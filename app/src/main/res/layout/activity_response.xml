@@ -10,42 +10,44 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:paddingTop="@dimen/appbar_padding_top"
-        android:fontFamily="@font/googlesans_medium"
         android:theme="@style/AppTheme.AppBarOverlay">
 
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabSelectedTextColor="@color/colorAccent"
+            app:tabTextColor="@color/colorUnSelected"
+            android:background="@color/colorPrimary"
+            app:layout_anchor="@+id/appbar"
+            app:layout_anchorGravity="center">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_text_1"
+                android:fontFamily="@font/googlesans_medium"/>
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabItem2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_text_2"
+                android:fontFamily="@font/googlesans_medium"/>
+
+        </com.google.android.material.tabs.TabLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fontFamily="@font/googlesans_medium"
+        android:layout_marginTop="@dimen/text_margin"
+        android:fontFamily="@font/droidsans"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabSelectedTextColor="@color/colorAccent"
-        app:layout_anchor="@+id/appbar"
-        app:layout_anchorGravity="center">
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tab_text_1"
-            android:fontFamily="@font/googlesans_medium"/>
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabItem2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tab_text_2"
-            android:fontFamily="@font/googlesans_medium"/>
-
-    </com.google.android.material.tabs.TabLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

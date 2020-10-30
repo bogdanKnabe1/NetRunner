@@ -5,19 +5,17 @@ import android.net.VpnService
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.ninpou.packetcapture.core.vpn.VpnEvent.getInstance
+import com.ninpou.packetcapture.core.vpn.VpnEventHandler.getInstance
 import com.ninpou.packetcapture.core.vpn.VpnServiceImpl
 import com.ninpou.qbits.R
-import com.ninpou.qbits.capture.CaptureFragment
 import kotlinx.android.synthetic.main.activity_vpn.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-
 class VpnActivity : AppCompatActivity() {
-    private val KEY_CMD = "key_cmd"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vpn)
@@ -33,7 +31,6 @@ class VpnActivity : AppCompatActivity() {
                 my_progressBar.progress = 0
             }
         }
-
         button_vpn_off.setOnClickListener {
             my_progressBar.visibility = View.VISIBLE
             GlobalScope.launch(Dispatchers.Main) {
@@ -46,7 +43,6 @@ class VpnActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun startVpn() {
         my_progressBar.visibility = View.INVISIBLE
@@ -90,6 +86,7 @@ class VpnActivity : AppCompatActivity() {
             this.startService(intent)
         }
     }
+
     override fun onStop() {
         super.onStop()
         getInstance().cancelAll()
@@ -98,5 +95,9 @@ class VpnActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
+    }
+
+    companion object {
+        private const val KEY_CMD = "key_cmd"
     }
 }

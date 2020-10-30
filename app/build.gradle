@@ -40,7 +40,6 @@ dependencies {
     implementation okhttp
     implementation rxandroid
     implementation rxjava
-    implementation lever
     implementation coreKtx
     implementation viewmodelKtx
     implementation material

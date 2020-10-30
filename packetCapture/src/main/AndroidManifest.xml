@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ninpou.packetcapture">
 
-    <application>
+    <application
+        android:name=".QbitsApp">
         <service
             android:name=".core.vpn.VpnServiceImpl"
             android:enabled="true"
@@ -12,6 +13,6 @@
                 <action android:name="android.net.VpnService" />
             </intent-filter>
         </service>
-        <service android:name=".core.util.processparse.PortHostService" />
+        <service android:name=".core.util.process_parse.PortSessionInfoService" />
     </application>
 </manifest>

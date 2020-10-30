@@ -17,6 +17,8 @@ import com.google.android.material.tabs.TabLayout;
 import com.ninpou.qbits.BaseActivity;
 import com.ninpou.qbits.R;
 
+import java.util.Objects;
+
 
 public class ResponseActivity extends BaseActivity {
     private static final String BUNDLE_KEY_RESPONSE = "response_key";
@@ -25,6 +27,7 @@ public class ResponseActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_response);
+
         ResponseInfo info = (ResponseInfo) getIntent().getSerializableExtra(BUNDLE_KEY_RESPONSE);
         SectionsPagerAdapter pagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), info);
 
@@ -37,7 +40,6 @@ public class ResponseActivity extends BaseActivity {
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
     }
-
 
     public static class ContentFragment extends Fragment {
         private static final String KEY_TEXT = "key_text";

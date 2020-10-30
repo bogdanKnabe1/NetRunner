@@ -4,7 +4,6 @@ import android.app.ProgressDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,8 +27,7 @@ import java.io.IOException
 import java.util.*
 
 class RequestFragment : Fragment() {
-    private val client = OkHttpClient()
-    private val handler = Handler()
+    private var client = OkHttpClient()
     private val headers: MutableList<TextInputLayout> = ArrayList()
     private var progressDialog: ProgressDialog? = null
     private var method = HttpMethod.GET
@@ -59,7 +57,7 @@ class RequestFragment : Fragment() {
                 if (method == HttpMethod.GET) {
                     group_body.visibility = View.INVISIBLE
                 } else {
-                    group_body.visibility = View.VISIBLE
+                    showViews(group_body)
                 }
             }
 
@@ -139,7 +137,7 @@ class RequestFragment : Fragment() {
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 val message = e.message
-                GlobalScope.launch(Dispatchers.Main){
+                GlobalScope.launch(Dispatchers.Main) {
                     progressDialog?.cancel()
                     showShortToast(getString(R.string.request_fail_tip))
                 }
@@ -147,7 +145,7 @@ class RequestFragment : Fragment() {
 
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
-                GlobalScope.launch(Dispatchers.Main){
+                GlobalScope.launch(Dispatchers.Main) {
                     val intent = Intent(APP_ACTIVITY, ResponseActivity::class.java)
                     val info = ResponseInfo(response)
                     progressDialog?.cancel()
@@ -166,6 +164,11 @@ class RequestFragment : Fragment() {
         fun newInstance(): RequestFragment {
             return RequestFragment()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        progressDialog = null
     }
 }
 

@@ -47,7 +47,7 @@ class PacketAdapter(private val titles: List<String>, //Added NatSession list to
         viewHolder.tvNetSize.text = getSocketSize(natSession.getBytesSent() + natSession.getReceiveByteNum())
         viewHolder.itemView.setOnClickListener {
             val pos = viewHolder.layoutPosition
-            onItemClickListener!!.onItemClick(null, viewHolder.itemView, pos, 0)
+            onItemClickListener?.onItemClick(null, viewHolder.itemView, pos, 0)
         }
     }
 

@@ -27,6 +27,8 @@ import com.ninpou.packetcapture.core.vpn.VpnEventHandler
 import com.ninpou.packetcapture.core.vpn.VpnServiceImpl
 import com.ninpou.qbits.R
 import com.ninpou.qbits.util.APP_ACTIVITY
+import com.ninpou.qbits.util.hideViews
+import com.ninpou.qbits.util.showViews
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -49,7 +51,7 @@ class CaptureFragment : Fragment() {
         packets.clear()
         sessionList.clear()
         adapter?.notifyDataSetChanged()
-        placeholder_no_data.visibility = View.VISIBLE
+        showViews(placeholder_no_data, cloud_img_no_data)
         Snackbar.make(container, getString(R.string.cache_cleared_tip),
                 Snackbar.LENGTH_SHORT).show()
     }
@@ -85,8 +87,7 @@ class CaptureFragment : Fragment() {
         recyclerView.adapter = adapter
 
         if (packets.size == 0) {
-            root.placeholder_no_data.visibility = View.VISIBLE
-            root.cloud_img_no_data.visibility = View.VISIBLE
+            showViews(root.placeholder_no_data, root.cloud_img_no_data)
         }
         root.cardViewStartStop.setOnClickListener {
             if (buttonStateStart) {
@@ -207,27 +208,25 @@ class CaptureFragment : Fragment() {
                     }
                 }
                 if (packets.size > 0) {
-                    placeholder_no_data.visibility = View.GONE
-                    cloud_img_no_data.visibility = View.GONE
+                    hideViews(placeholder_no_data, cloud_img_no_data)
                 } else {
-                    placeholder_no_data.visibility = View.VISIBLE
-                    cloud_img_no_data.visibility = View.VISIBLE
+                    showViews(placeholder_no_data, cloud_img_no_data)
                 }
                 adapter?.notifyDataSetChanged()
             }
         }
 
         event.setOnStartListener {
-            start_capture.visibility = View.GONE
+            hideViews(start_capture)
             //Make animation + change color
             cardViewStartStop.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.stop))
-            stop_capture.visibility = View.VISIBLE
+            showViews(stop_capture)
         }
         event.setOnStopListener {
             cardViewStartStop.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.start))
-            start_capture.visibility = View.VISIBLE
+            showViews(start_capture)
             //Make animation
-            stop_capture.visibility = View.GONE
+            hideViews(stop_capture)
         }
     }
 

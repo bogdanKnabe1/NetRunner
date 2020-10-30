@@ -1,6 +1,5 @@
 package com.ninpou.qbits.tool
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,8 +43,8 @@ class ToolFragment : Fragment() {
         }
         rootView.vpn.setOnClickListener {
             //VPN has low level logic and can't be fragmented
-            val intent = Intent(activity, VpnActivity::class.java)
-            startActivity(intent)
+            val fragment: Fragment = VpnFragment()
+            replaceFragment(fragment)
         }
     }
     //replace mechanism inside frame container

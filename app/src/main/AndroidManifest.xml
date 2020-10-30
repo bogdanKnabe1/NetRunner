@@ -17,10 +17,6 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".tool.VpnActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/noActionBar" />
-        <activity
             android:name=".capture.PacketDetailActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />

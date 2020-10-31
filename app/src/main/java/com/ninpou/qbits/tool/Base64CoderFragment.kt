@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.transition.TransitionInflater
 import com.ninpou.qbits.MainActivity
 import com.ninpou.qbits.R
 import com.ninpou.qbits.util.APP_ACTIVITY

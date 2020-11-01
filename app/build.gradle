@@ -51,8 +51,6 @@ dependencies {
     implementation viewmodelKtx
     implementation material
     implementation lottie
-    implementation navigationFragment
-    implementation navigationUI
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 }

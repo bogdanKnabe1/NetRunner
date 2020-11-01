@@ -6,13 +6,20 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.ninpou.qbits.MainActivity
 import com.ninpou.qbits.R
 import com.ninpou.qbits.util.APP_ACTIVITY
 import com.ninpou.qbits.util.Md5Hash
+import com.ninpou.qbits.util.setActionBarFragment
+import com.ninpou.qbits.util.setDefaultActionBar
 import kotlinx.android.synthetic.main.fragment_md5.*
 import kotlinx.android.synthetic.main.fragment_md5.view.*
 
+/*
+* MD5 is a 128-bit hashing algorithm designed to create "fingerprints"
+* or digests of messages of arbitrary length and then verify their authenticity.
+* It is necessary in order to understand whether the file has changed during the download,
+* and it is the same as on the server from which we downloaded.
+*/
 class Md5Fragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,9 +32,7 @@ class Md5Fragment : Fragment() {
         initView(rootView)
 
         //Get current action bar from main activity and attach settings to action bar in fragment
-        val actionBar = APP_ACTIVITY.supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-        actionBar?.setTitle(R.string.title_activity_md5)
+        setActionBarFragment(getString(R.string.title_fragment_md5))
         return rootView
     }
 
@@ -53,9 +58,7 @@ class Md5Fragment : Fragment() {
     //detach action bar settings
     override fun onDestroyView() {
         super.onDestroyView()
-        val actionBar = APP_ACTIVITY.supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(false)
-        actionBar?.setTitle(R.string.app_name)
+        setDefaultActionBar()
         setHasOptionsMenu(false)
     }
 }

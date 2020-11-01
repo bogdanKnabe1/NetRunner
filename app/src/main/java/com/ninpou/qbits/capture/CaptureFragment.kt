@@ -52,6 +52,7 @@ class CaptureFragment : Fragment() {
         sessionList.clear()
         adapter?.notifyDataSetChanged()
         showViews(placeholder_no_data, cloud_img_no_data)
+        start_capture.playAnimation()
         Snackbar.make(container, getString(R.string.cache_cleared_tip),
                 Snackbar.LENGTH_SHORT).show()
     }

@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/title_activity_url"
+            android:text="@string/title_fragment_url"
             android:fontFamily="@font/googlesans_medium"/>
     </androidx.cardview.widget.CardView>
 
@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/title_activity_base64"
+            android:text="@string/title_fragment_base64"
             android:fontFamily="@font/googlesans_medium"/>
     </androidx.cardview.widget.CardView>
 
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/title_activity_md5"
+            android:text="@string/title_fragment_md5"
             android:fontFamily="@font/googlesans_medium"/>
     </androidx.cardview.widget.CardView>
 
@@ -105,7 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/title_activity_ping"
+            android:text="@string/title_fragment_ping"
             android:fontFamily="@font/googlesans_medium"/>
     </androidx.cardview.widget.CardView>
 

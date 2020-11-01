@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Netrunner</string>
-    <string name="title_activity_url">URL encoding</string>
-    <string name="title_activity_base64">Base64 encoding</string>
-    <string name="title_activity_md5">MD5 calculation</string>
+    <string name="title_fragment_url">URL encoding</string>
+    <string name="title_fragment_base64">Base64 encoding</string>
+    <string name="title_fragment_md5">MD5 calculation</string>
     <string name="title_fragment_timestamp"> Timestamp conversion</string>
-    <string name="title_activity_ping">PING test</string>
+    <string name="title_fragment_ping">PING test</string>
     <string name="title_VPN">VPN</string>
     <string name="ssl">SSL</string>
     <string name="unknown">Unknown</string>

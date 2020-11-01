@@ -17,9 +17,9 @@ And there are some interesting & constructive use cases this opens up though for
  * Simulating connection issues by adding delays or randomly injecting packet resets.
  
 # NetRunner is using:
- Markup : 1. Kotlin and Java as native language's
-          2. rxjava for some operations(these small chunks of code were made primarily for training and usability testing versus coroutines)
-          3. Material and lottie animations for ui
-          4. okttp3 and retrofit for simple networking
-          5. okio for fast I/O operations
+ - Kotlin and Java as native language's
+ - rxjava for some operations(these small chunks of code were made primarily for training and usability testing versus coroutines)
+ - Material and lottie animations for ui
+ - okttp3 and retrofit for simple networking
+ - okio for fast I/O operations
   

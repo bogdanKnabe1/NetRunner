@@ -11,9 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ninpou.packetcapture.core.vpn.VpnServiceImpl
 import com.ninpou.qbits.R
-import com.ninpou.qbits.util.APP_ACTIVITY
-import com.ninpou.qbits.util.hideViews
-import com.ninpou.qbits.util.showViews
+import com.ninpou.qbits.util.*
 import kotlinx.android.synthetic.main.fragment_vpn.*
 import kotlinx.android.synthetic.main.fragment_vpn.view.*
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +19,16 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+/*
+-- VPN
+* a generic name for technologies that allow one or more network connections (logical network) to be provided over another network (for example, the Internet).
+* Despite the fact that communications are carried out over networks with a lower or unknown level of trust (for example, over public networks),
+* the level of trust in the constructed logical network does not depend on the level of trust in the underlying networks
+* due to the use of cryptography tools (encryption, authentication, public key infrastructure,
+* means for protection against repetitions and changes of messages transmitted over the logical network).
+
+    CAN be modified in VPNServiceImp
+*/
 class VpnFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,9 +42,7 @@ class VpnFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_vpn, container, false)
 
         //Get current action bar from main activity and attach settings to action bar in fragment
-        val actionBar = APP_ACTIVITY.supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-        actionBar?.setTitle(R.string.title_VPN)
+        setActionBarFragment(getString(R.string.title_VPN))
 
         rootView.button_vpn.setOnClickListener {
             showViews(rootView.my_progressBar)
@@ -117,9 +123,7 @@ class VpnFragment : Fragment() {
     //detach action bar settings
     override fun onDestroyView() {
         super.onDestroyView()
-        val actionBar = APP_ACTIVITY.supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(false)
-        actionBar?.setTitle(R.string.app_name)
+        setDefaultActionBar()
         setHasOptionsMenu(false)
     }
 

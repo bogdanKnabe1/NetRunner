@@ -8,11 +8,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ninpou.qbits.R
 import com.ninpou.qbits.util.APP_ACTIVITY
+import com.ninpou.qbits.util.setActionBarFragment
+import com.ninpou.qbits.util.setDefaultActionBar
 import kotlinx.android.synthetic.main.fragment_timestamp.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-
+/* Timestamp it is a sequence of characters or encoded information indicating when a particular event occurred.
+ * Usually displays the date and time (sometimes accurate to a fraction of a second).
+ * */
 class TimestampFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,10 +32,7 @@ class TimestampFragment : Fragment() {
         initView(rootView)
 
         //Get current action bar from main activity and attach settings to action bar in fragment
-        val actionBar = APP_ACTIVITY.supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-        actionBar?.setTitle(R.string.title_fragment_timestamp)
-
+        setActionBarFragment(getString(R.string.title_fragment_timestamp))
         return rootView
     }
 
@@ -63,9 +64,7 @@ class TimestampFragment : Fragment() {
     //detach action bar settings
     override fun onDestroyView() {
         super.onDestroyView()
-        val actionBar = APP_ACTIVITY.supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(false)
-        actionBar?.setTitle(R.string.app_name)
+        setDefaultActionBar()
         setHasOptionsMenu(false)
     }
 

@@ -7,11 +7,18 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.ninpou.qbits.MainActivity
 import com.ninpou.qbits.R
 import com.ninpou.qbits.util.APP_ACTIVITY
+import com.ninpou.qbits.util.setActionBarFragment
+import com.ninpou.qbits.util.setDefaultActionBar
 import kotlinx.android.synthetic.main.fragment_base64_coder.*
 import kotlinx.android.synthetic.main.fragment_base64_coder.view.*
+
+/*
+* Base64 is a way to encode arbitrary binary data into ASCII text.
+* At its core, coding is very simple. Every six bits of the input are encoded into one of the characters in the 64-letter alphabet.
+* The “standard” alphabet used for this is A-Z, a-z, 0-9, +, / and = as the padding character at the end. So there are 4 characters for every 3 bytes of data.
+* */
 
 class Base64CoderFragment : Fragment() {
 
@@ -26,9 +33,7 @@ class Base64CoderFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_base64_coder, container, false)
 
         //Get current action bar from main activity and attach settings to action bar in fragment
-        val actionBar = APP_ACTIVITY.supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-        actionBar?.setTitle(R.string.title_activity_base64)
+        setActionBarFragment(getString(R.string.title_fragment_base64))
         initView(rootView)
         return rootView
     }
@@ -61,9 +66,7 @@ class Base64CoderFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        val actionBar = APP_ACTIVITY.supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(false)
-        actionBar?.setTitle(R.string.app_name)
+        setDefaultActionBar()
         setHasOptionsMenu(false)
     }
 }

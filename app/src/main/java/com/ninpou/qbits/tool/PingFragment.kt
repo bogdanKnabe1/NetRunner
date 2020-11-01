@@ -6,9 +6,10 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.ninpou.qbits.MainActivity
 import com.ninpou.qbits.R
 import com.ninpou.qbits.util.APP_ACTIVITY
+import com.ninpou.qbits.util.setActionBarFragment
+import com.ninpou.qbits.util.setDefaultActionBar
 import kotlinx.android.synthetic.main.fragment_ping.*
 import kotlinx.android.synthetic.main.fragment_ping.view.*
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +19,10 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 import java.util.*
 
+/*
+* Ping utility for checking the integrity and quality of connections in TCP / IP-based networks,
+* as well as the common name of the request itself.
+* */
 class PingFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,9 +37,7 @@ class PingFragment : Fragment() {
         initView(rootView)
 
         //Get current action bar from main activity and attach settings to action bar in fragment
-        val actionBar = APP_ACTIVITY.supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-        actionBar?.setTitle(R.string.title_activity_ping)
+        setActionBarFragment(getString(R.string.title_fragment_ping))
         return rootView
     }
 
@@ -94,9 +97,7 @@ class PingFragment : Fragment() {
     //detach action bar settings
     override fun onDestroyView() {
         super.onDestroyView()
-        val actionBar = APP_ACTIVITY.supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(false)
-        actionBar?.setTitle(R.string.app_name)
+        setDefaultActionBar()
         setHasOptionsMenu(false)
     }
 

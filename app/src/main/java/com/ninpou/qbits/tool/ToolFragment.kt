@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.transition.TransitionInflater
 import com.ninpou.qbits.R
 import kotlinx.android.synthetic.main.fragment_tools.view.*
 
@@ -50,6 +51,12 @@ class ToolFragment : Fragment() {
     //replace mechanism inside frame container
     private fun replaceFragment(someFragment: Fragment) {
         val transaction: FragmentTransaction? = fragmentManager?.beginTransaction()
+        transaction?.setCustomAnimations(
+                R.anim.slide_in,
+                R.anim.fade_out,
+                R.anim.fade_in,
+                R.anim.slide_out
+        )
         transaction?.replace(R.id.frame_container, someFragment)
         transaction?.addToBackStack(null)
         transaction?.commit()

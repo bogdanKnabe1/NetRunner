@@ -52,6 +52,7 @@ class CaptureFragment : Fragment() {
         sessionList.clear()
         adapter?.notifyDataSetChanged()
         showViews(placeholder_no_data, cloud_img_no_data)
+        start_capture.playAnimation()
         Snackbar.make(container, getString(R.string.cache_cleared_tip),
                 Snackbar.LENGTH_SHORT).show()
     }
@@ -73,7 +74,6 @@ class CaptureFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sharedPrefsInit()
-
         APP_ACTIVITY.invalidateOptionsMenu() // now onCreateOptionsMenu(...) is called again
     }
 
@@ -113,12 +113,13 @@ class CaptureFragment : Fragment() {
             startActivity(intent)
         })
     }
+
     //override options menu
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_capture, menu)
 
-        if ( Build.VERSION.SDK_INT >= Q ) {
+        if (Build.VERSION.SDK_INT >= Q) {
             val item = menu.findItem(R.id.dark_mode)
             item.isVisible = false
 
@@ -247,7 +248,7 @@ class CaptureFragment : Fragment() {
     private fun stopCapture() {
         val intent = Intent(requireActivity(), VpnServiceImpl::class.java)
         intent.putExtra(KEY_CMD, 1)
-        requireActivity().startService(intent)
+        APP_ACTIVITY.startService(intent)
     }
 
     companion object {

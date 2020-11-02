@@ -18,11 +18,9 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".capture.PacketDetailActivity"
-            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".request.ResponseActivity"
-            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.AppBarOverlay" />
         <activity

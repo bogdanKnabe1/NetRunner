@@ -1,6 +1,7 @@
 package com.ninpou.qbits.capture
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.TextView
 import com.ninpou.packetcapture.core.util.net_utils.TcpDataLoader
 import com.ninpou.qbits.BaseActivity
@@ -46,6 +47,17 @@ class PacketDetailActivity : BaseActivity() {
 
     private fun setResponse(content: String) {
         runOnUiThread { responseTextView!!.text = content }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> onBackPressed()
+        }
+        return true
+    }
+
+    override fun onBackPressed() {
+        finish()
     }
 
     companion object {

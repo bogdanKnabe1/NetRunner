@@ -1,10 +1,10 @@
 ![ttystudio GIF](https://media.giphy.com/media/ftAyb0CG1FNAIZt4SO/giphy.gif) 
 
- # NetRunner android application for packet capture(Your network only).
+ # NetRunner android application for packet capture.
   > NetRunner is a packet capture application, which captures and displays any http connections but not https(maybe for future). The main point is creating a VPNService app and activating it, will force all traffic in the device to go through your newly created virtual interface which is managed by a userspace application, where we can receiving IP Packets by reading from the virtual interface. Some of source links was used to understood this point.
   
-1.https://android.googlesource.com/platform/development/+/master/samples/ToyVpn/src/com/example/android/toyvpn/ToyVpnService.java
-2.https://stackoverflow.com/questions/38679188/capture-network-traffic-programmatically-no-root
+ 1.https://android.googlesource.com/platform/development/+/master/samples/ToyVpn/src/com/example/android/toyvpn/ToyVpnService.java
+ 2.https://stackoverflow.com/questions/38679188/capture-network-traffic-programmatically-no-root
 
 Once we have a VPN service running, our app will receive every network byte the device sends, and has the power to inject raw bytes back.
 

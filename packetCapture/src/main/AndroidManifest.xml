@@ -1,11 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.ninpou.packetcapture">
+    package="com.b_knabe.packet_capture">
 
     <application
-        android:name=".QbitsApp">
+        android:name=".Application">
         <service
-            android:name=".core.vpn.VpnServiceImpl"
+            android:name="com.b_knabe.packet_capture.core.vpn.VpnServiceImpl"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_VPN_SERVICE">
@@ -13,6 +12,6 @@
                 <action android:name="android.net.VpnService" />
             </intent-filter>
         </service>
-        <service android:name=".core.util.process_parse.PortSessionInfoService" />
+        <service android:name="com.b_knabe.packet_capture.core.util.process_parse.PortSessionInfoService" />
     </application>
 </manifest>

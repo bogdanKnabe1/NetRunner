@@ -26,9 +26,21 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    testOptions {
+        unitTests.includeAndroidResources = true
+        unitTests.returnDefaultValues = true
+    }
+
+    // Gradle automatically adds 'android.test.runner' as a dependency.
+    useLibrary 'android.test.runner'
+
+    useLibrary 'android.test.base'
+    useLibrary 'android.test.mock'
 }
 
 repositories {
@@ -39,7 +51,12 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation junit
+    testImplementation truth
+    androidTestImplementation core
+    androidTestImplementation androidTruth
     androidTestImplementation junit
+    androidTestImplementation testRunner
+    androidTestImplementation testRules
     androidTestImplementation espressoCore
 
     implementation project(':packetCapture')

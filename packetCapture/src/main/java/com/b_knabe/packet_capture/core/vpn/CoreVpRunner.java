@@ -8,7 +8,7 @@ import com.b_knabe.packet_capture.core.proxy_servers.TcpProxyServer;
 import com.b_knabe.packet_capture.core.proxy_servers.UdpProxyServer;
 import com.b_knabe.packet_capture.core.util.common.IOUtils;
 import com.b_knabe.packet_capture.core.util.common.ThreadPool;
-import com.b_knabe.packet_capture.core.util.net_utils.HttpRequestHeaderParser;
+import com.b_knabe.packet_capture.core.util.net_utils.http.HttpRequestHeaderParser;
 import com.b_knabe.packet_capture.core.util.net_utils.Packets;
 import com.b_knabe.packet_capture.core.util.process_parse.PortSessionInfoService;
 import com.b_knabe.packet_capture.tcp_ip_level.IpPacketHeader;

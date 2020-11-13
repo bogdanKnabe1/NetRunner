@@ -1,2 +1,2 @@
 include ':app', ':packetCapture'
-rootProject.name = "Qbits"
+rootProject.name = "NetRunner"

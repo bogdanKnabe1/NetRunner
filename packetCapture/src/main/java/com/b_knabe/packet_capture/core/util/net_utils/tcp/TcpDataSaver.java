@@ -1,4 +1,4 @@
-package com.b_knabe.packet_capture.core.util.net_utils;
+package com.b_knabe.packet_capture.core.util.net_utils.tcp;
 
 import com.b_knabe.packet_capture.Application;
 import com.b_knabe.packet_capture.core.util.common.ThreadPool;

@@ -22,7 +22,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.b_knabe.packet_capture.core.nat.NatSession
 import com.b_knabe.packet_capture.core.nat.NatSessionListHelper
 import com.b_knabe.packet_capture.core.util.common.TimeFormatter
-import com.b_knabe.packet_capture.core.util.net_utils.TcpDataSaver
+import com.b_knabe.packet_capture.core.util.net_utils.tcp.TcpDataSaver
 import com.b_knabe.packet_capture.core.vpn.VpnEventHandler
 import com.b_knabe.packet_capture.core.vpn.VpnServiceImpl
 import com.b_knabe.net_runner.R

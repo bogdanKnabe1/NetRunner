@@ -7,7 +7,7 @@ import com.b_knabe.packet_capture.core.nat.NatSessionManager;
 import com.b_knabe.packet_capture.core.util.common.TimeFormatter;
 import com.b_knabe.packet_capture.core.util.common.ACache;
 import com.b_knabe.packet_capture.core.util.common.ThreadPool;
-import com.b_knabe.packet_capture.core.util.net_utils.TcpDataSaver;
+import com.b_knabe.packet_capture.core.util.net_utils.tcp.TcpDataSaver;
 import com.b_knabe.packet_capture.core.util.process_parse.PortSessionInfoService;
 
 import java.io.File;
@@ -43,6 +43,7 @@ public class RemoteTcpTunnel extends RawTcpTunnel {
     protected void afterReceived(ByteBuffer buffer) throws Exception {
         super.afterReceived(buffer);
         refreshSessionAfterRead(buffer.limit());
+        // Save the data returned by the target server
         TcpDataSaver.TcpData saveTcpData = new TcpDataSaver.TcpData
                 .Builder()
                 .isRequest(false)

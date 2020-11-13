@@ -58,6 +58,10 @@ dependencies {
     androidTestImplementation testRunner
     androidTestImplementation testRules
     androidTestImplementation espressoCore
+    testImplementation "org.robolectric:robolectric:4.3"
+
+    implementation "androidx.fragment:fragment-ktx:1.2.5"
+    debugImplementation "androidx.fragment:fragment-testing:1.2.5"
 
     implementation project(':packetCapture')
     implementation appcompat
@@ -72,5 +76,6 @@ dependencies {
     implementation viewmodelKtx
     implementation material
     implementation lottie
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

@@ -1,6 +1,5 @@
 package com.b_knabe.packet_capture.core.vpn;
 
-
 import com.b_knabe.packet_capture.Application;
 import com.b_knabe.packet_capture.core.nat.NatSession;
 import com.b_knabe.packet_capture.core.nat.NatSessionManager;

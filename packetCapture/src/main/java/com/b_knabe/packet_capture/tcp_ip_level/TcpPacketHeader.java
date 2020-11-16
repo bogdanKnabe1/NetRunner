@@ -9,6 +9,30 @@ import java.util.Locale;
  *
  * */
 public class TcpPacketHeader {
+
+    /**
+     *  TCP header format, 4 bytes per line, the first 20 bytes are fixed length
+     * ０                                               15 16								     31
+     * ｜－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－｜
+     * ｜               source port             　｜       　destination port                       ｜
+     * ｜－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－ ｜
+     * ｜　　　　　　　　　　　　　　　　　　　　　　　　 sequence　number　　　　　　　　　　　　        　　　　｜
+     * ｜－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－｜
+     * ｜　　　　　　　　　　　　　　　　　　　　　 acknowledgement 　number   　　　　　　　　　　　　　　　　  ｜
+     * ｜－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－｜
+     * ｜　TCP header　　｜　　Protection　　      ｜Ｕ｜Ａ｜Ｐ｜Ｒ｜Ｓ｜Ｆ｜                             ｜
+     * ｜　　　Length 　｜　　 stay　　            ｜Ｒ｜Ｃ｜Ｓ｜Ｓ｜Ｙ｜Ｉ｜　　　　　　window size         ｜
+     * ｜　　（４ bit）   ｜　（６ bit）           ｜Ｇ｜Ｋ｜Ｈ｜Ｔ｜Ｎ｜Ｎ｜                              ｜
+     * ｜－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－｜
+     * ｜              checksum               ｜           urgent　pointer）                        ｜
+     * ｜－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－｜
+     * ｜                    Option + padding (0 or more 32-bit words, up to 40 bytes)             ｜
+     * ｜－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－｜
+     * ｜                             Data (0 or more bytes)                                       |
+     * ｜－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－｜
+     * */
+
+
     public static final int FIN = 1;
     public static final int SYN = 2;
     public static final int RST = 4;

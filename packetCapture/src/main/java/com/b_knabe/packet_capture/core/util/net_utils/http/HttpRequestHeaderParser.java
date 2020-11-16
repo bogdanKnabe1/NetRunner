@@ -56,7 +56,7 @@ public class HttpRequestHeaderParser {
         if (!TextUtils.isEmpty(host)) {
             session.remoteHost = host;
         }
-        paresRequestLine(session, headerLines[0]);
+        parseRequestLine(session, headerLines[0]);
     }
 
     /**
@@ -95,7 +95,7 @@ public class HttpRequestHeaderParser {
      * @param session
      * @param requestLine
      */
-    public static void paresRequestLine(NatSession session, String requestLine) {
+    public static void parseRequestLine(NatSession session, String requestLine) {
         String[] parts = requestLine.trim().split(" ");
         if (parts.length == 3) {
             session.method = parts[0];

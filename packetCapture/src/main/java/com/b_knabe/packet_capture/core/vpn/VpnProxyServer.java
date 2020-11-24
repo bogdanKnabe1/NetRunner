@@ -8,7 +8,7 @@ import java.net.Socket;
 // An intermediate server in computer networks
 // that acts as an intermediary between and the target server
 public class VpnProxyServer {
-    private static WeakReference<VpnServiceImpl> vpnService = null;
+    public static WeakReference<VpnServiceImpl> vpnService = null;
 
     public static void setVpnService(VpnServiceImpl vpnService) {
         VpnProxyServer.vpnService = new WeakReference<>(vpnService);

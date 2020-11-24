@@ -26,13 +26,12 @@ public class VpnServiceImpl extends VpnService {
      */
     static final String ADDRESS = "10.0.0.10";
     /**
-     * Only the matched IP packets will be routed to the virtual port. If it is 0.0.0.0/0, all IP packets will be routed to the virtual port;
+     * Only the matched IP packets will be routed to the virtual port. If it is 0.0.0.0/0,
+     * all IP packets will be routed to the virtual port;
      */
     static final String ROUTE = "0.0.0.0"; // Intercept everything
-    /**
-     * Below are some common DNS addresses
-     */
-    //GOOGLE SET was CHINA
+    // Below are some common DNS addresses
+    //GOOGLE SET
     static final String DEFAULT_DNS = "8.8.8.8";
     //unused for now
     static final String GOOGLE_DNS_FIRST = "8.8.8.8";
@@ -72,8 +71,10 @@ public class VpnServiceImpl extends VpnService {
         String dns = Shells.getDns();
         if (dns == null || dns.isEmpty()) {
             builder.addDnsServer(DEFAULT_DNS);
-            // It is to add automatic completion of DNS domain name. The DNS server must be searched by the full domain name,
-            // But it is too troublesome to enter the full domain name every time you look up, you can simplify it by configuring the automatic completion rule of the domain name;
+            // It is to add automatic completion of DNS domain name.
+            // The DNS server must be searched by the full domain name,
+            // But it is too troublesome to enter the full domain name every time you look up,
+            // you can simplify it by configuring the automatic completion rule of the domain name.
             // .addSearchDomain()
             /*
              * Set the name of this session. It will be displayed in system-managed dialogs

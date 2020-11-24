@@ -12,8 +12,7 @@ android {
         applicationId rootProject.ext.applicationId
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner rootProject.ext.testInstRunner
     }
 
     buildTypes {
@@ -35,12 +34,6 @@ android {
         unitTests.includeAndroidResources = true
         unitTests.returnDefaultValues = true
     }
-
-    // Gradle automatically adds 'android.test.runner' as a dependency.
-    useLibrary 'android.test.runner'
-
-    useLibrary 'android.test.base'
-    useLibrary 'android.test.mock'
 }
 
 repositories {
@@ -50,15 +43,17 @@ repositories {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testImplementation 'junit:junit:4.13.1'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation'com.android.support.test.espresso:espresso-core:3.0.2'
     testImplementation junit
     testImplementation truth
     androidTestImplementation core
     androidTestImplementation androidTruth
     androidTestImplementation junit
-    androidTestImplementation testRunner
     androidTestImplementation testRules
     androidTestImplementation espressoCore
-    testImplementation "org.robolectric:robolectric:4.3"
+    testImplementation "org.robolectric:robolectric:4.4"
 
     implementation "androidx.fragment:fragment-ktx:1.2.5"
     debugImplementation "androidx.fragment:fragment-testing:1.2.5"

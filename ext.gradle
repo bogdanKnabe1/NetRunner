@@ -6,11 +6,12 @@ ext {
     targetSdkVersion = 30
 
     //Package names
-    applicationId = "com.ninpou.qbits"
+    applicationId = "com.ninpou.netrunner"
 
     //version number
     versionCode = 1
     versionName = "1.0"
+    testInstRunner = 'androidx.test.runner.AndroidJUnitRunner'
 
     //dependencies
 
@@ -19,6 +20,7 @@ ext {
     truth = 'com.google.truth:truth:1.1'
     androidTruth = "com.google.truth:truth:1.0.1"
     junit = 'androidx.test.ext:junit:1.1.1'
+    testCompileJunit = 'junit:junit:4.13.1'
     testRunner = 'androidx.test:runner:1.1.0'
     testRules = 'androidx.test:rules:1.1.0'
     espressoCore = 'androidx.test.espresso:espresso-core:3.1.1'

@@ -21,7 +21,6 @@ android {
     }
 
     // Gradle automatically adds 'android.test.runner' as a dependency.
-    useLibrary 'android.test.runner'
 
     useLibrary 'android.test.base'
     useLibrary 'android.test.mock'
@@ -36,6 +35,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    testImplementation testCompileJunit
     testImplementation junit
     testImplementation truth
     androidTestImplementation core

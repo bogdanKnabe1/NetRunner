@@ -15,7 +15,6 @@
             </intent-filter>
         </service>
         <service android:name="com.b_knabe.packet_capture.core.util.process_parse.PortSessionInfoService" />
-        <uses-library android:name="android.test.runner"
-            android:required="false" />
+
     </application>
 </manifest>

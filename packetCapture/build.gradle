@@ -15,6 +15,16 @@ android {
         consumerProguardFiles "consumer-rules.pro"
     }
 
+    testOptions {
+        unitTests.includeAndroidResources = true
+        unitTests.returnDefaultValues = true
+    }
+
+    // Gradle automatically adds 'android.test.runner' as a dependency.
+
+    useLibrary 'android.test.base'
+    useLibrary 'android.test.mock'
+
     buildTypes {
         release {
             minifyEnabled false
@@ -25,8 +35,14 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    testImplementation testCompileJunit
     testImplementation junit
+    testImplementation truth
+    androidTestImplementation core
+    androidTestImplementation androidTruth
     androidTestImplementation junit
+    androidTestImplementation testRunner
+    androidTestImplementation testRules
     androidTestImplementation espressoCore
     implementation okio
     implementation annotation

@@ -19,6 +19,7 @@ public abstract class DefaultTcpTunnel implements KeyHandler {
     protected InetSocketAddress destAddress;
     // The data sent by the user is transformed into a channel sent to the tcp server
     ConcurrentLinkedQueue<ByteBuffer> needWriteData = new ConcurrentLinkedQueue<>();
+    // The port of the target server
     private short portKey;
     private SocketChannel innerChannel;
     /**
@@ -27,14 +28,24 @@ public abstract class DefaultTcpTunnel implements KeyHandler {
     private Selector selector;
 
     private boolean isHttpsRequest = false;
-    // Two Tunnels are responsible for communication with the external network, one is responsible for the communication between Apps and TCP proxy server, and the other is responsible for TCP proxy server
-    // The communication with the external network server, the data exchange between Apps and the external network server is carried out by these two tunnels; these two tunnels are brothers to each other and must
+    // Two Tunnels are responsible for communication with the external network,
+    // one is responsible for the communication between Apps and TCP proxy server,
+    // and the other is responsible for TCP proxy server
+    // The communication with the external network server,
+    // the data exchange between Apps and the external network server is carried out by these two tunnels;
+    // these two tunnels are brothers to each other and must
     // assign mBrotherTunnel to the other party
     private DefaultTcpTunnel brotherTunnel;
     private boolean disposed;
     // Used to save the connection information from the tcp server to the target server
     private InetSocketAddress serverEP;
-    // The port of the target server
+
+    /*
+     * Generally used to create a TcpTunnel that users send to the tcp server
+     *
+     * @param innerChannel
+     * @param selector
+     **/
     public DefaultTcpTunnel(SocketChannel innerChannel, Selector selector) {
         this.innerChannel = innerChannel;
         this.selector = selector;

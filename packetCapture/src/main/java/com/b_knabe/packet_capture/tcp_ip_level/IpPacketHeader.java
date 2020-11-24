@@ -8,6 +8,35 @@ import java.util.Locale;
  * Low-level java networking structure
  * */
 public class IpPacketHeader {
+
+    /**
+     * IP message format
+     * 0                                   　　　　     15  16　　　　　　　　　　　　　　　　　　　　　　　31
+     * ｜　－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－ ｜
+     * ｜ 4 digits ｜ 4 digits first ｜ 8 digits service type ｜ 　 　 16 digits total length 　      ｜
+     * | Version number ｜ Section length ｜ (TOS)　         ｜ 　 　 (total　length) 　              ｜
+     * ｜－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－ ｜
+     * ｜  　　　　　　　16-bit identifier                     ｜　3 bit ｜　　　　13 bit chip offset    ｜
+     * ｜                                                 ｜　Mark ｜ (offset)　　                   ｜
+     * ｜－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－ ｜
+     * ｜        8-bit survival time TTL ｜ 8-bit protocol ｜　　　　　　　　 16-bit header checksum   ｜
+     * ｜　                                                                                         |
+     * ｜－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－｜
+     * ｜                        32-bit source IP address (source　address)                         ｜
+     * ｜－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－｜
+     * ｜                         32-bit destination IP address (destination　address)              ｜
+     * ｜－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－｜
+     * ｜                                          32-bit option (if any)                           ｜
+     * ｜－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－｜
+     * ｜                                                                                           ｜
+     * ｜                                               data                                        ｜
+     * ｜                                                                                           ｜
+     * ｜－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－｜
+     **/
+
+
+
+
     // The serial numbers here are all byte positions
     public static final short IP = 0x0800;
     public static final byte ICMP = 1;

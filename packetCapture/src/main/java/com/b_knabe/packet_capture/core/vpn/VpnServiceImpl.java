@@ -13,7 +13,9 @@ import java.io.FileDescriptor;
 //LOW LEVEL VPN implementation
 public class VpnServiceImpl extends VpnService {
     /**
-     * The maximum transmission unit of the virtual network port. If the length of the packet sent exceeds this number, it will be sub-packaged; generally set to 1500
+     * The maximum transmission unit of the virtual network port.
+     * If the length of the packet sent exceeds this number,
+     * it will be sub-packaged; default set to 1500, now 4096 for more stable packaging
      */
     static final int MTU = 4096;
     static final String SESSION = "NetRunner";
@@ -24,17 +26,16 @@ public class VpnServiceImpl extends VpnService {
      */
     static final String ADDRESS = "10.0.0.10";
     /**
-     * Only the matched IP packets will be routed to the virtual port. If it is 0.0.0.0/0, all IP packets will be routed to the virtual port;
+     * Only the matched IP packets will be routed to the virtual port. If it is 0.0.0.0/0,
+     * all IP packets will be routed to the virtual port;
      */
     static final String ROUTE = "0.0.0.0"; // Intercept everything
-    /**
-     * Below are some common DNS addresses
-     */
-    //GOOGLE SET was CHINA
+    // Below are some common DNS addresses
+    //GOOGLE SET
     static final String DEFAULT_DNS = "8.8.8.8";
+    //unused for now
     static final String GOOGLE_DNS_FIRST = "8.8.8.8";
     static final String AMERICA = "208.67.222.222";
-    static final String HK_DNS_SECOND = "205.252.144.228";
     static final String CHINA_DNS_FIRST = "114.114.114.114";
     private static final String KEY_CMD = "key_cmd";
     private ParcelFileDescriptor vpnInterface;
@@ -60,6 +61,7 @@ public class VpnServiceImpl extends VpnService {
         return START_STICKY;
     }
 
+    //need to test vpn service creation
     private void establish() {
         Builder builder = new Builder();
         builder.setMtu(MTU);
@@ -69,8 +71,10 @@ public class VpnServiceImpl extends VpnService {
         String dns = Shells.getDns();
         if (dns == null || dns.isEmpty()) {
             builder.addDnsServer(DEFAULT_DNS);
-            // It is to add automatic completion of DNS domain name. The DNS server must be searched by the full domain name,
-            // But it is too troublesome to enter the full domain name every time you look up, you can simplify it by configuring the automatic completion rule of the domain name;
+            // It is to add automatic completion of DNS domain name.
+            // The DNS server must be searched by the full domain name,
+            // But it is too troublesome to enter the full domain name every time you look up,
+            // you can simplify it by configuring the automatic completion rule of the domain name.
             // .addSearchDomain()
             /*
              * Set the name of this session. It will be displayed in system-managed dialogs

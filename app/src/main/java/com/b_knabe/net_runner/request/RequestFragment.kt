@@ -1,5 +1,6 @@
 package com.b_knabe.net_runner.request
 
+import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.DialogInterface
 import android.content.Intent
@@ -9,9 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebSettings
 import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.EditText
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.b_knabe.net_runner.R
 import com.b_knabe.net_runner.util.*
@@ -25,6 +24,8 @@ import kotlinx.coroutines.launch
 import okhttp3.*
 import java.io.IOException
 import java.util.*
+import kotlin.collections.ArrayList
+
 
 class RequestFragment : Fragment() {
     private var client = OkHttpClient()
@@ -51,7 +52,7 @@ class RequestFragment : Fragment() {
         root.et_user_agent.setText(userAgent)
         root.et_content_type.setText(DEFAULT_CONTENT_TYPE)
         root.button_send.setOnClickListener { sendRequest() }
-        root.spinner.onItemSelectedListener = object : OnItemSelectedListener {
+        root.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
                 method = HttpMethod.values()[position]
                 if (method == HttpMethod.GET) {

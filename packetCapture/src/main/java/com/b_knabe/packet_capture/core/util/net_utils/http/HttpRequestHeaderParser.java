@@ -1,8 +1,9 @@
-package com.b_knabe.packet_capture.core.util.net_utils;
+package com.b_knabe.packet_capture.core.util.net_utils.http;
 
 import android.text.TextUtils;
 
 import com.b_knabe.packet_capture.core.nat.NatSession;
+import com.b_knabe.packet_capture.core.util.net_utils.Packets;
 
 import java.util.Locale;
 
@@ -55,15 +56,25 @@ public class HttpRequestHeaderParser {
         if (!TextUtils.isEmpty(host)) {
             session.remoteHost = host;
         }
-        paresRequestLine(session, headerLines[0]);
+        parseRequestLine(session, headerLines[0]);
     }
 
+    /**
+     * @param buffer
+     * @param offset
+     * @param count
+     * @return network access host but not including protocol and port
+     */
     public static String getRemoteHost(byte[] buffer, int offset, int count) {
         String headerString = new String(buffer, offset, count);
         String[] headerLines = headerString.split("\\r\\n");
         return getHttpHost(headerLines);
     }
 
+    /**
+     * @param headerLines
+     * @return ip host address in the message, but not including port
+     */
     public static String getHttpHost(String[] headerLines) {
         for (int i = 1; i < headerLines.length; i++) {
             String[] nameValueStrings = headerLines[i].split(":");
@@ -78,7 +89,13 @@ public class HttpRequestHeaderParser {
         return null;
     }
 
-    public static void paresRequestLine(NatSession session, String requestLine) {
+    /**
+     * Resolve network request address, but session.requestUrl does not contain port information
+     *
+     * @param session
+     * @param requestLine
+     */
+    public static void parseRequestLine(NatSession session, String requestLine) {
         String[] parts = requestLine.trim().split(" ");
         if (parts.length == 3) {
             session.method = parts[0];

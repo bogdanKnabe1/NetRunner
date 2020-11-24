@@ -1,4 +1,4 @@
-package com.b_knabe.packet_capture.core.util.net_utils;
+package com.b_knabe.packet_capture.core.util.net_utils.tcp;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

@@ -48,6 +48,9 @@ public class TcpProxyServer {
                                     Log.d(TAG, "isAcceptable");
                                     onAccepted(key);
                                 } else {
+                                    // After the local tcp server connects to the target server,
+                                    // it receives the processing of the returned information,
+                                    // and the key is bound to RemoteTcpTunnel
                                     Object attachment = key.attachment();
                                     if (attachment instanceof KeyHandler) {
                                         ((KeyHandler) attachment).onKeyReady(key);

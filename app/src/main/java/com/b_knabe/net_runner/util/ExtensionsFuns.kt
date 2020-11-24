@@ -22,19 +22,19 @@ fun switchFragment(index: Int, fragments: Array<Fragment>) {
     transaction.commitAllowingStateLoss()
 }
 
-fun setActionBar(title:String) {
+fun setActionBar(title: String) {
     val actionBar = APP_ACTIVITY.supportActionBar
     actionBar?.setDisplayShowHomeEnabled(true)
     actionBar?.title = title
 }
 
-fun setActionBarFragment(title: String){
+fun setActionBarFragment(title: String) {
     val actionBar = APP_ACTIVITY.supportActionBar
     actionBar?.title = title
     actionBar?.setDisplayHomeAsUpEnabled(true)
 }
 
-fun setDefaultActionBar(){
+fun setDefaultActionBar() {
     val actionBar = APP_ACTIVITY.supportActionBar
     actionBar?.setDisplayHomeAsUpEnabled(false)
     actionBar?.setTitle(R.string.app_name)

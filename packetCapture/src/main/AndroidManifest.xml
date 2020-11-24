@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.b_knabe.packet_capture">
 
+
+
     <application
         android:name=".Application">
         <service
@@ -13,5 +15,6 @@
             </intent-filter>
         </service>
         <service android:name="com.b_knabe.packet_capture.core.util.process_parse.PortSessionInfoService" />
+
     </application>
 </manifest>

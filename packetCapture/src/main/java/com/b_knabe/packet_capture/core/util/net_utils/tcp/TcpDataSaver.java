@@ -1,4 +1,4 @@
-package com.b_knabe.packet_capture.core.util.net_utils;
+package com.b_knabe.packet_capture.core.util.net_utils.tcp;
 
 import com.b_knabe.packet_capture.Application;
 import com.b_knabe.packet_capture.core.util.common.ThreadPool;
@@ -19,7 +19,7 @@ import java.io.RandomAccessFile;
 public class TcpDataSaver {
     public static final String REQUEST = "request";
     public static final String RESPONSE = "response";
-    private static final String BASE_DIR = Application.getAppContext().getFilesDir() + "/Stream/";
+    private static final String BASE_DIR = Application.getAppContext().getFilesDir() + "/Netrunner/";
     public static final String DATA_DIR = BASE_DIR + "data/";
     public static final String CONFIG_DIR = BASE_DIR + "config/";
     private int requestNum = 0;

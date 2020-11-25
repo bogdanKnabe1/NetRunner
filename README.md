@@ -5,6 +5,7 @@
   
  - https://android.googlesource.com/platform/development/+/master/samples/ToyVpn/src/com/example/android/toyvpn/ToyVpnService.java
  - https://stackoverflow.com/questions/38679188/capture-network-traffic-programmatically-no-root
+ - https://developer.android.com/guide/topics/connectivity/vpn
 
 Once we have a VPN service running, our app will receive every network byte the device sends, and has the power to inject raw bytes back.
 

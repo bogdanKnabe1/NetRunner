@@ -84,7 +84,7 @@ public class VpnServiceImpl extends VpnService {
         }
         vpnInterface = builder.establish();
         FileDescriptor fd = vpnInterface.getFileDescriptor();
-        vpnThread = new Thread(new CoreVpRunner(fd));
+        vpnThread = new Thread(new CoreVpnRunner(fd));
         vpnThread.start();
         VpnProxyServer.setVpnService(this);
         startTime = System.currentTimeMillis();

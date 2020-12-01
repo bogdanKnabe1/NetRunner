@@ -26,14 +26,14 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class CoreVpRunner implements Runnable {
+public class CoreVpnRunner implements Runnable {
     private TcpProxyServer tcpProxyServer;
     private UdpProxyServer udpProxyServer;
     private OutputStream outPutStream;
     private InputStream inPutStream;
     private ConcurrentLinkedQueue<Packet> udpQueue;
 
-    CoreVpRunner(FileDescriptor fd) {
+    CoreVpnRunner(FileDescriptor fd) {
         inPutStream = new FileInputStream(fd);
         outPutStream = new FileOutputStream(fd);
         udpQueue = new ConcurrentLinkedQueue<>();

@@ -31,7 +31,6 @@ public class VpnServiceImpl extends VpnService {
      */
     static final String ROUTE = "0.0.0.0"; // Intercept everything
     // Below are some common DNS addresses
-    //GOOGLE SET
     static final String DEFAULT_DNS = "8.8.8.8";
     //unused for now
     static final String GOOGLE_DNS_FIRST = "8.8.8.8";
@@ -61,7 +60,7 @@ public class VpnServiceImpl extends VpnService {
         return START_STICKY;
     }
 
-    //need to test vpn service creation
+    //create vpn from builder and start service as VpnService
     private void establish() {
         Builder builder = new Builder();
         builder.setMtu(MTU);
@@ -80,13 +79,12 @@ public class VpnServiceImpl extends VpnService {
              * Set the name of this session. It will be displayed in system-managed dialogs
              * and notifications. This is recommended not required.
              */
-            // .setSession(getString(R.string.app_name))
         } else {
             builder.addDnsServer(Shells.getDns());
         }
         vpnInterface = builder.establish();
         FileDescriptor fd = vpnInterface.getFileDescriptor();
-        vpnThread = new Thread(new CoreVpRunner(fd));
+        vpnThread = new Thread(new CoreVpnRunner(fd));
         vpnThread.start();
         VpnProxyServer.setVpnService(this);
         startTime = System.currentTimeMillis();

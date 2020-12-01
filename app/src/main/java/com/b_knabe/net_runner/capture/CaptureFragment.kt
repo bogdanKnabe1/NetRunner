@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Build.VERSION_CODES.Q
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.*
 import android.widget.AdapterView.OnItemClickListener
 import androidx.appcompat.app.AppCompatDelegate
@@ -43,7 +44,6 @@ class CaptureFragment : Fragment() {
     private val sessionList: MutableList<NatSession> = ArrayList()
     private var sharedPrefsEdit: SharedPreferences.Editor? = null
     private var adapter: PacketAdapter? = null
-    private val handler = Handler()
     private var isNightMode = false
     private var buttonStateStart = true
 
@@ -89,6 +89,7 @@ class CaptureFragment : Fragment() {
         if (packets.size == 0) {
             showViews(root.placeholder_no_data, root.cloud_img_no_data)
         }
+
         root.cardViewStartStop.setOnClickListener {
             if (buttonStateStart) {
                 startCapture()
@@ -98,7 +99,7 @@ class CaptureFragment : Fragment() {
             buttonStateStart = !buttonStateStart
         }
 
-        //pass data to fragmentDetail + Open new Fragment through button click
+        //open packet and get details about current request/response
         adapter?.setOnItemClickListener(OnItemClickListener { _, _, position, _ ->
             if (sessionList.size == 0) return@OnItemClickListener
             val session = sessionList[position]
@@ -198,7 +199,7 @@ class CaptureFragment : Fragment() {
         val event = VpnEventHandler.getInstance()
         event.setOnPacketListener {
             val sessions = NatSessionListHelper.getAllSessions()
-            handler.post {
+            Handler(Looper.getMainLooper()).post {
                 packets.clear()
                 sessionList.clear()
                 for (session in sessions) {

@@ -11,7 +11,7 @@
     <string name = "unknown"> Неизвестно </string>
     <string name = "title_capture"> захват </string>
     <string name = "title_request"> запрос </string>
-    <string name = "title_tool"> инструмент </string>
+    <string name = "title_tool"> инструменты </string>
     <string name = "edit_title"> строка запроса </string>
     <string name = "edit_header_title"> заголовок запроса </string>
     <string name = "edit_body_title"> тело запроса </string>

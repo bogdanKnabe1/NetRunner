@@ -147,7 +147,7 @@ class RequestFragment : Fragment() {
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
                 GlobalScope.launch(Dispatchers.Main) {
-                    val intent = Intent(APP_ACTIVITY, Response::class.java)
+                    val intent = Intent(APP_ACTIVITY, ResponseScreen::class.java)
                     val info = ResponseInfo(response)
                     progressDialog?.cancel()
                     intent.putExtra(BUNDLE_KEY_RESPONSE, info)

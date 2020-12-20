@@ -17,7 +17,7 @@
     <string name="edit_url"> link</string>
     <string name="edit_user_agent">User-Agent</string>
     <string name="edit_content_type">Content-Type</string>
-    <string name="edit_body">Body</string>
+    <string name="edit_body">body</string>
     <string name="edit_code"> content to be encoded/decoded</string>
     <string name="edit_md5"> content</string>
     <string name="edit_timestamp"> timestamp</string>

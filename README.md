@@ -9,6 +9,9 @@
 
 Once we have a VPN service running, our app will receive every network byte the device sends, and has the power to inject raw bytes back.
 
+Vpn serbice schema
+![vpnservice](https://user-images.githubusercontent.com/47458290/110769598-06a75400-8261-11eb-8381-c3109e2b7864.png)
+
 Things get interesting if rather than forwarding these bytes to a VPN provider, we examine them, and then simply put them straight back on the real network. In that case, we get to see every network byte, but we don't interfere with the network connection of the device, and we don't need an externally hosted VPN provider to do it.
 
 And there are some interesting & constructive use cases this opens up though for developer tooling. For example:
